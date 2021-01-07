@@ -1,30 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { PrimeNGConfig } from 'primeng/api';
 
 import { AppComponent } from './app.component';
-import { PrimeNGConfig } from 'primeng/api';
-import { HomeComponent } from './admin/home/home.component';
-import { AdminComponent } from './admin/admin.component';
-import { PageNotFoundComponent } from './admin/system/page-not-found/page-not-found.component';
-import { AdminRoutingModule } from './admin/admin-routing.module';
+import { AdminModule } from './admin/admin.module';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+import { FeatureModule } from './feature/feature.module';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AdminComponent,
-    PageNotFoundComponent
-  ],
+  declarations: [],
   imports: [
     BrowserModule,
-    FormsModule,
-    AdminRoutingModule,
-    ButtonModule,
-    InputTextModule
+    AppRoutingModule,
+    SharedModule,
+    CoreModule,
+    AdminModule,
+    FeatureModule
   ],
   providers: [],
   bootstrap: [AppComponent]
