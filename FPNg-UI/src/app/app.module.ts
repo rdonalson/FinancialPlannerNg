@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, SharedModule } from 'primeng/api';
 
 import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { FeatureModule } from './feature/feature.module';
 

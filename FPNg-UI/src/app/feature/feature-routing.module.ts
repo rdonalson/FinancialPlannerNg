@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TestFeatureComponent } from './test-feature/test-feature.component';
 
-// tslint:disable-next-line:one-variable-per-declaration
 const routes: Routes = [
-  { path: 'testfeature', component: TestFeatureComponent }
+  { path: 'test-feature',
+    children: [
+      { path: 'feature-A', component: TestFeatureComponent}
+    ]
+  }
 ];
 
 @NgModule({
