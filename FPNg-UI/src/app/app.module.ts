@@ -7,10 +7,14 @@ import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { FeatureModule } from './feature/feature.module';
+import { FooterComponent } from './shared/layout/footer/footer.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AppComponent,
+    FooterComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,7 +24,7 @@ import { FeatureModule } from './feature/feature.module';
     FeatureModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule implements OnInit {
 

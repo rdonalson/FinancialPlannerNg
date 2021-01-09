@@ -11,7 +11,6 @@ import { AdminRoutingModule } from './admin-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
     HomeComponent,
     PageNotFoundComponent
   ],
