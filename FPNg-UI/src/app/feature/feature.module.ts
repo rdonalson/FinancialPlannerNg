@@ -7,14 +7,19 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FeatureRoutingModule } from './feature-routing.module';
 import { TestFeatureComponent } from './test-feature/test-feature.component';
 import { SharedModule } from '../shared/shared.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SlideMenuModule } from 'primeng/slidemenu';
 
 @NgModule({
   declarations: [
-    TestFeatureComponent
+    TestFeatureComponent,
+    DashboardComponent
   ],
   imports: [
     SharedModule,
     CommonModule,
+    SlideMenuModule,
+    ButtonModule,
     FormsModule,
     ButtonModule,
     InputTextModule,
