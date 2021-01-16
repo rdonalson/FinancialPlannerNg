@@ -1,10 +1,42 @@
-
 <h5>Dashboard</h5>
 
-<p-menubar [model]="items">
+<!-- <p-menubar [model]="items">
   <div>
-      <!-- <input type="text" pInputText placeholder="Search">
-      <button type="button" pButton label="Logout" icon="pi pi-power-off" style="margin-left:.25em"></button> -->
+    <button
+      pButton
+      pRipple
+      type="button"
+      [label]="user"
+      class="p-button-text"
+      *ngIf="loggedIn"
+      (click)="editProfile()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Login"
+      class="p-button-text"
+      *ngIf="!loggedIn"
+      (click)="login()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Logout"
+      class="p-button-text"
+      *ngIf="loggedIn"
+      (click)="logout()"
+    ></button>
   </div>
-</p-menubar>
+</p-menubar> -->
 
+<!-- Archive -->
+<!-- <button mat-raised-button *ngIf="loggedIn" (click)="editProfile()">Edit Profile</button> -->
+<!-- <button mat-raised-button *ngIf="!loggedIn" (click)="login()">Login</button> -->
+<!-- <button mat-raised-button color="warn" *ngIf="loggedIn" (click)="logout()">Logout</button> -->
+
+<!-- <p-button label="Link" styleClass="p-button-link"></p-button> -->
+<!-- <input type="text" pInputText placeholder="Search">-->
+<!-- <button type="button" pButton label="Logout" icon="pi pi-power-off" style="margin-left:.25em"></button> -->

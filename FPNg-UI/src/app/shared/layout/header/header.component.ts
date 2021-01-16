@@ -1,20 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BroadcastService, MsalService } from '@azure/msal-angular';
-import { MegaMenuItem, MenuItem } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { Logger, CryptoUtils } from 'msal';
-import { b2cPolicies, isIE } from 'src/app/app-config';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
   items: MenuItem[] = [];
   subscriptions: Subscription[] = [];
   user: string = 'Ricky D';
-  title = 'Azure AD B2C';
+  title = 'Financial Planner Ng';
   isIframe = false;
   loggedIn = false;
 

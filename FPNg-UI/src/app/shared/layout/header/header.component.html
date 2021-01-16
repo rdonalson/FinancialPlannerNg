@@ -1,0 +1,45 @@
+<nav class="navbar navbar-light bg-light header">
+  <div class="container-fluid">
+    <a class="navbar-brand header-text" href="#">
+      <img
+        src="assets/images/1LE.jpg"
+        alt=""
+        width="45"
+        height="35"
+        class="d-inline-block align-top"
+      />
+      {{ title }}
+    </a>
+  </div>
+</nav>
+<p-menubar [model]="items">
+  <div>
+    <button
+      pButton
+      pRipple
+      type="button"
+      [label]="user"
+      class="p-button-text"
+      *ngIf="loggedIn"
+      (click)="editProfile()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Login"
+      class="p-button-text"
+      *ngIf="!loggedIn"
+      (click)="login()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Logout"
+      class="p-button-text"
+      *ngIf="loggedIn"
+      (click)="logout()"
+    ></button>
+  </div>
+</p-menubar>
