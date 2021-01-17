@@ -1,25 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BroadcastService, MsalService } from '@azure/msal-angular';
-import { MegaMenuItem, MenuItem } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { Logger, CryptoUtils } from 'msal';
-import { b2cPolicies, isIE } from 'src/app/app-config';
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
   items: MenuItem[] = [];
-  subscriptions: Subscription[] = [];
-  user: string = 'Ricky D';
-  title = 'Azure AD B2C';
-  isIframe = false;
-  loggedIn = false;
-
-  // constructor(private broadcastService: BroadcastService, private authService: MsalService) { }
-
   ngOnInit(): void {
     this.items = [
       {
@@ -149,39 +137,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
         icon: 'pi pi-fw pi-power-off'
       }
     ];
-
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: { unsubscribe: () => any; }) => subscription.unsubscribe());
-  }
-
-  // other methods
-  checkAccount(): void {
-    // this.loggedIn = !!this.authService.getAccount();
-  }
-
-  login(): void {
-    // if (isIE) {
-    //   this.authService.loginRedirect();
-    // } else {
-    //   this.authService.loginPopup();
-    // }
-
-    this.loggedIn = true;
-  }
-
-  logout(): void {
-    // this.authService.logout();
-
-    this.loggedIn = false;
-  }
-
-  editProfile(): void {
-    // if (isIE) {
-    //   this.authService.loginRedirect(b2cPolicies.authorities.editProfile);
-    // } else {
-    //   this.authService.loginPopup(b2cPolicies.authorities.editProfile);
-    // }
   }
 }

@@ -11,8 +11,4 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  upper(): void {
-    this.title = this.title.toUpperCase();
-  }
-
 }

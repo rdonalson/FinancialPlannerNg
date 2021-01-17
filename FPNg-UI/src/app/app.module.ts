@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, OnInit,  } from '@angular/core';
+import { OAuthModule } from 'angular-oauth2-oidc';
 import { PrimeNGConfig } from 'primeng/api';
 
 import { AppComponent } from './app.component';
@@ -19,7 +20,18 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     CoreModule,
     AdminModule,
-    FeatureModule
+    FeatureModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+          // allowedUrls: ["https://fpngapi.azurewebsites.net/api"],
+          // allowedUrls: ["https://localhost:5001/api"],
+          allowedUrls: [
+            'https://fpngapi.azurewebsites.net/api',
+            'https://localhost:5001/api'
+          ],
+          sendAccessToken: true
+      }
+    })
   ],
   providers: [],
   bootstrap: [ AppComponent ]

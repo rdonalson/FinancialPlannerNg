@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
-import { AppComponent } from '../app.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './system/page-not-found/page-not-found.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,6 +16,7 @@ import { AdminRoutingModule } from './admin-routing.module';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     FormsModule,
     ButtonModule,
     InputTextModule,

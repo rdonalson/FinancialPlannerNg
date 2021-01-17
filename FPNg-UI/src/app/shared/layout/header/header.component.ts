@@ -1,21 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { OAuthService, NullValidationHandler } from 'angular-oauth2-oidc';
 import { MenuItem } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { authConfig, DiscoveryDocumentConfig } from 'src/app/admin/auth.config';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
+  message!: string;
+  url: string = 'https://localhost:5001/api/values';
+
   items: MenuItem[] = [];
-  subscriptions: Subscription[] = [];
   user: string = 'Ricky D';
   title = 'Financial Planner Ng';
-  isIframe = false;
   loggedIn = false;
-
-  // constructor(private broadcastService: BroadcastService, private authService: MsalService) { }
+  userInfo: string = 'https://dssorg.b2clogin.com/dssorg.onmicrosoft.com/oauth2/v2.0/token?p=b2c_1_edit_profile';
 
   ngOnInit(): void {
     this.items = [
@@ -149,36 +151,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: { unsubscribe: () => any; }) => subscription.unsubscribe());
+  constructor(private http: HttpClient, private oauthService: OAuthService) {
+    this.configure();
+    this.oauthService.tryLoginImplicitFlow();
   }
 
-  // other methods
-  checkAccount(): void {
-    // this.loggedIn = !!this.authService.getAccount();
+  public getMessage(): void {
+    this.http.get(this.url, { responseType: 'text' })
+      .subscribe(r => {
+        this.message = r;
+        console.log('message: ', this.message);
+      });
   }
 
-  login(): void {
-    // if (isIE) {
-    //   this.authService.loginRedirect();
-    // } else {
-    //   this.authService.loginPopup();
-    // }
-
-    this.loggedIn = true;
+  public login(): void {
+    this.oauthService.initLoginFlow();
   }
 
-  logout(): void {
-    // this.authService.logout();
-
-    this.loggedIn = false;
+  public logout(): void {
+    this.oauthService.logOut();
   }
 
   editProfile(): void {
-    // if (isIE) {
-    //   this.authService.loginRedirect(b2cPolicies.authorities.editProfile);
-    // } else {
-    //   this.authService.loginPopup(b2cPolicies.authorities.editProfile);
-    // }
+  // editProfile
+
   }
+
+  public get claims(): any {
+    let claims: any;
+    claims = this.oauthService.getIdentityClaims();
+    return claims;
+  }
+
+  private configure(): void {
+    this.oauthService.configure(authConfig);
+    this.oauthService.tokenValidationHandler = new NullValidationHandler();
+    this.oauthService.loadDiscoveryDocument(DiscoveryDocumentConfig.url);
+  }
+
 }
