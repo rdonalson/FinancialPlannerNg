@@ -18,9 +18,9 @@ export const authConfig: AuthConfig = {
   // token_endpoint: "https://dssorg.b2clogin.com/dssorg.onmicrosoft.com/oauth2/v2.0/token?p=b2c_1_edit_profile",
 
   loginUrl: 'https://dssorg.b2clogin.com/dssorg.onmicrosoft.com/oauth2/v2.0/token?p=b2c_1_susi',
-  // clientId: 'a2fe1090-efcb-461f-85c7-d2f6ec1eeca6',
-  // clientId: 'd96c7b95-bb88-40f3-a12b-2c6d4966622b',
-  clientId: '45264296-5c63-482c-82b3-0af5aae01d9f',
+  // clientId: '',
+  // clientId: '',
+  clientId: '',
 
   scope: 'openid profile https://dssorg.onmicrosoft.com/foo-api/user_impersonation',
   // scope: "openid profile https://dssorg.onmicrosoft.com/fpngapiprod/user_impersonation",
