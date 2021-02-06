@@ -14,21 +14,21 @@
 </nav>
 <p-menubar [model]="items">
   <div>
-    <button
+    <!-- <button
       pButton
       pRipple
       type="button"
       [label]="claims.given_name"
       class="p-button-text"
       *ngIf="claims"
-    ></button>
+    ></button> -->
     <button
       pButton
       pRipple
       type="button"
       label="Login"
       class="p-button-text"
-      *ngIf="!claims"
+      *ngIf="!loggedIn"
       (click)="login()"
     ></button>
     <button
@@ -37,13 +37,13 @@
       type="button"
       label="Logout"
       class="p-button-text"
-      *ngIf="claims"
+      *ngIf="loggedIn"
       (click)="logout()"
     ></button>
   </div>
 </p-menubar>
 
-<h2 *ngIf="claims">Your Claims:</h2>
+<!-- <h2 *ngIf="claims">Your Claims:</h2>
 
 <pre *ngIf="claims">
   {{ claims | json }}
@@ -52,10 +52,9 @@
 <br />
 
 <div *ngIf="claims">
-  <!-- <button (click)="logout()">Logout</button> -->
   <button (click)="getMessage()">API Call</button>
   <div *ngIf="message">
     Response:
     {{ message | json }}
   </div>
-</div>
+</div> -->

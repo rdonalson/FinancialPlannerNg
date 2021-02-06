@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { OAuthService, NullValidationHandler } from 'angular-oauth2-oidc';
+import { BroadcastService, MsalService } from '@azure/msal-angular';
+import { Logger, CryptoUtils } from 'msal';
 import { MenuItem } from 'primeng/api';
-import { authConfig, DiscoveryDocumentConfig } from 'src/app/admin/auth.config';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,15 +10,16 @@ import { authConfig, DiscoveryDocumentConfig } from 'src/app/admin/auth.config';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  subscriptions: Subscription[] = [];
+
   message!: string;
   url: string = 'https://localhost:5001/api/values';
 
   items: MenuItem[] = [];
   user: string = 'Ricky D';
   title = 'Financial Planner Ng';
+  isIframe = false;
   loggedIn = false;
-  userInfo: string = 'https://dssorg.b2clogin.com/dssorg.onmicrosoft.com/oauth2/v2.0/token?p=b2c_1_edit_profile';
-
   ngOnInit(): void {
     this.items = [
       {
@@ -149,44 +150,64 @@ export class HeaderComponent implements OnInit {
       }
     ];
 
+    let loginSuccessSubscription: Subscription;
+    let loginFailureSubscription: Subscription;
+
+    this.isIframe = window !== window.parent && !window.opener;
+
+    this.checkAccount();
+
+    loginSuccessSubscription = this.broadcastService.subscribe('msal:loginSuccess', () => {
+      this.checkAccount();
+    });
+
+    loginFailureSubscription = this.broadcastService.subscribe('msal:loginFailure', (error) => {
+      console.log('Login Fails:', error);
+    });
+
+    this.subscriptions.push(loginSuccessSubscription);
+    this.subscriptions.push(loginFailureSubscription);
+
+    this.authService.handleRedirectCallback((authError, response) => {
+      if (authError) {
+        console.error('Redirect Error: ', authError.errorMessage);
+        return;
+      }
+      console.log('Redirect Success: ', (response === undefined ? 'response undefined' : response.accessToken));
+    });
+
+    this.authService.setLogger(new Logger((logLevel, message, piiEnabled) => {
+      console.log('MSAL Logging: ', message);
+    }, {
+      correlationId: CryptoUtils.createNewGuid(),
+      piiLoggingEnabled: false
+    }));
   }
 
-  constructor(private http: HttpClient, private oauthService: OAuthService) {
-    this.configure();
-    this.oauthService.tryLoginImplicitFlow();
+  constructor(private broadcastService: BroadcastService, private authService: MsalService) { }
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  public getMessage(): void {
-    this.http.get(this.url, { responseType: 'text' })
-      .subscribe(r => {
-        this.message = r;
-        console.log('message: ', this.message);
-      });
+  checkAccount(): void {
+    this.loggedIn = !!this.authService.getAccount();
   }
 
-  public login(): void {
-    this.oauthService.initLoginFlow();
+  login(): void {
+    const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+
+    if (isIE) {
+      this.authService.loginRedirect();
+    } else {
+      this.authService.loginPopup();
+    }
   }
 
-  public logout(): void {
-    this.oauthService.logOut();
+  logout(): void {
+    this.authService.logout();
   }
 
-  editProfile(): void {
-  // editProfile
-
-  }
-
-  public get claims(): any {
-    let claims: any;
-    claims = this.oauthService.getIdentityClaims();
-    return claims;
-  }
-
-  private configure(): void {
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new NullValidationHandler();
-    this.oauthService.loadDiscoveryDocument(DiscoveryDocumentConfig.url);
-  }
 
 }
