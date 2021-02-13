@@ -829,7 +829,6 @@ C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netco
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.csprojAssemblyReference.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.AssemblyInfoInputs.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.AssemblyInfo.cs
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.csproj.CoreCompileInputs.cache

@@ -1,22 +1,31 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { MsalGuard } from '@azure/msal-angular';
 import { SelectiveStrategy } from './core/services/selective-strategy.service';
 
 const routes: Routes = [
   {
-    path: 'admin', loadChildren: () => import(`./admin/admin.module`).then(m => m.AdminModule)
-    // './admin/admin.module#AdminModule'
+    path: 'admin',
+    loadChildren: () => import(`./admin/admin.module`).then(m => m.AdminModule)
   },
   {
-    path: 'feature', loadChildren: () => import(`./feature/feature.module`).then(m => m.FeatureModule)
-    // './feature/feature.module#FeatureModule'
+    path: 'feature',
+    loadChildren: () => import(`./feature/feature.module`).then(m => m.FeatureModule),
+    canActivate: [MsalGuard]
   }
 ];
 
+const isIframe = window !== window.parent && !window.opener;
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: SelectiveStrategy // PreloadAllModules
-  })],
+  imports: [
+    // PreloadAllModules  SelectiveStrategy
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: SelectiveStrategy,
+      // Don't perform initial navigation in iframes
+      initialNavigation: !isIframe ? 'enabled' : 'disabled'
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

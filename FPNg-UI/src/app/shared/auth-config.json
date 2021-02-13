@@ -1,0 +1,21 @@
+{
+  "credentials": {
+    "clientId": "46210cab-dd4b-4f6c-879c-724e49dbf770",
+    "tenantId": "62eca109-81a1-4fc4-9632-836e490ab4b7"
+  },
+  "configuration": {
+    "redirectUri": "http://localhost:1000",
+    "postLogoutRedirectUri": "http://localhost:1000"
+  },
+  "resources": {
+    "todoListApi": {
+      "resourceUri": "https://localhost:5001/api/todolist",
+      "resourceScopes": [
+        "api://47436633-44d0-4631-a210-559ee13c22d8/access_as_user"
+        ,"api://47436633-44d0-4631-a210-559ee13c22d8/basic.read"
+        ,"api://47436633-44d0-4631-a210-559ee13c22d8/basic.write"
+      ]
+    }
+  }
+}
+

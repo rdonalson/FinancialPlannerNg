@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { BroadcastService, MsalService } from '@azure/msal-angular';
-import { Logger, CryptoUtils } from 'msal';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
+import { EventMessage, EventType, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
 import { MenuItem } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   message!: string;
@@ -20,6 +21,16 @@ export class HeaderComponent implements OnInit {
   title = 'Financial Planner Ng';
   isIframe = false;
   loggedIn = false;
+
+  // tslint:disable-next-line: variable-name
+  private readonly _destroying$ = new Subject<void>();
+
+  constructor(
+    @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
+    private authService: MsalService,
+    private msalBroadcastService: MsalBroadcastService
+  ) { }
+
   ngOnInit(): void {
     this.items = [
       {
@@ -150,64 +161,54 @@ export class HeaderComponent implements OnInit {
       }
     ];
 
-    let loginSuccessSubscription: Subscription;
-    let loginFailureSubscription: Subscription;
-
     this.isIframe = window !== window.parent && !window.opener;
 
     this.checkAccount();
 
-    loginSuccessSubscription = this.broadcastService.subscribe('msal:loginSuccess', () => {
-      this.checkAccount();
-    });
+    /**
+     * You can subscribe to MSAL events as shown below. For more info,
+     * visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/
+     * blob/dev/lib/msal-angular/docs/v2-docs/events.md
+     */
+    this.msalBroadcastService.msalSubject$
+      .pipe(
+        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS),
+        takeUntil(this._destroying$)
+      )
+      .subscribe((result) => {
+        this.checkAccount();
+      });
 
-    loginFailureSubscription = this.broadcastService.subscribe('msal:loginFailure', (error) => {
-      console.log('Login Fails:', error);
-    });
-
-    this.subscriptions.push(loginSuccessSubscription);
-    this.subscriptions.push(loginFailureSubscription);
-
-    this.authService.handleRedirectCallback((authError, response) => {
-      if (authError) {
-        console.error('Redirect Error: ', authError.errorMessage);
-        return;
-      }
-      console.log('Redirect Success: ', (response === undefined ? 'response undefined' : response.accessToken));
-    });
-
-    this.authService.setLogger(new Logger((logLevel, message, piiEnabled) => {
-      console.log('MSAL Logging: ', message);
-    }, {
-      correlationId: CryptoUtils.createNewGuid(),
-      piiLoggingEnabled: false
-    }));
-  }
-
-  constructor(private broadcastService: BroadcastService, private authService: MsalService) { }
-
-  // tslint:disable-next-line:use-lifecycle-interface
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   checkAccount(): void {
-    this.loggedIn = !!this.authService.getAccount();
+    this.loggedIn = this.authService.instance.getAllAccounts().length > 0;
   }
 
   login(): void {
-    const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
-
-    if (isIE) {
-      this.authService.loginRedirect();
+    if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
+      if (this.msalGuardConfig.authRequest) {
+        this.authService.loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
+          .subscribe(() => this.checkAccount());
+      } else {
+        this.authService.loginPopup()
+          .subscribe(() => this.checkAccount());
+      }
     } else {
-      this.authService.loginPopup();
+      if (this.msalGuardConfig.authRequest) {
+        this.authService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
+      } else {
+        this.authService.loginRedirect();
+      }
     }
   }
-
   logout(): void {
     this.authService.logout();
   }
 
-
+  // unsubscribe to events when component is destroyed
+  ngOnDestroy(): void {
+    this._destroying$.next(undefined);
+    this._destroying$.complete();
+  }
 }

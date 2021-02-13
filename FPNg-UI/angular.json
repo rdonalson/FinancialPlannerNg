@@ -27,8 +27,8 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/assets/icons",
+              "src/assets/images"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -36,11 +36,13 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/bootstrap4-light-purple/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
               "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js"
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/chart.js/dist/Chart.js"
             ]
           },
           "configurations": {
@@ -99,8 +101,8 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/assets/icons",
+              "src/assets/images"
             ],
             "styles": [
               "src/styles.scss"
