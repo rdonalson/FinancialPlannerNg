@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TestFeatureComponent } from './test-feature/test-feature.component';
+import { TestFeatureComponent } from './test/test-feature/test-feature.component';
+import { TodoViewComponent } from './test/todo-view/todo-view.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,10 @@ const routes: Routes = [
         path: 'Dashboard', component: DashboardComponent
       },
       {
-        path: 'feature-A', component: TestFeatureComponent
+        path: 'test/Todo-View', component: TodoViewComponent
+      },
+      {
+        path: 'test/Feature-A', component: TestFeatureComponent
       }
     ]
   }

@@ -842,3 +842,4 @@ C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netco
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.dll
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.pdb
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.genruntimeconfig.cache
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.csprojAssemblyReference.cache

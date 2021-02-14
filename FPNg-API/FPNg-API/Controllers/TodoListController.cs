@@ -43,7 +43,7 @@ namespace FPNG_API.Controllers
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
 
-            // HttpContext.VerifyUserHasAnyAcceptedScope("ToDoList.Write");
+            HttpContext.VerifyUserHasAnyAcceptedScope("basic.read");
 
 
             var todoItem = await _context.TodoItems.FindAsync(id);
@@ -63,6 +63,8 @@ namespace FPNG_API.Controllers
         public async Task<IActionResult> PutTodoItem(int id, TodoItem todoItem)
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+            HttpContext.VerifyUserHasAnyAcceptedScope("basic.write");
+
 
             if (id != todoItem.Id)
             {
@@ -97,6 +99,8 @@ namespace FPNG_API.Controllers
         public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+            HttpContext.VerifyUserHasAnyAcceptedScope("basic.write");
+
             string owner = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             todoItem.Owner = owner;
             todoItem.Status = false;
@@ -112,6 +116,7 @@ namespace FPNG_API.Controllers
         public async Task<ActionResult<TodoItem>> DeleteTodoItem(int id)
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+            HttpContext.VerifyUserHasAnyAcceptedScope("basic.write");
 
             var todoItem = await _context.TodoItems.FindAsync(id);
             if (todoItem == null)
