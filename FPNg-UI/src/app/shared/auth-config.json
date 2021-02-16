@@ -4,8 +4,8 @@
     "tenantId": "62eca109-81a1-4fc4-9632-836e490ab4b7"
   },
   "configuration": {
-    "redirectUri": "http://localhost:1000/home",
-    "postLogoutRedirectUri": "http://localhost:1000/home"
+    "redirectUri": "https://fpng-ui.azurewebsites.net/home",
+    "postLogoutRedirectUri": "https://fpng-ui.azurewebsites.net/home"
   },
   "resources": {
     "todoListApi": {

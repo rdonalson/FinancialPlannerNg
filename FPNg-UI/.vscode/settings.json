@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/7fabfcd9-80ca-4b8d-a41b-ecb341bbd718/resourceGroups/ADB2C/providers/Microsoft.Web/sites/FPNg-UI",
+    "appService.deploySubpath": "."
+}
