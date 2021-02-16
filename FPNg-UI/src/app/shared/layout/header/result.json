@@ -1,0 +1,17 @@
+{
+  "aud": "46210cab-dd4b-4f6c-879c-724e49dbf770",
+  "iss": "https://login.microsoftonline.com/62eca109-81a1-4fc4-9632-836e490ab4b7/v2.0",
+  "iat": 1613405168,
+  "nbf": 1613405168,
+  "exp": 1613409068,
+  "aio": "ATQAy/8TAAAAuu2iHz1l0EU/0rxBGlLg5vByWIZ0NYLyCJ9mjUDDJqRgH3/LFSzgBfhNZZBAE0YP",
+  "name": "Rick Donalson",
+  "nonce": "a07212d3-3194-4c70-9f17-fc3f74086c10",
+  "oid": "8fdbe29e-f25f-450d-b179-92973e2bf7ba",
+  "preferred_username": "rick.donalson@rdonalson.onmicrosoft.com",
+  "rh": "0.AAAACaHsYqGBxE-WMoNuSQq0t6sMIUZL3WxPh5xyTknb93BvAAM.",
+  "sub": "qNpdjh7Jh247ADek4tIhsSk2XqsRGIfUEAVOScS0gVc",
+  "tid": "62eca109-81a1-4fc4-9632-836e490ab4b7",
+  "uti": "duFSjtZ4fUqBfJrEjTidAA",
+  "ver": "2.0"
+}

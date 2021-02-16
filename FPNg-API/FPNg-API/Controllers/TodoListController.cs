@@ -20,6 +20,7 @@ namespace FPNG_API.Controllers
         // The Web API will only accept tokens 1) for users, and 
         // 2) having the access_as_user scope for this API
         static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
+        private static readonly string[] scopes = new string[] { "access_as_user", "basic.read", "basic.write" };
 
         private readonly TodoContext _context;
 
@@ -32,9 +33,18 @@ namespace FPNG_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
         {
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            string owner = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return await _context.TodoItems.Where(item => item.Owner == owner).ToListAsync();
+            try
+            {
+                HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+                HttpContext.VerifyUserHasAnyAcceptedScope("basic.read");
+
+                string owner = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                return await _context.TodoItems.Where(item => item.Owner == owner).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
         }
 
         // GET: api/TodoItems/5
@@ -42,9 +52,7 @@ namespace FPNG_API.Controllers
         public async Task<ActionResult<TodoItem>> GetTodoItem(int id)
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-
             HttpContext.VerifyUserHasAnyAcceptedScope("basic.read");
-
 
             var todoItem = await _context.TodoItems.FindAsync(id);
 

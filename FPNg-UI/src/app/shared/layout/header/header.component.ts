@@ -1,9 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { EventMessage, EventType, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
 import { MenuItem } from 'primeng/api';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+
+// export interface Claims {
+//   public
+// }
 
 @Component({
   selector: 'app-header',
@@ -11,13 +16,27 @@ import { filter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  subscriptions: Subscription[] = [];
-
-  message!: string;
-  url: string = 'https://localhost:5001/api/values';
-
   items: MenuItem[] = [];
-  user: string = 'Ricky D';
+  claims: any;
+  // claims = {
+  //   aud: '',
+  //   iss: '',
+  //   iat: 0,
+  //   nbf: 0,
+  //   exp: 0,
+  //   aio: 'P',
+  //   name: '',
+  //   nonce: '',
+  //   oid: '',
+  //   preferred_username: '',
+  //   rh: '',
+  //   sub: '',
+  //   tid: '',
+  //   uti: '',
+  //   ver: ''
+  // };
+  userName: string = '';
+  oid!: string;
   title = 'Financial Planner Ng';
   isIframe = false;
   loggedIn = false;
@@ -28,7 +47,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
+    private msalBroadcastService: MsalBroadcastService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -162,8 +182,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ];
 
     this.isIframe = window !== window.parent && !window.opener;
-
     this.checkAccount();
+    this.claims = JSON.parse(localStorage.getItem('claims') || '{}'); // JSON.parse(obj);
 
     /**
      * You can subscribe to MSAL events as shown below. For more info,
@@ -177,6 +197,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe((result) => {
         this.checkAccount();
+        this.claims = JSON.parse(JSON.stringify(result.payload?.account?.idTokenClaims));
+        localStorage.setItem('claims', JSON.stringify(this.claims || '{}'));
       });
 
   }
@@ -203,6 +225,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
   logout(): void {
+    this.router.navigateByUrl('/home');
+    localStorage.removeItem('claims');
     this.authService.logout();
   }
 
