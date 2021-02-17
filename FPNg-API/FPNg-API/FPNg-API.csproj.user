@@ -5,5 +5,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <ActiveDebugProfile>FPNG_API</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>FPNg-API - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
