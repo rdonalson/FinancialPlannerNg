@@ -843,3 +843,14 @@ C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netco
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.pdb
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.genruntimeconfig.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg-API.csprojAssemblyReference.cache
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll

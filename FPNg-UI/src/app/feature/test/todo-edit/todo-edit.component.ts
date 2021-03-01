@@ -31,7 +31,7 @@ export class TodoEditComponent implements OnInit {
   editTodo(todo: Todo): void {
     this.todo.description = todo.description;
     this.service.editTodo(this.todo).subscribe(() => {
-      this.router.navigate(['/todo-view']);
+      this.router.navigate(['../../view'], { relativeTo: this.route });
     });
   }
 

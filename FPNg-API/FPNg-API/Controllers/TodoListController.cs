@@ -51,7 +51,7 @@ namespace FPNG_API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TodoItem>> GetTodoItem(int id)
         {
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+           HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             HttpContext.VerifyUserHasAnyAcceptedScope("basic.read");
 
             var todoItem = await _context.TodoItems.FindAsync(id);

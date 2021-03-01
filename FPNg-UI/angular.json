@@ -28,7 +28,8 @@
             "aot": true,
             "assets": [
               "src/assets/icons",
-              "src/assets/images"
+              "src/assets/images",
+              "src/web.config"
             ],
             "styles": [
               "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",

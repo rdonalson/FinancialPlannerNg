@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TestFeatureComponent } from './test/test-feature/test-feature.component';
+import { TodoEditComponent } from './test/todo-edit/todo-edit.component';
 import { TodoViewComponent } from './test/todo-view/todo-view.component';
 
 const routes: Routes = [
@@ -13,7 +14,13 @@ const routes: Routes = [
         path: 'Dashboard', component: DashboardComponent
       },
       {
-        path: 'test/Todo-View', component: TodoViewComponent
+        path: 'test/Todo', // component: TodoViewComponent,
+        children: [
+          // { path: '', redirectTo: 'view', pathMatch: 'full' },
+          { path: 'view', component: TodoViewComponent },
+          { path: 'edit/:id', component: TodoEditComponent }
+
+        ]
       },
       {
         path: 'test/Feature-A', component: TestFeatureComponent

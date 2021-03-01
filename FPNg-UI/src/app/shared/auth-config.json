@@ -1,11 +1,11 @@
 {
   "credentials": {
-    "clientId": "46210cab-dd4b-4f6c-879c-724e49dbf770",
+    "clientId": "1cd21572-85b3-4dad-b72b-17f7b0cc9584",
     "tenantId": "62eca109-81a1-4fc4-9632-836e490ab4b7"
   },
   "configuration": {
-    "redirectUri": "https://fpng-ui.azurewebsites.net/home",
-    "postLogoutRedirectUri": "https://fpng-ui.azurewebsites.net/home"
+    "redirectUri": "https://fpng-ui.azurewebsites.net",
+    "postLogoutRedirectUri": "https://fpng-ui.azurewebsites.net"
   },
   "resources": {
     "todoListApi": {
