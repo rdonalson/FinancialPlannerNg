@@ -1,15 +1,16 @@
 
+using FPNg.API.Data.Context;
+using FPNg.API.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
-using FPNG_API.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace FPNG_API
+namespace FPNg.API
 {
     public class Startup
     {
@@ -31,6 +32,11 @@ namespace FPNG_API
             services.AddAuthorization();
 
             services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+
+            //services.AddDbContext<FPContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("FPContext")));
+            services.AddDbContext<FPNgContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("FPContext")));
 
             services.AddControllers();
             

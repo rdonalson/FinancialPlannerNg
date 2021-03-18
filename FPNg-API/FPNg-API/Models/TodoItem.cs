@@ -4,7 +4,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FPNG_API.Models
+namespace FPNg.API.Models
 {
     public class TodoItem
     {

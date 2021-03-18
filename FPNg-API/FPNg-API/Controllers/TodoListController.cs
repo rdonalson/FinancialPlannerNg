@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using FPNG_API.Models;
+using FPNg.API.Models;
 using System.Security.Claims;
 using Microsoft.Identity.Web.Resource;
 
-namespace FPNG_API.Controllers
+namespace FPNg.API.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

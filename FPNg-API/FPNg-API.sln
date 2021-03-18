@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPNg-API", "FPNg-API\FPNg-API.csproj", "{B57E6AA8-C15F-4B77-AAC7-57149CA0C1B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPNg.API", "FPNg-API\FPNg.API.csproj", "{B57E6AA8-C15F-4B77-AAC7-57149CA0C1B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPNg.API.Data", "FPNg.API.Data\FPNg.API.Data.csproj", "{82B877AA-CC0B-4DC7-B867-B09050BB9562}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B57E6AA8-C15F-4B77-AAC7-57149CA0C1B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B57E6AA8-C15F-4B77-AAC7-57149CA0C1B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B57E6AA8-C15F-4B77-AAC7-57149CA0C1B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82B877AA-CC0B-4DC7-B867-B09050BB9562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82B877AA-CC0B-4DC7-B867-B09050BB9562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82B877AA-CC0B-4DC7-B867-B09050BB9562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82B877AA-CC0B-4DC7-B867-B09050BB9562}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

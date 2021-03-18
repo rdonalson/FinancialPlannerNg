@@ -1,0 +1,12 @@
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\bin\Debug\netcoreapp3.1\FPNg.API.Data.deps.json
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\bin\Debug\netcoreapp3.1\FPNg.API.Data.runtimeconfig.json
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\bin\Debug\netcoreapp3.1\FPNg.API.Data.runtimeconfig.dev.json
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\bin\Debug\netcoreapp3.1\FPNg.API.Data.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\bin\Debug\netcoreapp3.1\FPNg.API.Data.pdb
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\obj\Debug\netcoreapp3.1\FPNg.API.Data.csprojAssemblyReference.cache
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\obj\Debug\netcoreapp3.1\FPNg.API.Data.AssemblyInfoInputs.cache
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\obj\Debug\netcoreapp3.1\FPNg.API.Data.AssemblyInfo.cs
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\obj\Debug\netcoreapp3.1\FPNg.API.Data.csproj.CoreCompileInputs.cache
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\obj\Debug\netcoreapp3.1\FPNg.API.Data.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\obj\Debug\netcoreapp3.1\FPNg.API.Data.pdb
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Data\obj\Debug\netcoreapp3.1\FPNg.API.Data.genruntimeconfig.cache

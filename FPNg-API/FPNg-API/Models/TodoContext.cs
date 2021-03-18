@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace FPNG_API.Models
+namespace FPNg.API.Models
 {
     public class TodoContext : DbContext
     {

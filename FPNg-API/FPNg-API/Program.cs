@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace FPNG_API
+namespace FPNg.API
 {
     public class Program
     {
