@@ -4,12 +4,12 @@
     "tenantId": "62eca109-81a1-4fc4-9632-836e490ab4b7"
   },
   "configuration": {
-    "redirectUri": "https://fpng-ui.azurewebsites.net",
-    "postLogoutRedirectUri": "https://fpng-ui.azurewebsites.net"
+    "redirectUri": "http://localhost:1000",
+    "postLogoutRedirectUri": "http://localhost:1000"
   },
   "resources": {
     "todoListApi": {
-      "resourceUri": "https://fpng-api.azurewebsites.net/api/todolist",
+      "resourceUri": "https://localhost:5001/api/todolist",
       "resourceScopes": [
         "api://47436633-44d0-4631-a210-559ee13c22d8/access_as_user"
         ,"api://47436633-44d0-4631-a210-559ee13c22d8/basic.read"

@@ -16,7 +16,6 @@ const routes: Routes = [
       {
         path: 'test/Todo', // component: TodoViewComponent,
         children: [
-          // { path: '', redirectTo: 'view', pathMatch: 'full' },
           { path: 'view', component: TodoViewComponent },
           { path: 'edit/:id', component: TodoEditComponent }
 
