@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 
 namespace FPNg.API
@@ -33,8 +34,6 @@ namespace FPNg.API
 
             services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
 
-            //services.AddDbContext<FPContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("FPContext")));
             services.AddDbContext<FPNgContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("FPContext")));
 
@@ -51,7 +50,7 @@ namespace FPNg.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -67,6 +66,7 @@ namespace FPNg.API
                 app.UseHsts();
             }
 
+            loggerFactory.AddLog4Net();
             app.UseCors("default");
             app.UseHttpsRedirection();
             app.UseRouting();

@@ -1,5 +1,6 @@
 ﻿using FPNg.API.Data.Context;
 using FPNg.API.Data.Domain;
+using FPNg.API.Infrastructure.ItemDetail.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -12,25 +13,29 @@ namespace FPNg.API.Controllers
     [ApiController]
     public class CreditsController : ControllerBase
     {
+        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly FPNgContext _context;
+        private readonly IRepoCredit _repoCredit;
 
         public CreditsController(FPNgContext context)
         {
             _context = context;
+            _repoCredit = new RepoCredit(context);
         }
 
         // GET: api/Credits
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Credit>>> GetCredits()
+        [HttpGet("{userName}")]
+        public async Task<ActionResult<List<Credit>>> GetCredits(string userName)
         {
-            return await _context.Credits.ToListAsync();
+            _log.Info("GetCredits!");
+            return await _repoCredit.GetCredits(userName);
         }
 
-        // GET: api/Credits/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Credit>> GetCredit(int id)
+        // GET: api/Credits/5/bill
+        [HttpGet("{id}/{username}")]
+        public async Task<ActionResult<Credit>> GetCredit(int id, string username)
         {
-            var credit = await _context.Credits.FindAsync(id);
+            var credit = await _repoCredit.GetCredit(id, username);
 
             if (credit == null)
             {

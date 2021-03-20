@@ -57,7 +57,7 @@ namespace FPNg.API.Data.Context
 
                 entity.Property(e => e.WeeklyDow).HasColumnName("WeeklyDOW");
 
-                entity.HasOne(d => d.FkPeriodNavigation)
+                entity.HasOne(d => d.Period)
                     .WithMany(p => p.Credits)
                     .HasForeignKey(d => d.FkPeriod)
                     .HasConstraintName("FK_Credits_Periods");

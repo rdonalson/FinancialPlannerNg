@@ -32,6 +32,6 @@ namespace FPNg.API.Data.Domain
         public int? AnnualDom { get; set; }
         public bool DateRangeReq { get; set; }
 
-        public virtual Period FkPeriodNavigation { get; set; }
+        public virtual Period Period { get; set; }
     }
 }
