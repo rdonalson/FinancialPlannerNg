@@ -3,10 +3,8 @@ using FPNg.API.Data.Domain;
 using FPNg.API.Infrastructure.ItemDetail.Interface;
 using FPNg.API.Infrastructure.ItemDetail.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FPNg.API.Controllers

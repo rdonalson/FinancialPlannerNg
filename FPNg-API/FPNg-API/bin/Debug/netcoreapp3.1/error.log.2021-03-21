@@ -1,0 +1,45 @@
+2021-03-21 15:22:53,165  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-21 15:22:53,227  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-21 15:22:53,231  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-21 15:22:53,234  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-21 15:23:36,962 ERROR Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.LogMessage [0] - MESSAGE: An unhandled exception has occurred while executing the request.
+ System.InvalidOperationException: No route matches the supplied values.
+   at Microsoft.AspNetCore.Mvc.CreatedAtActionResult.OnFormatting(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsyncCore(ActionContext context, ObjectResult result, Type objectType, Object value)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsync(ActionContext context, ObjectResult result)
+   at Microsoft.AspNetCore.Mvc.ObjectResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-03-21 15:24:58,685  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application is shutting down...
+ 2021-03-21 15:27:43,620  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-21 15:27:43,672  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-21 15:27:43,674  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-21 15:27:43,677  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-21 15:29:57,637  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-21 15:29:57,697  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-21 15:29:57,700  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-21 15:29:57,703  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-21 15:30:09,461 ERROR FPNg.API.Controllers.CreditsController.MoveNext [43] - MESSAGE: Credit not found
+ 2021-03-21 15:31:14,743 ERROR FPNg.API.Controllers.CreditsController.MoveNext [43] - MESSAGE: Credit not found
+ 2021-03-21 15:32:00,009  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-21 15:32:00,070  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-21 15:32:00,073  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-21 15:32:00,076  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-21 15:33:16,743  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application is shutting down...
+ 2021-03-21 15:46:17,108  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-21 15:46:17,168  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-21 15:46:17,171  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-21 15:46:17,174  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 

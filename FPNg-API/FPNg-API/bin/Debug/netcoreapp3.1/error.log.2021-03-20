@@ -1,0 +1,11 @@
+2021-03-20 17:36:37,640  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-20 17:36:37,689  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-20 17:36:37,691  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-20 17:36:37,693  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-20 17:36:45,565  INFO FPNg.API.Controllers.CreditsController.MoveNext [30] - MESSAGE: GetCredits!
+ 2021-03-20 17:36:46,101 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.MoveNext [34] - MESSAGE: System.DivideByZeroException: Attempted to divide by zero.
+   at FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.GetCredits(String userName) in C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\ItemDetail\Repository\RepoCredit.cs:line 34
+ 2021-03-20 17:37:41,936  INFO FPNg.API.Controllers.CreditsController.MoveNext [30] - MESSAGE: GetCredits!
+ 2021-03-20 17:37:42,464 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.MoveNext [34] - MESSAGE: System.DivideByZeroException: Attempted to divide by zero.
+   at FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.GetCredits(String userName) in C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\ItemDetail\Repository\RepoCredit.cs:line 34
+ 
