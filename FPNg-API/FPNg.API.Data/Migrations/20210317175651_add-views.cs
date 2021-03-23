@@ -81,7 +81,6 @@ namespace FPNg.API.Data.Migrations
         {
             migrationBuilder.Sql(@"DROP VIEW [ItemDetail].[vwCredits]");
             migrationBuilder.Sql(@"DROP VIEW [ItemDetail].[vwDebits]");
-
         }
     }
 }

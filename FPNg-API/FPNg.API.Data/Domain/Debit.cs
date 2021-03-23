@@ -5,6 +5,8 @@ namespace FPNg.API.Data.Domain
     public class Debit
     {
         public int PkDebit { get; set; }
+        public Guid UserId { get; set; }
+
         public string UserName { get; set; }
         public string Name { get; set; }
         public decimal? Amount { get; set; }
@@ -32,6 +34,6 @@ namespace FPNg.API.Data.Domain
         public int? AnnualDom { get; set; }
         public bool DateRangeReq { get; set; }
 
-        public virtual Period FkPeriodNavigation { get; set; }
+        public virtual Period Period { get; set; }
     }
 }

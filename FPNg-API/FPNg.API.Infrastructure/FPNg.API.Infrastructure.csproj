@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Display\" />
-    <Folder Include="ItemDetail\Interface\" />
     <Folder Include="ItemDetail\Model\" />
   </ItemGroup>
 

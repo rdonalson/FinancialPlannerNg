@@ -1,53 +1,74 @@
 ﻿using FPNg.API.Data.Context;
 using FPNg.API.Data.Domain;
+using FPNg.API.Infrastructure.ItemDetail.Interface;
 using FPNg.API.Infrastructure.ItemDetail.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace FPNg.API.Controllers
 {
+    /// <summary>
+    ///     The Credits Controller
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class CreditsController : ControllerBase
     {
         private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly FPNgContext _context;
         private readonly IRepoCredit _repoCredit;
 
+        /// <summary>
+        ///     Credits Controller Constructor
+        /// </summary>
+        /// <param name="context">FPNgContext: Setup the Data Context</param>
         public CreditsController(FPNgContext context)
         {
-            _context = context;
             _repoCredit = new RepoCredit(context);
         }
 
-        // GET: api/Credits
-        [HttpGet("{userName}")]
-        public async Task<ActionResult<List<Credit>>> GetCredits(string userName)
+        /// <summary>
+        ///     Return List of all Credits for given User
+        ///     GET: api/Credits/{userId}
+        /// </summary>
+        /// <param name="userId">Guid: Authorized User OID</param>
+        /// <returns>Task<ActionResult<List<Credit>>>: List of Credits for the Authorized User</returns>
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<List<Credit>>> GetCredits(Guid userId)
         {
-            _log.Info("GetCredits!");
-            return await _repoCredit.GetCredits(userName);
+            return await _repoCredit.GetCredits(userId);
         }
 
-        // GET: api/Credits/5/bill
-        [HttpGet("{id}/{username}")]
-        public async Task<ActionResult<Credit>> GetCredit(int id, string username)
+        /// <summary>
+        ///     Add new Credit
+        ///     Get a specific Credit
+        ///     GET: api/Credits/{userId}/{id}
+        /// </summary>
+        /// <param name="id">int: Id of the record item</param>
+        /// <returns>Task<ActionResult<Credit>>: The requested Credit</returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Credit>> GetCredit(int id)
         {
-            var credit = await _repoCredit.GetCredit(id, username);
-
+            Credit credit = await _repoCredit.GetCredit(id);
             if (credit == null)
             {
+                _log.Error("Credit not found");
                 return NotFound();
             }
-
             return credit;
         }
 
-        // PUT: api/Credits/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        ///     Update Existing Credit
+        ///     PUT: api/Credits/{id}
+        ///     Credit Model in the payload
+        /// </summary>
+        /// <param name="id">int: Credit Id</param>
+        /// <param name="credit">Credit: The Edited Credit Model</param>
+        /// <returns>Task<IActionResult>: Action State</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCredit(int id, Credit credit)
         {
@@ -56,58 +77,35 @@ namespace FPNg.API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(credit).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CreditExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            bool result = await _repoCredit.PutCredit(id, credit);
+            return !result ? NotFound() : (IActionResult)NoContent();
         }
 
-        // POST: api/Credits
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        ///     Add new Credit
+        ///     POST: api/Credits
+        ///     New Credit Model in the payload
+        /// </summary>
+        /// <param name="credit">Credit: The input Credit Model</param>
+        /// <returns>Task<bool>: Return the Credit & It's new Id or Null</returns>
         [HttpPost]
         public async Task<ActionResult<Credit>> PostCredit(Credit credit)
         {
-            _context.Credits.Add(credit);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCredit", new { id = credit.PkCredit }, credit);
+            bool result = await _repoCredit.PostCredit(credit);
+            return result ? credit : (ActionResult<Credit>)NoContent();
         }
 
-        // DELETE: api/Credits/5
+        /// <summary>
+        ///     Delete a specific Credit
+        ///     DELETE: api/Credits/5
+        /// </summary>
+        /// <param name="id">int: Id of the record item</param>
+        /// <returns>Task<IActionResult>: Action State</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Credit>> DeleteCredit(int id)
+        public async Task<IActionResult> DeleteCredit(int id)
         {
-            var credit = await _context.Credits.FindAsync(id);
-            if (credit == null)
-            {
-                return NotFound();
-            }
-
-            _context.Credits.Remove(credit);
-            await _context.SaveChangesAsync();
-
-            return credit;
-        }
-
-        private bool CreditExists(int id)
-        {
-            return _context.Credits.Any(e => e.PkCredit == id);
+            bool result = await _repoCredit.DeleteCredit(id);
+            return !result ? NotFound() : (IActionResult)NoContent();
         }
     }
 }

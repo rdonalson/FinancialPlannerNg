@@ -4,14 +4,16 @@ using FPNg.API.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FPNg.API.Data.Migrations
 {
     [DbContext(typeof(FPNgContext))]
-    partial class FPNgContextModelSnapshot : ModelSnapshot
+    [Migration("20210321163635_AddUserIdGuidToVwCreditVwDebit")]
+    partial class AddUserIdGuidToVwCreditVwDebit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,5 +1,6 @@
 ﻿using FPNg.API.Data.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FPNg.API.Data.Context
 {
@@ -91,7 +92,7 @@ namespace FPNg.API.Data.Context
 
                 entity.Property(e => e.WeeklyDow).HasColumnName("WeeklyDOW");
 
-                entity.HasOne(d => d.FkPeriodNavigation)
+                entity.HasOne(d => d.Period)
                     .WithMany(p => p.Debits)
                     .HasForeignKey(d => d.FkPeriod)
                     .HasConstraintName("FK_Debits_Periods");
@@ -108,7 +109,7 @@ namespace FPNg.API.Data.Context
                 entity.Property(e => e.Amount).HasColumnType("money");
 
                 entity.Property(e => e.BeginDate).HasColumnType("date");
-
+              
                 entity.Property(e => e.UserName)
                     .IsRequired()
                     .HasMaxLength(75);
@@ -190,7 +191,6 @@ namespace FPNg.API.Data.Context
 
                 entity.Property(e => e.WeeklyDow).HasColumnName("WeeklyDOW");
             });
-
 
             OnModelCreatingPartial(modelBuilder);
         }
