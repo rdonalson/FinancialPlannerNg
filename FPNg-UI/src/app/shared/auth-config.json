@@ -1,7 +1,7 @@
 {
   "credentials": {
     "clientId": "{}",
-    "tenantId": "62eca109-81a1-4fc4-9632-836e490ab4b7"
+    "tenantId": "{}"
   },
   "configuration": {
     "redirectUri": "http://localhost:1000",
