@@ -73,7 +73,7 @@ namespace FPNg.API.Controllers
             }
 
             bool result = await _repoDebit.PutDebit(id, debit);
-            return result ? (IActionResult)Accepted() : NotFound();
+            return result ? (IActionResult) Accepted() : NotFound();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace FPNg.API.Controllers
         public async Task<ActionResult<Debit>> PostDebit(Debit debit)
         {
             bool result = await _repoDebit.PostDebit(debit);
-            return result ? Created("Created", debit) : (ActionResult<Debit>)NoContent();
+            return result ? Created("Created", debit) : (ActionResult<Debit>) BadRequest();
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace FPNg.API.Controllers
         public async Task<IActionResult> DeleteDebit(int id)
         {
             bool result = await _repoDebit.DeleteDebit(id);
-            return result ? (IActionResult)Accepted() : NotFound();
+            return result ? (IActionResult) Accepted() : NotFound();
         }
     }
 }

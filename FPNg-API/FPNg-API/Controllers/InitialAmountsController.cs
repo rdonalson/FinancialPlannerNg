@@ -4,8 +4,6 @@ using FPNg.API.Infrastructure.ItemDetail.Interface;
 using FPNg.API.Infrastructure.ItemDetail.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FPNg.API.Controllers
@@ -56,7 +54,7 @@ namespace FPNg.API.Controllers
         public async Task<ActionResult<InitialAmount>> PostDebit(InitialAmount initialAmount)
         {
             bool result = await _repoInitialAmount.PostInitialAmount(initialAmount);
-            return result ? Created("Created", initialAmount) : (ActionResult<InitialAmount>)NoContent();
+            return result ? Created("Created", initialAmount) : (ActionResult<InitialAmount>) BadRequest();
         }
 
         /// <summary>
@@ -76,7 +74,7 @@ namespace FPNg.API.Controllers
             }
 
             bool result = await _repoInitialAmount.PutInitialAmount(userId, initialAmount);
-            return result ? (IActionResult)Accepted() : NotFound();
+            return result ? (IActionResult) Accepted() : NotFound();
         }
 
     }

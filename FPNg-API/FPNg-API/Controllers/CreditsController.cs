@@ -73,7 +73,7 @@ namespace FPNg.API.Controllers
             }
 
             bool result = await _repoCredit.PutCredit(id, credit);
-            return result ? (IActionResult)Accepted() : NotFound();
+            return result ? (IActionResult) Accepted() : NotFound();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace FPNg.API.Controllers
         public async Task<ActionResult<Credit>> PostCredit(Credit credit)
         {
             bool result = await _repoCredit.PostCredit(credit);
-            return result ? Created("Created", credit) : (ActionResult<Credit>)NoContent();
+            return result ? Created("Created", credit) : (ActionResult<Credit>) BadRequest();
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace FPNg.API.Controllers
         public async Task<IActionResult> DeleteCredit(int id)
         {
             bool result = await _repoCredit.DeleteCredit(id);
-            return result ? (IActionResult)Accepted() : NotFound();
+            return result ? (IActionResult) Accepted() : NotFound();
         }
     }
 }

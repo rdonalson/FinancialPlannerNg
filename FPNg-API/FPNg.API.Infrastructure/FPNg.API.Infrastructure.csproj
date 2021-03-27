@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Display\" />
-    <Folder Include="ItemDetail\Model\" />
+    <Compile Remove="ItemDetail\Model\**" />
+    <EmbeddedResource Remove="ItemDetail\Model\**" />
+    <None Remove="ItemDetail\Model\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +16,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FPNg.API.Data\FPNg.API.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Display\" />
   </ItemGroup>
 
 </Project>
