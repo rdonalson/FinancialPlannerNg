@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Todo } from '../common/models/todo';
-import { TodoService } from '../common/services/todo.service';
+import { Todo } from '../../common/models/todo';
+import { TodoService } from '../../common/services/todo.service';
 
 @Component({
   templateUrl: './todo-edit.component.html',
@@ -19,9 +19,11 @@ export class TodoEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private service: TodoService) { }
 
   ngOnInit(): void {
+    // tslint:disable-next-line: deprecation
     this.route.paramMap.subscribe((params) => {
       // tslint:disable-next-line: no-non-null-assertion
       const id = +params.get('id')!;
+      // tslint:disable-next-line: deprecation
       this.service.getTodo(+id).subscribe((response: Todo) => {
         this.todo = response;
       });
@@ -31,7 +33,7 @@ export class TodoEditComponent implements OnInit {
   editTodo(todo: Todo): void {
     this.todo.description = todo.description;
     this.service.editTodo(this.todo).subscribe(() => {
-      this.router.navigate(['../../view'], { relativeTo: this.route });
+      this.router.navigate(['../../'], { relativeTo: this.route });
     });
   }
 

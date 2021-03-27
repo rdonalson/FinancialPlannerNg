@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Todo } from '../common/models/todo';
-import { TodoService } from '../common/services/todo.service';
+import { Todo } from '../../common/models/todo';
+import { TodoService } from '../../common/services/todo.service';
 
 @Component({
   templateUrl: './todo-view.component.html',

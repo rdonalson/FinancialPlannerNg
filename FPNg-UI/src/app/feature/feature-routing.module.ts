@@ -1,25 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './test/dashboard/dashboard.component';
+import { ItemDetailHomeComponent } from './item-detail/item-detail-home.component';
 import { TestFeatureComponent } from './test/test-feature/test-feature.component';
-import { TodoEditComponent } from './test/todo-edit/todo-edit.component';
-import { TodoViewComponent } from './test/todo-view/todo-view.component';
+import { TestHomeComponent } from './test/test-home.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'Dashboard', component: DashboardComponent
+        path: 'item-detail', component: ItemDetailHomeComponent,
       },
       {
-        path: 'test/Todo', // component: TodoViewComponent,
-        children: [
-          { path: 'view', component: TodoViewComponent },
-          { path: 'edit/:id', component: TodoEditComponent }
-
-        ]
+        path: 'test', component: TestHomeComponent,
       },
       {
         path: 'test/Feature-A', component: TestFeatureComponent
