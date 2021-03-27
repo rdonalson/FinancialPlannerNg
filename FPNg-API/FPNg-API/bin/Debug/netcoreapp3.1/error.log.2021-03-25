@@ -1,0 +1,37 @@
+2021-03-25 15:12:26,303  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-25 15:12:26,358  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-25 15:12:26,361  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-25 15:12:26,363  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-25 15:43:26,084  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-25 15:43:26,147  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-25 15:43:26,150  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-25 15:43:26,152  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-25 15:46:16,478 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.MoveNext [60] - MESSAGE: System.NullReferenceException: Object reference not set to an instance of an object.
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues, IReadOnlyList`1& keyProperties)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.GetCredit(Int32 id) in C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\ItemDetail\Repository\RepoCredit.cs:line 60
+ 2021-03-25 15:47:41,986  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-25 15:47:42,039  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-25 15:47:42,041  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-25 15:47:42,043  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-25 15:49:22,842  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-25 15:49:22,891  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-25 15:49:22,893  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-25 15:49:22,895  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-25 15:50:29,253 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.MoveNext [60] - MESSAGE: System.NullReferenceException: Object reference not set to an instance of an object.
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindTracked(Object[] keyValues, IReadOnlyList`1& keyProperties)
+   at Microsoft.EntityFrameworkCore.Internal.EntityFinder`1.FindAsync(Object[] keyValues, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.FindAsync(Object[] keyValues)
+   at FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.GetCredit(Int32 id) in C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\ItemDetail\Repository\RepoCredit.cs:line 60
+ 2021-03-25 15:52:18,578  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-03-25 15:52:18,627  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-03-25 15:52:18,629  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-03-25 15:52:18,631  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 2021-03-25 15:56:57,487 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.MoveNext [80] - MESSAGE: Credit not found
+ 2021-03-25 15:59:11,576 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.MoveNext [130] - MESSAGE: System.ArgumentNullException: Value cannot be null. (Parameter 'entity')
+   at Microsoft.EntityFrameworkCore.Utilities.Check.NotNull[T](T value, String parameterName)
+   at Microsoft.EntityFrameworkCore.DbContext.Remove[TEntity](TEntity entity)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Remove(TEntity entity)
+   at FPNg.API.Infrastructure.ItemDetail.Repository.RepoCredit.DeleteCredit(Int32 id) in C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\ItemDetail\Repository\RepoCredit.cs:line 130
+ 

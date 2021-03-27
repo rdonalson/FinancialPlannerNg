@@ -1,12 +1,13 @@
 ﻿using FPNg.API.Data.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using System.Linq;
 
 namespace FPNg.API.Data.Context
 {
     public partial class FPNgContext : DbContext
     {
-        private readonly string Conn = "Data Source = DESKTOP-VPBJU0V\\APPLICATION;Initial Catalog=FinancialPlannerNg;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;";
+        private readonly string Conn = "Data Source=DESKTOP-VPBJU0V\\APPLICATION;Initial Catalog=FinancialPlannerNg;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;";
 
         public FPNgContext() { }
         public FPNgContext(DbContextOptions<FPNgContext> options) : base(options) { }
@@ -52,10 +53,6 @@ namespace FPNg.API.Data.Context
 
                 entity.Property(e => e.Name).HasMaxLength(75);
 
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(75);
-
                 entity.Property(e => e.WeeklyDow).HasColumnName("WeeklyDOW");
 
                 entity.HasOne(d => d.Period)
@@ -86,10 +83,6 @@ namespace FPNg.API.Data.Context
 
                 entity.Property(e => e.Name).HasMaxLength(75);
 
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(75);
-
                 entity.Property(e => e.WeeklyDow).HasColumnName("WeeklyDOW");
 
                 entity.HasOne(d => d.Period)
@@ -110,9 +103,6 @@ namespace FPNg.API.Data.Context
 
                 entity.Property(e => e.BeginDate).HasColumnType("date");
               
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(75);
             });
 
             modelBuilder.Entity<Period>(entity =>
@@ -152,10 +142,6 @@ namespace FPNg.API.Data.Context
                     .IsRequired()
                     .HasMaxLength(75);
 
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(75);
-
                 entity.Property(e => e.WeeklyDow).HasColumnName("WeeklyDOW");
             });
 
@@ -182,10 +168,6 @@ namespace FPNg.API.Data.Context
                 entity.Property(e => e.Name).HasMaxLength(75);
 
                 entity.Property(e => e.PeriodName)
-                    .IsRequired()
-                    .HasMaxLength(75);
-
-                entity.Property(e => e.UserName)
                     .IsRequired()
                     .HasMaxLength(75);
 

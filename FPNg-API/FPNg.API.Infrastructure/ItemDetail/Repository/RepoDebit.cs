@@ -19,7 +19,7 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         private readonly FPNgContext _context;
 
         /// <summary>
-        ///     Debit Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="context">FPNgContext: Setup the Data Context</param>
         public RepoDebit(FPNgContext context)
@@ -28,19 +28,15 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         }
 
         /// <summary>
-        ///     Return List of all Debits for given User
+        ///     Return List of all Debits for given User using the View vwDebit
         /// </summary>
         /// <param name="userId">Guid: Authorized User OID</param>
-        /// <returns>Task<List<Debit>>: List of Debits for the Authorized User</returns>
-        public async Task<List<Debit>> GetDebits(Guid userId)
+        /// <returns>Task<List<VwDebit>>: List of Debits for the Authorized User</returns>
+        public async Task<List<VwDebit>> GetDebits(Guid userId)
         {
             try
             {
-                /* Diagnostic: Error Handling */
-                //var x = 3; 
-                //var y = 0;
-                //int z = x / y;
-                return await _context.Debits.Where(d => d.UserId == userId).Include(d => d.Period).ToListAsync();
+                return await _context.VwDebits.Where(d => d.UserId == userId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -50,15 +46,15 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         }
 
         /// <summary>
-        ///     Get a specific Debit
+        ///     Get a specific Debit using the View vwDebit
         /// </summary>
         /// <param name="id">int: Id of the record item</param>
-        /// <returns>Task<Debit>: The requested Debit</returns>
-        public async Task<Debit> GetDebit(int id)
+        /// <returns>Task<VwDebit>: The requested Debit</returns>
+        public async Task<VwDebit> GetDebit(int id)
         {
             try
             {
-                return await _context.Debits.FindAsync(id);
+                return await _context.VwDebits.SingleOrDefaultAsync(c => c.PkDebit == id);
             }
             catch (Exception ex)
             {
@@ -71,7 +67,7 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         ///     Update Existing Debit
         /// </summary>
         /// <param name="id">int: Debit Id</param>
-        /// <param name="Debit">Debit: The Edited Debit Model</param>
+        /// <param name="debit">Debit: The Edited Debit Model</param>
         /// <returns>Task<bool>: Was Debit Updated?</returns>
         public async Task<bool> PutDebit(int id, Debit debit)
         {
@@ -101,8 +97,8 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         /// <summary>
         ///     Add new Debit
         /// </summary>
-        /// <param name="Debit">Debit: The input Debit Model</param>
-        /// <returns>Task<bool>: Was the Debit created? T/F</returns>
+        /// <param name="debit">Debit: The input Debit Model</param>
+        /// <returns>Task<bool>: Was the debit created? T/F</returns>
         public async Task<bool> PostDebit(Debit debit)
         {
             try
@@ -127,7 +123,7 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         {
             try
             {
-                Debit debit = await _context.Debits.FindAsync(id);
+                var debit = await _context.Debits.FindAsync(id);
                 _context.Debits.Remove(debit);
                 await _context.SaveChangesAsync();
                 return true;
@@ -140,7 +136,7 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         }
 
         /// <summary>
-        ///     Verify Debit exists or not
+        ///     Verify Debit exists
         /// </summary>
         /// <param name="id">int: Debit Id</param>
         /// <returns>Boolean: Does the Debit Exist?</returns>

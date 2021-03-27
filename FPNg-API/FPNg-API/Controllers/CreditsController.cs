@@ -16,7 +16,6 @@ namespace FPNg.API.Controllers
     [ApiController]
     public class CreditsController : ControllerBase
     {
-        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IRepoCredit _repoCredit;
 
         /// <summary>
@@ -29,31 +28,29 @@ namespace FPNg.API.Controllers
         }
 
         /// <summary>
-        ///     Return List of all Credits for given User
-        ///     GET: api/Credits/{userId}
+        ///     Return List of all Credits for given User using the View vwCredit
+        ///     GET: api/Credits/{userId}/List
         /// </summary>
         /// <param name="userId">Guid: Authorized User OID</param>
-        /// <returns>Task<ActionResult<List<Credit>>>: List of Credits for the Authorized User</returns>
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<List<Credit>>> GetCredits(Guid userId)
+        /// <returns>Task<ActionResult<List<VwCredit>>>: List of Credits for the Authorized User</returns>
+        [HttpGet("{userId}/List")]
+        public async Task<ActionResult<List<VwCredit>>> GetCredits(Guid userId)
         {
             return await _repoCredit.GetCredits(userId);
         }
 
         /// <summary>
-        ///     Add new Credit
         ///     Get a specific Credit
-        ///     GET: api/Credits/{userId}/{id}
+        ///     GET: api/Credits/{id}
         /// </summary>
         /// <param name="id">int: Id of the record item</param>
-        /// <returns>Task<ActionResult<Credit>>: The requested Credit</returns>
+        /// <returns>Task<ActionResult<VwCredit>>: The requested Credit</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Credit>> GetCredit(int id)
+        public async Task<ActionResult<VwCredit>> GetCredit(int id)
         {
-            Credit credit = await _repoCredit.GetCredit(id);
+            VwCredit credit = await _repoCredit.GetCredit(id);
             if (credit == null)
             {
-                _log.Error("Credit not found");
                 return NotFound();
             }
             return credit;
@@ -76,7 +73,7 @@ namespace FPNg.API.Controllers
             }
 
             bool result = await _repoCredit.PutCredit(id, credit);
-            return !result ? NotFound() : (IActionResult)NoContent();
+            return result ? (IActionResult)Accepted() : NotFound();
         }
 
         /// <summary>
@@ -85,12 +82,12 @@ namespace FPNg.API.Controllers
         ///     New Credit Model in the payload
         /// </summary>
         /// <param name="credit">Credit: The input Credit Model</param>
-        /// <returns>Task<bool>: Return the Credit & It's new Id or Null</returns>
+        /// <returns>Task<ActionResult<Credit>>: Return the new Credit & Action State</returns>
         [HttpPost]
         public async Task<ActionResult<Credit>> PostCredit(Credit credit)
         {
             bool result = await _repoCredit.PostCredit(credit);
-            return result ? credit : (ActionResult<Credit>)NoContent();
+            return result ? Created("Created", credit) : (ActionResult<Credit>)NoContent();
         }
 
         /// <summary>
@@ -103,7 +100,7 @@ namespace FPNg.API.Controllers
         public async Task<IActionResult> DeleteCredit(int id)
         {
             bool result = await _repoCredit.DeleteCredit(id);
-            return !result ? NotFound() : (IActionResult)NoContent();
+            return result ? (IActionResult)Accepted() : NotFound();
         }
     }
 }

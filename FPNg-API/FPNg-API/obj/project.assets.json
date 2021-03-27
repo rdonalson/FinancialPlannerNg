@@ -2716,6 +2716,20 @@
         "runtime": {
           "bin/placeholder/FPNg.API.Data.dll": {}
         }
+      },
+      "FPNg.API.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "FPNg.API.Data": "1.0.0",
+          "log4net": "2.0.12"
+        },
+        "compile": {
+          "bin/placeholder/FPNg.API.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FPNg.API.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -8485,11 +8499,17 @@
       "type": "project",
       "path": "../FPNg.API.Data/FPNg.API.Data.csproj",
       "msbuildProject": "../FPNg.API.Data/FPNg.API.Data.csproj"
+    },
+    "FPNg.API.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../FPNg.API.Infrastructure/FPNg.API.Infrastructure.csproj",
+      "msbuildProject": "../FPNg.API.Infrastructure/FPNg.API.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "FPNg.API.Data >= 1.0.0",
+      "FPNg.API.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.9",
       "Microsoft.EntityFrameworkCore.InMemory >= 3.1.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.13",
@@ -8536,6 +8556,9 @@
           "projectReferences": {
             "C:\\Users\\rickd\\source\\repos\\FinancialPlannerNg\\FPNg-API\\FPNg.API.Data\\FPNg.API.Data.csproj": {
               "projectPath": "C:\\Users\\rickd\\source\\repos\\FinancialPlannerNg\\FPNg-API\\FPNg.API.Data\\FPNg.API.Data.csproj"
+            },
+            "C:\\Users\\rickd\\source\\repos\\FinancialPlannerNg\\FPNg-API\\FPNg.API.Infrastructure\\FPNg.API.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\rickd\\source\\repos\\FinancialPlannerNg\\FPNg-API\\FPNg.API.Infrastructure\\FPNg.API.Infrastructure.csproj"
             }
           }
         }

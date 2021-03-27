@@ -6,8 +6,6 @@ namespace FPNg.API.Data.Domain
     {
         public int PkDebit { get; set; }
         public Guid UserId { get; set; }
-
-        public string UserName { get; set; }
         public string Name { get; set; }
         public decimal? Amount { get; set; }
         public int? FkPeriod { get; set; }

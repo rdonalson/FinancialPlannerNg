@@ -18,7 +18,7 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         private readonly FPNgContext _context;
 
         /// <summary>
-        ///     Credit Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="context">FPNgContext: Setup the Data Context</param>
         public RepoCredit(FPNgContext context)
@@ -27,19 +27,15 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         }
 
         /// <summary>
-        ///     Return List of all Credits for given User
+        ///     Return List of all Credits for given User using the View vwCredit
         /// </summary>
         /// <param name="userId">Guid: Authorized User OID</param>
-        /// <returns>Task<List<Credit>>: List of Credits for the Authorized User</returns>
-        public async Task<List<Credit>> GetCredits(Guid userId)
+        /// <returns>Task<List<VwCredit>>: List of Credits for the Authorized User</returns>
+        public async Task<List<VwCredit>> GetCredits(Guid userId)
         {
             try
             {
-                /* Diagnostic: Error Handling */
-                //var x = 3; 
-                //var y = 0;
-                //int z = x / y;
-                return await _context.Credits.Where(d => d.UserId == userId).Include(d => d.Period).ToListAsync();
+                return await _context.VwCredits.Where(d => d.UserId == userId).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -49,15 +45,15 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         }
 
         /// <summary>
-        ///     Get a specific Credit
+        ///     Get a specific Credit using the View vwCredit
         /// </summary>
         /// <param name="id">int: Id of the record item</param>
-        /// <returns>Task<Credit>: The requested Credit</returns>
-        public async Task<Credit> GetCredit(int id)
+        /// <returns>Task<VwCredit>: The requested Credit</returns>
+        public async Task<VwCredit> GetCredit(int id)
         {
             try
             {
-                return await _context.Credits.FindAsync(id);
+                return await _context.VwCredits.SingleOrDefaultAsync(c => c.PkCredit == id);
             }
             catch (Exception ex)
             {
@@ -139,7 +135,7 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
         }
 
         /// <summary>
-        ///     Verify Credit exists or not
+        ///     Verify Credit exists
         /// </summary>
         /// <param name="id">int: Credit Id</param>
         /// <returns>Boolean: Does the Credit Exist?</returns>

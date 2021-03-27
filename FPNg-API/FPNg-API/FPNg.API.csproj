@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FPNg.API.Data\FPNg.API.Data.csproj" />
+    <ProjectReference Include="..\FPNg.API.Infrastructure\FPNg.API.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

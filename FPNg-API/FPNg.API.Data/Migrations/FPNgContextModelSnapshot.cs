@@ -107,11 +107,6 @@ namespace FPNg.API.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
-
                     b.Property<int?>("WeeklyDow")
                         .HasColumnName("WeeklyDOW")
                         .HasColumnType("int");
@@ -210,11 +205,6 @@ namespace FPNg.API.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
-
                     b.Property<int?>("WeeklyDow")
                         .HasColumnName("WeeklyDOW")
                         .HasColumnType("int");
@@ -242,11 +232,6 @@ namespace FPNg.API.Data.Migrations
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
 
                     b.HasKey("PkInitialAmount");
 
