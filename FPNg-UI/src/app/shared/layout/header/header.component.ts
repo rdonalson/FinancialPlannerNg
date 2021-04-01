@@ -6,10 +6,6 @@ import { MenuItem } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-// export interface Claims {
-//   public
-// }
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,23 +14,6 @@ import { filter, takeUntil } from 'rxjs/operators';
 export class HeaderComponent implements OnInit, OnDestroy {
   items: MenuItem[] = [];
   claims: any;
-  // claims = {
-  //   aud: '',
-  //   iss: '',
-  //   iat: 0,
-  //   nbf: 0,
-  //   exp: 0,
-  //   aio: 'P',
-  //   name: '',
-  //   nonce: '',
-  //   oid: '',
-  //   preferred_username: '',
-  //   rh: '',
-  //   sub: '',
-  //   tid: '',
-  //   uti: '',
-  //   ver: ''
-  // };
   userName: string = '';
   oid!: string;
   title = 'Financial Planner Ng';
@@ -52,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
     this.items = [
       {
         label: 'File',
@@ -195,14 +175,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS),
         takeUntil(this._destroying$)
       )
-      .subscribe((result) => {
-        this.checkAccount();
-        this.claims = JSON.parse(JSON.stringify(result.payload?.account?.idTokenClaims));
-        localStorage.setItem('claims', JSON.stringify(this.claims || '{}'));
+      // tslint:disable-next-line: deprecation
+      .subscribe({
+        next: (result: any) => this.getClaims(result),
+        error: (msg) => {
+          console.log('Error Getting Location: ', msg);
+        }
       });
 
   }
 
+  getClaims(result: any): void {
+    this.loggedIn = this.authService.instance.getAllAccounts().length > 0;
+    const claims = JSON.parse(JSON.stringify(result.payload));
+    localStorage.setItem('claims', JSON.stringify(claims.idTokenClaims || '{}'));
+    this.claims = JSON.parse(localStorage.getItem('claims') || '{}');
+  }
   checkAccount(): void {
     this.loggedIn = this.authService.instance.getAllAccounts().length > 0;
   }

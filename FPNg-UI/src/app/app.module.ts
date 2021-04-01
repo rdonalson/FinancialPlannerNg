@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, OnInit } from '@angular/core';
+import { ErrorHandler, NgModule, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -11,7 +11,9 @@ import { FeatureModule } from './feature/feature.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,6 +22,8 @@ import { SharedModule } from './shared/shared.module';
     AdminModule,
     FeatureModule,
     BrowserAnimationsModule,
+  ],
+  providers: [
   ],
   bootstrap: [AppComponent],
 })

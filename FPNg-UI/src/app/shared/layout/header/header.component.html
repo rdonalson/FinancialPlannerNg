@@ -8,7 +8,7 @@
         height="35"
         class="d-inline-block align-top"
       />
-      
+
       {{ title }}
     </a>
   </div>
@@ -19,8 +19,8 @@
       pButton
       pRipple
       type="button"
-      [label]="claims.name"
-      *ngIf="claims.name"
+      [label]="claims?.name"
+      *ngIf="claims?.name"
       class="p-button-text"
     ></button>
     <button

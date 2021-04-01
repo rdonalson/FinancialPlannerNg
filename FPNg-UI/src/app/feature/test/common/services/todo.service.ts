@@ -7,27 +7,27 @@ import * as auth from '../../../../shared/auth-config.json';
   providedIn: 'root'
 })
 export class TodoService {
-  url = auth.resources.todoListApi.resourceUri;
+  url = auth.resources.todoListApi.resourceUri + '/todolist';
 
   constructor(private http: HttpClient) { }
 
-  getTodos() {
+  getTodos(): any {
     return this.http.get<Todo[]>(this.url);
   }
 
-  getTodo(id: number) {
+  getTodo(id: number): any {
     return this.http.get<Todo>(this.url + '/' +  id);
   }
 
-  postTodo(todo: Todo) {
+  postTodo(todo: Todo): any {
     return this.http.post<Todo>(this.url, todo);
   }
 
-  deleteTodo(id: number) {
+  deleteTodo(id: number): any {
     return this.http.delete(this.url + '/' + id);
   }
 
-  editTodo(todo: Todo) {
+  editTodo(todo: Todo): any {
     return this.http.put<Todo>(this.url + '/' + todo.id, todo);
   }
 }

@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
 export class TestFeatureComponent implements OnInit {
 
   title!: string;
-  claims: any;
+  claims: any = null;
 
   constructor() { }
 
   ngOnInit(): void {
     this.claims = JSON.parse(localStorage.getItem('claims') || '{}'); // JSON.parse(obj);
   }
-  
+
   upper(): void {
     this.title = this.title.toUpperCase();
   }

@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TestCoreComponent } from './test-core/test-core.component';
 import { SharedModule } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorIntercept } from './services/error/error.interceptor';
 
 @NgModule({
-  declarations: [TestCoreComponent],
+  declarations: [],
   imports: [
     CommonModule,
     SharedModule,
     BrowserAnimationsModule
   ],
-  exports: []
+  exports: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorIntercept, multi: true }
+  ]
 })
 export class CoreModule { }
