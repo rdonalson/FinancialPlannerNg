@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { MsalService } from '@azure/msal-angular';
 
 const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
 

@@ -1,24 +1,27 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable, SkipSelf } from '@angular/core';
+import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ErrorHelperService } from 'src/app/core/services/error/error-helper.service';
+import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 
 import * as auth from '../../../../../shared/auth-config.json';
 import { InitialAmount } from '../../models/initial-amount';
+// import { GlobalErrorHandlerService } from '../common/global-error-handler.service';
 
 @Injectable()
 export class InitialAmountService {
-  private url = auth.resources.todoListApi.resourceUri + '/initialamounts';
+  private url = auth.resources.todoListApi.resourceUri + '/-initialamounts';
   constructor(
     private http: HttpClient,
-    private err: ErrorHelperService
+    private err: GlobalErrorHandlerService
   ) { }
 
   getInitialAmount(userId: string): Observable<InitialAmount> {
     const url = `${this.url}/${userId}`;
     return this.http.get<InitialAmount>(url)
-      .pipe(catchError(this.err.handleError));
+      .pipe(
+        catchError((err: any) => this.err.handleError(err))
+      );
   }
 
   createInitialAmount(initialAmount: InitialAmount): Observable<InitialAmount> {
@@ -27,7 +30,7 @@ export class InitialAmountService {
     return this.http.post<InitialAmount>(this.url, initialAmount, { headers })
       .pipe(
         tap(data => console.log('createInitialAmount: ' + JSON.stringify(data))),
-        catchError(this.err.handleError)
+        catchError((err: any) => this.err.handleError(err))
       );
   }
 
@@ -39,7 +42,7 @@ export class InitialAmountService {
         tap(() => console.log('updateInitialAmount: ' + initialAmount.pkInitialAmount)),
         // Return the product on an update
         map(() => initialAmount),
-        catchError(this.err.handleError)
+        catchError((err: any) => this.err.handleError(err))
       );
   }
 }

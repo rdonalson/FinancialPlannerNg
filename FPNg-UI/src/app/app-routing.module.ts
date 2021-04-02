@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { MsalGuard } from '@azure/msal-angular';
-import { SelectiveStrategy } from './core/services/selective-strategy.service';
+import { SelectiveStrategyService } from './core/services/loading/selective-strategy.service';
 
 const routes: Routes = [
   {
@@ -21,7 +21,7 @@ const isIframe = window !== window.parent && !window.opener;
   imports: [
     // PreloadAllModules  SelectiveStrategy
     RouterModule.forRoot(routes, {
-      preloadingStrategy: SelectiveStrategy,
+      preloadingStrategy: SelectiveStrategyService,
       // Don't perform initial navigation in iframes
       initialNavigation: !isIframe ? 'enabled' : 'disabled'
     })

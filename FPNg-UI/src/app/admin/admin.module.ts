@@ -7,16 +7,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './system/page-not-found/page-not-found.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { ErrorComponent } from './system/error/error.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ErrorComponent
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ButtonModule,
     InputTextModule,

@@ -5,6 +5,7 @@ import { InitialAmountComponent } from './initial-amount/initial-amount.componen
 import { ItemDetailRoutingModule } from './item-detail-routing.module';
 import { ItemDetailHomeComponent } from './item-detail-home.component';
 import { InitialAmountService } from './shared/services/initial-amount/initial-amount.service';
+// import { GlobalErrorHandlerService } from './shared/services/common/global-error-handler.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { InitialAmountService } from './shared/services/initial-amount/initial-a
     ItemDetailRoutingModule
   ],
   providers: [
+    // GlobalErrorHandlerService,
     InitialAmountService
   ]
 })
