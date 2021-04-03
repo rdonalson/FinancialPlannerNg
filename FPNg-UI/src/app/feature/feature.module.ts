@@ -17,6 +17,8 @@ import { TestModule } from './test/test.module';
     ItemDetailModule,
     TestModule
   ],
-  exports: []
+  exports: [],
+  providers: [
+  ]
 })
 export class FeatureModule { }

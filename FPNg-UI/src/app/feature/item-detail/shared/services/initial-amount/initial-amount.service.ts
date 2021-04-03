@@ -1,16 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, SkipSelf } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 
+import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import * as auth from '../../../../../shared/auth-config.json';
 import { InitialAmount } from '../../models/initial-amount';
-// import { GlobalErrorHandlerService } from '../common/global-error-handler.service';
 
 @Injectable()
 export class InitialAmountService {
-  private url = auth.resources.todoListApi.resourceUri + '/-initialamounts';
+  private url = auth.resources.todoListApi.resourceUri + '/initialamounts';
   constructor(
     private http: HttpClient,
     private err: GlobalErrorHandlerService

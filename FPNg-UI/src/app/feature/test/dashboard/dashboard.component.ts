@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
+import { MessageService } from 'primeng/api';
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -8,9 +7,21 @@ const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
 })
 export class DashboardComponent implements OnInit {
   claims: any = null;
-  constructor() { }
+  constructor(
+    private messageService: MessageService
+  ) { }
+
   ngOnInit(): void {
     this.claims = JSON.parse(localStorage.getItem('claims') || '{}');
+  }
+
+  showSuccess(): void {
+    const message: string = 'Whoopee!!';
+    this.messageService.add({ key: 'bc', severity: 'success', summary: 'Success', detail: `${message}` });
+  }
+
+  showError(): void {
+    this.messageService.add({ key: 'bc', severity: 'error', summary: 'Error', detail: 'Oh shit!!' });
   }
 
 }

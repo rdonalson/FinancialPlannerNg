@@ -1,7 +1,15 @@
 <h5>Dashboard</h5>
-
 <p>
   Welcome {{claims?.name}}!
   <br>
   OID: {{claims?.oid}}
 </p>
+<p><button type="button" pButton label="Success!!" (click)="showSuccess()"></button></p>
+<p><button type="button" pButton label="Error!!" (click)="showError()"></button></p>
+<p-toast position="bottom-center" key="bc"></p-toast>
+
+
+
+
+
+

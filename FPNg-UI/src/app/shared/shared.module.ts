@@ -89,7 +89,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MenubarModule,
     ButtonModule,
     ButtonModule,
-    InputTextModule,
+    InputTextModule
   ],
   exports: [FooterComponent, HeaderComponent],
   providers: [
@@ -112,7 +112,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     },
     MsalService,
     MsalGuard,
-    MsalBroadcastService,
+    MsalBroadcastService
   ],
 })
 export class SharedModule {}

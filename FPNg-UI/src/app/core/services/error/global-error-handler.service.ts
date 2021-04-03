@@ -20,7 +20,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
       // the response body may contain clues as to what went wrong,
       errormessage = `server returned code: ${err.status}, error message is: ${err.message}`;
     }
-    this.router?.navigate(['/error']);
+    // this.router?.navigate(['/error']);
     return throwError(errormessage);
   }
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TestHomeComponent } from './test-home.component';
 import { TodoEditComponent } from './todo/todo-edit/todo-edit.component';
@@ -18,6 +18,8 @@ import { TestRoutingModule } from './test-routing.module';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatFormFieldModule,
     MatCheckboxModule,
     MatIconModule,
+    ToastModule,
     TestRoutingModule
-
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  providers: [
+    MessageService
   ]
 })
 export class TestModule { }
