@@ -25,7 +25,7 @@ export class InitialAmountService {
 
   createInitialAmount(initialAmount: InitialAmount): Observable<InitialAmount> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    initialAmount.pkInitialAmount = 0;
+    // initialAmount.pkInitialAmount = 0;
     return this.http.post<InitialAmount>(this.url, initialAmount, { headers })
       .pipe(
         tap(data => console.log('createInitialAmount: ' + JSON.stringify(data))),

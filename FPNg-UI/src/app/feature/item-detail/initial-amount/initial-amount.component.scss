@@ -1,14 +1,23 @@
-@media screen and (max-width: 710px) {
-  .smaller {
-      padding: .5rem 0rem .5rem 0rem  !important;
-  }
+.card-header {
+  font-size: larger;
+  font-weight: 500;
+}
+
+.p-grid {
+  margin: 0rem;
 }
 
 .p-field {
-  margin-bottom: 0em;
+  vertical-align: middle;
+  margin: 0rem;
+  padding: .5rem;
 }
 
-
-
-
+label {
+  vertical-align: middle;
+  margin: 0rem;
+  padding: .55rem;
+  font-size: larger;
+  font-weight: 400;
+}
 

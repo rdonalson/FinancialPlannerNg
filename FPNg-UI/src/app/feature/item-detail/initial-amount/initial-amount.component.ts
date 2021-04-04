@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
-import { MessageService } from 'primeng/api';
-import {InputNumberModule} from 'primeng/inputnumber';
+import { Message, MessageService } from 'primeng/api';
+import { InputNumberModule } from 'primeng/inputnumber';
+import * as delay from 'delay';
 
 import { InitialAmount } from '../shared/models/initial-amount';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
@@ -14,6 +15,8 @@ import { InitialAmountService } from '../shared/services/initial-amount/initial-
 export class InitialAmountComponent implements OnInit {
   pageTitle: string = 'Initial Amount';
 
+  updateDisabled: boolean = false;
+
   constructor(
     private messageService: MessageService,
     private err: GlobalErrorHandlerService,
@@ -25,19 +28,14 @@ export class InitialAmountComponent implements OnInit {
     pkInitialAmount: 0,
     userId: '',
     amount: 0,
-    beginDate: ''
-  };
-  initialAmount2: InitialAmount = {
-    pkInitialAmount: 10,
-    userId: '',
-    amount: 400.34,
-    beginDate: '2021-04-15'
+    beginDate: new Date()
   };
 
   ngOnInit(): void {
     const claims = JSON.parse(localStorage.getItem('claims') || '{}');
     this.userId = claims.oid;
-    this.initialAmount2.userId = this.userId;
+    this.initialAmount.userId = this.userId;
+    // this.initialAmount.beginDate = new Date(); // (new Date()).toLocaleDateString();
     this.getInitialAmount(this.userId);
   }
 
@@ -55,12 +53,12 @@ export class InitialAmountComponent implements OnInit {
 
   saveInitialAmount(): void {
     if (this.initialAmount.pkInitialAmount === 0) {
-      this.intialAmountservice.createInitialAmount(this.initialAmount2)
+      this.intialAmountservice.createInitialAmount(this.initialAmount)
         // tslint:disable-next-line: deprecation
         .subscribe({
-          next: () => this.onSaveComplete(`The new Initial Amount was saved`),
+          next: () => this.onSaveComplete(`Record Created`),
           error: catchError((err: any) => {
-            this.onError(`The new Initial Amount was not saved`);
+            this.onError(`Record Creation Failed`);
             return this.err.handleError(err);
           })
         });
@@ -68,9 +66,9 @@ export class InitialAmountComponent implements OnInit {
       this.intialAmountservice.updateInitialAmount(this.initialAmount)
         // tslint:disable-next-line: deprecation
         .subscribe({
-          next: () => this.onSaveComplete(`The updated Initial Amount was saved`),
+          next: () => this.onSaveComplete(`Record Updated`),
           error: catchError((err: any) => {
-            this.onError(`The updated Initial Amount was not saved`);
+            this.onError(`Record Update Failed`);
             return this.err.handleError(err);
           })
         });
@@ -78,12 +76,20 @@ export class InitialAmountComponent implements OnInit {
   }
 
   onSaveComplete(message: string): void {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: `${message}` });
+    this.messageService.add({ sticky: true, severity: 'success', summary: 'Success', detail: `${message}` });
     // Navigate back to the product list
     // this.router.navigate(['/destination']);
+    this.timeOut(3000);
   }
 
   onError(message: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: `${message}` });
+    this.timeOut(3000);
+  }
+
+  private timeOut(seconds: number): void {
+    setTimeout(() => {
+      this.messageService.clear();
+    }, seconds);
   }
 }

@@ -27,6 +27,7 @@
     "bootstrap-icons": "^1.4.0",
     "chart.js": "^2.9.4",
     "core-js": "^3.9.1",
+    "delay": "^5.0.0",
     "jquery": "^3.6.0",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
