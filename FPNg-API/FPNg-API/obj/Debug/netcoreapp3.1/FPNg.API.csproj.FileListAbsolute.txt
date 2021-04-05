@@ -1,3 +1,5 @@
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\linux-arm64\native\libe_sqlite3.so
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.RazorTargetAssemblyInfo.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\log4net.config
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\appsettings.json
@@ -408,7 +410,6 @@ C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netco
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\alpine-x64\native\libe_sqlite3.so
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\linux-arm\native\libe_sqlite3.so
-C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\linux-arm64\native\libe_sqlite3.so
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\linux-armel\native\libe_sqlite3.so
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\linux-musl-x64\native\libe_sqlite3.so
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libe_sqlite3.so
@@ -434,7 +435,6 @@ C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netco
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\staticwebassets\FPNg.API.StaticWebAssets.Manifest.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\staticwebassets\FPNg.API.StaticWebAssets.xml
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\scopedcss\bundle\FPNg.API.styles.css
-C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.RazorTargetAssemblyInfo.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.csproj.CopyComplete
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.dll
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.pdb

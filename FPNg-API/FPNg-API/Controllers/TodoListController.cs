@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using FPNg.API.Models;
 using System.Security.Claims;
 using Microsoft.Identity.Web.Resource;
+using FPNg.API.Data.Domain;
 
 namespace FPNg.API.Controllers
 {
@@ -51,7 +52,7 @@ namespace FPNg.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TodoItem>> GetTodoItem(int id)
         {
-           HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             HttpContext.VerifyUserHasAnyAcceptedScope("basic.read");
 
             var todoItem = await _context.TodoItems.FindAsync(id);

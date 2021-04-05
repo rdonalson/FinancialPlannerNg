@@ -1,23 +1,5 @@
-2021-03-27 12:27:16,125  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
- 2021-03-27 12:27:16,206  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
- 2021-03-27 12:27:16,209  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
- 2021-03-27 12:27:16,216  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
- 2021-03-27 12:28:08,268  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
- 2021-03-27 12:28:08,313  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
- 2021-03-27 12:28:08,315  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
- 2021-03-27 12:28:08,317  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
- 2021-03-27 12:29:40,595 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoInitialAmount.MoveNext [38] - MESSAGE: System.InvalidOperationException: Enumerator failed to MoveNextAsync.
-   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
-   at FPNg.API.Infrastructure.ItemDetail.Repository.RepoInitialAmount.GetInitialAmount(Guid userId) in C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\ItemDetail\Repository\RepoInitialAmount.cs:line 38
- 2021-03-27 12:30:08,111 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoInitialAmount.MoveNext [38] - MESSAGE: System.InvalidOperationException: Enumerator failed to MoveNextAsync.
-   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
-   at FPNg.API.Infrastructure.ItemDetail.Repository.RepoInitialAmount.GetInitialAmount(Guid userId) in C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\ItemDetail\Repository\RepoInitialAmount.cs:line 38
- 2021-03-27 12:35:02,778 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoInitialAmount.MoveNext [66] - MESSAGE: Initial Amount already exists for this user: 7fdbe29e-f25f-450d-b179-92973e2bf7ba
- 2021-03-27 12:46:41,054  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
- 2021-03-27 12:46:41,096  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
- 2021-03-27 12:46:41,099  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
- 2021-03-27 12:46:41,101  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
- 2021-03-27 12:47:27,290 ERROR FPNg.API.Infrastructure.ItemDetail.Repository.RepoInitialAmount.MoveNext [66] - MESSAGE: Initial Amount already exists for this user: 7fdbe29e-f25f-450d-b179-92973e2bf7ba
+2021-04-05 06:02:45,403  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-04-05 06:02:45,485  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-04-05 06:02:45,488  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-04-05 06:02:45,491  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
  
