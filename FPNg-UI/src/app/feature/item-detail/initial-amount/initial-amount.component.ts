@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { catchError } from 'rxjs/operators';
-import { Message, MessageService } from 'primeng/api';
-import { InputNumberModule } from 'primeng/inputnumber';
-import * as delay from 'delay';
+import { MessageService } from 'primeng/api';
 
 import { InitialAmount } from '../shared/models/initial-amount';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
@@ -14,6 +12,9 @@ import { InitialAmountService } from '../shared/services/initial-amount/initial-
 })
 export class InitialAmountComponent implements OnInit {
   pageTitle: string = 'Initial Amount';
+  @ViewChild('updateButton')
+  updateButton!: ElementRef;
+  amountTouched: boolean | undefined;
 
   updateDisabled: boolean = false;
 
@@ -35,7 +36,7 @@ export class InitialAmountComponent implements OnInit {
     const claims = JSON.parse(localStorage.getItem('claims') || '{}');
     this.userId = claims.oid;
     this.initialAmount.userId = this.userId;
-    // this.initialAmount.beginDate = new Date(); // (new Date()).toLocaleDateString();
+    this.saveInitialAmount();
     this.getInitialAmount(this.userId);
   }
 
@@ -74,11 +75,15 @@ export class InitialAmountComponent implements OnInit {
         });
     }
   }
+  setFocus(touched: any, dirty: any): void {
+    if (touched && dirty) {
+      this.updateButton.nativeElement.disabled = false;
+      this.updateButton.nativeElement.focus();
+    }
+  }
 
   onSaveComplete(message: string): void {
     this.messageService.add({ sticky: true, severity: 'success', summary: 'Success', detail: `${message}` });
-    // Navigate back to the product list
-    // this.router.navigate(['/destination']);
     this.timeOut(3000);
   }
 
@@ -90,6 +95,7 @@ export class InitialAmountComponent implements OnInit {
   private timeOut(seconds: number): void {
     setTimeout(() => {
       this.messageService.clear();
+      window.location.reload();
     }, seconds);
   }
 }

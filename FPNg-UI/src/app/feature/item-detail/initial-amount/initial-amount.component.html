@@ -7,20 +7,24 @@
       <div class="p-field ">
         <p-inputNumber
           [(ngModel)]="initialAmount.amount"
-          inputId="amount"
           mode="currency"
           currency="USD"
+          name="amount"
           #amount="ngModel"
-          locale="en-US" >
+          locale="en-US"
+          tabindex="1"
+          (onBlur)="setFocus(amount.touched, amount.dirty)" >
         </p-inputNumber>
       </div>
       <div class="p-field">
         <button pButton pRipple
-          id="updateButton"
+          #updateButton
+          name="updateButton"
           type="button"
-          [disabled]="!(amount.touched && amount.dirty)"
           label="Update"
-          (click)="saveInitialAmount()" >
+          [disabled]="!(amount.touched && amount.dirty)"
+          (click)="saveInitialAmount()"
+          tabindex="2">
         </button>
       </div>
     </div>
