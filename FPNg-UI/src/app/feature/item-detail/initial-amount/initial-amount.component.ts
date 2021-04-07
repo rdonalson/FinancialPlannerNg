@@ -1,101 +1,115 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
-import { MessageService } from 'primeng/api';
 
 import { InitialAmount } from '../shared/models/initial-amount';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import { InitialAmountService } from '../shared/services/initial-amount/initial-amount.service';
+import { UtilitiesService } from '../shared/services/common/utilities.service';
 
+/**
+ * Class and Page that manage the initial starting amount that the User has in their
+ * account.  This amount is used as the starting point for forcasted ledger calculations
+ */
 @Component({
   templateUrl: './initial-amount.component.html',
   styleUrls: ['./initial-amount.component.scss']
 })
 export class InitialAmountComponent implements OnInit {
   pageTitle: string = 'Initial Amount';
-  @ViewChild('updateButton')
-  updateButton!: ElementRef;
-  amountTouched: boolean | undefined;
-
-  updateDisabled: boolean = false;
+  userId: string = '';
+  initialAmount!: InitialAmount;
 
   constructor(
-    private messageService: MessageService,
+    private util: UtilitiesService,
     private err: GlobalErrorHandlerService,
-    private intialAmountservice: InitialAmountService
+    private intialAmountService: InitialAmountService
   ) { }
 
-  userId: string = '';
-  initialAmount: InitialAmount = {
-    pkInitialAmount: 0,
-    userId: '',
-    amount: 0,
-    beginDate: new Date()
-  };
-
+  /**
+   * Initialize the form
+   */
   ngOnInit(): void {
-    const claims = JSON.parse(localStorage.getItem('claims') || '{}');
-    this.userId = claims.oid;
-    this.initialAmount.userId = this.userId;
-    this.saveInitialAmount();
+    this.initialize();
     this.getInitialAmount(this.userId);
   }
 
+  /**
+   * Gets the user's Initial Amount Record if there is one if not then
+   * it calls the "saveInitialAmount" function which create a default one
+   * with 0 amount.
+   * @param {string} userId User's OID from Login
+   * @returns {any} returns nothing unless there's an error
+   */
   getInitialAmount(userId: string): any {
-    return this.intialAmountservice.getInitialAmount(userId)
+    return this.intialAmountService.getInitialAmount(userId)
       // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: InitialAmount): void => {
-          this.initialAmount = data;
-          console.log(JSON.stringify(this.initialAmount));
+          if (!data) {
+            this.saveInitialAmount();
+          } else {
+            this.initialAmount = data;
+
+            console.log(`Record Retrieved: ${JSON.stringify(this.initialAmount)}`);
+          }
         },
         error: catchError((err: any) => this.err.handleError(err))
       });
   }
 
+  /**
+   * This upsert function will look at whether an Initial Amount record exists and needs to
+   * be updated or doesn't exist and needs to be created with a default amount of zero
+   */
   saveInitialAmount(): void {
     if (this.initialAmount.pkInitialAmount === 0) {
-      this.intialAmountservice.createInitialAmount(this.initialAmount)
+      // Create a new record
+      this.intialAmountService.createInitialAmount(this.initialAmount)
         // tslint:disable-next-line: deprecation
         .subscribe({
-          next: () => this.onSaveComplete(`Record Created`),
+          next: (data: InitialAmount): void => {
+            this.initialAmount = data;
+            console.log(`Record Created: ${JSON.stringify(this.initialAmount)}`);
+            this.util.onSaveComplete("Default Record Created");
+          },
           error: catchError((err: any) => {
-            this.onError(`Record Creation Failed`);
+            this.util.onError("Record Creation Failed");
             return this.err.handleError(err);
           })
         });
     } else {
-      this.intialAmountservice.updateInitialAmount(this.initialAmount)
+      // Update the existing record
+      this.intialAmountService.updateInitialAmount(this.initialAmount)
         // tslint:disable-next-line: deprecation
         .subscribe({
-          next: () => this.onSaveComplete(`Record Updated`),
+          next: (data: InitialAmount) => {
+            this.initialAmount = data;
+            console.log(`Record Updated: ${JSON.stringify(this.initialAmount)}`);
+          },
           error: catchError((err: any) => {
-            this.onError(`Record Update Failed`);
+            this.util.onError("Record Update Failed");
             return this.err.handleError(err);
-          })
+          }),
+          complete: () => {
+            this.util.onSaveComplete("Record Updated");
+          }
         });
     }
   }
-  setFocus(touched: any, dirty: any): void {
-    if (touched && dirty) {
-      this.updateButton.nativeElement.disabled = false;
-      this.updateButton.nativeElement.focus();
-    }
+
+  /**
+   * Prepares the form and "initialAmount" for use
+   */
+  private initialize(): void {
+    const claims = JSON.parse(localStorage.getItem('claims') || '{}');
+    this.userId = claims.oid;
+    this.initialAmount = {
+      pkInitialAmount: 0,
+      userId: this.userId,
+      amount: 0,
+      beginDate: new Date()
+    };
   }
 
-  onSaveComplete(message: string): void {
-    this.messageService.add({ sticky: true, severity: 'success', summary: 'Success', detail: `${message}` });
-    this.timeOut(3000);
-  }
 
-  onError(message: string): void {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: `${message}` });
-    this.timeOut(3000);
-  }
-
-  private timeOut(seconds: number): void {
-    setTimeout(() => {
-      this.messageService.clear();
-      window.location.reload();
-    }, seconds);
-  }
 }

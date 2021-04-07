@@ -19,13 +19,13 @@ export class InitialAmountService {
     const url = `${this.url}/${userId}`;
     return this.http.get<InitialAmount>(url)
       .pipe(
+        // tap(data => console.log('getInitialAmount: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
 
   createInitialAmount(initialAmount: InitialAmount): Observable<InitialAmount> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    // initialAmount.pkInitialAmount = 0;
     return this.http.post<InitialAmount>(this.url, initialAmount, { headers })
       .pipe(
         tap(data => console.log('createInitialAmount: ' + JSON.stringify(data))),

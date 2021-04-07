@@ -2,7 +2,7 @@
   <div class="card-header">
     {{ pageTitle }}
   </div>
-  <div class="card-body">
+  <div class="card-body" #cardBody >
     <div class="p-grid p-fluid">
       <div class="p-field ">
         <p-inputNumber
@@ -10,19 +10,14 @@
           mode="currency"
           currency="USD"
           name="amount"
-          #amount="ngModel"
           locale="en-US"
-          tabindex="1"
-          (onBlur)="setFocus(amount.touched, amount.dirty)" >
+          tabindex="1" >
         </p-inputNumber>
       </div>
       <div class="p-field">
         <button pButton pRipple
-          #updateButton
-          name="updateButton"
           type="button"
           label="Update"
-          [disabled]="!(amount.touched && amount.dirty)"
           (click)="saveInitialAmount()"
           tabindex="2">
         </button>
