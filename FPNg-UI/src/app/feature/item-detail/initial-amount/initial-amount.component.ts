@@ -19,6 +19,12 @@ export class InitialAmountComponent implements OnInit {
   userId: string = '';
   initialAmount!: InitialAmount;
 
+  /**
+   * Base Constructor
+   * @param {UtilitiesService} util A common utilities service
+   * @param {GlobalErrorHandlerService} err Error Handler
+   * @param {InitialAmountService} intialAmountService Initial Amount Service
+   */
   constructor(
     private util: UtilitiesService,
     private err: GlobalErrorHandlerService,
@@ -70,10 +76,10 @@ export class InitialAmountComponent implements OnInit {
           next: (data: InitialAmount): void => {
             this.initialAmount = data;
             console.log(`Record Created: ${JSON.stringify(this.initialAmount)}`);
-            this.util.onSaveComplete("Default Record Created");
+            this.util.onSaveComplete('Default Record Created');
           },
           error: catchError((err: any) => {
-            this.util.onError("Record Creation Failed");
+            this.util.onError('Record Creation Failed');
             return this.err.handleError(err);
           })
         });
@@ -87,11 +93,11 @@ export class InitialAmountComponent implements OnInit {
             console.log(`Record Updated: ${JSON.stringify(this.initialAmount)}`);
           },
           error: catchError((err: any) => {
-            this.util.onError("Record Update Failed");
+            this.util.onError('Record Update Failed');
             return this.err.handleError(err);
           }),
           complete: () => {
-            this.util.onSaveComplete("Record Updated");
+            this.util.onSaveComplete('Record Updated');
           }
         });
     }
@@ -110,6 +116,4 @@ export class InitialAmountComponent implements OnInit {
       beginDate: new Date()
     };
   }
-
-
 }
