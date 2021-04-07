@@ -63,8 +63,8 @@ namespace FPNg.API.Infrastructure.ItemDetail.Repository
                 }
                 else
                 {
-                    _log.Error($"Initial Amount already exists for this user: {initialAmount.UserId}");
-                    return false;
+                    _log.Info($"Initial Amount already exists for this user: {initialAmount.UserId}");
+                    return true;
                 }
             }
             catch (Exception ex)

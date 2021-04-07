@@ -2,7 +2,9 @@
 using FPNg.API.Data.Domain;
 using FPNg.API.Infrastructure.ItemDetail.Interface;
 using FPNg.API.Infrastructure.ItemDetail.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,10 +14,12 @@ namespace FPNg.API.Controllers
     /// <summary>
     ///     The Credits Controller
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CreditsController : ControllerBase
     {
+        static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
         private readonly IRepoCredit _repoCredit;
 
         /// <summary>
@@ -33,9 +37,10 @@ namespace FPNg.API.Controllers
         /// </summary>
         /// <param name="userId">Guid: Authorized User OID</param>
         /// <returns>Task<ActionResult<List<VwCredit>>>: List of Credits for the Authorized User</returns>
-        [HttpGet("{userId}/List")]
+        [HttpGet("{userId}/list")]
         public async Task<ActionResult<List<VwCredit>>> GetCredits(Guid userId)
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             return await _repoCredit.GetCredits(userId);
         }
 
@@ -48,6 +53,7 @@ namespace FPNg.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<VwCredit>> GetCredit(int id)
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             VwCredit credit = await _repoCredit.GetCredit(id);
             if (credit == null)
             {
@@ -67,6 +73,7 @@ namespace FPNg.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCredit(int id, Credit credit)
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             if (id != credit.PkCredit)
             {
                 return BadRequest();
@@ -86,6 +93,7 @@ namespace FPNg.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Credit>> PostCredit(Credit credit)
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             bool result = await _repoCredit.PostCredit(credit);
             return result ? Created("Created", credit) : (ActionResult<Credit>) BadRequest();
         }
@@ -99,6 +107,7 @@ namespace FPNg.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCredit(int id)
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             bool result = await _repoCredit.DeleteCredit(id);
             return result ? (IActionResult) Accepted() : NotFound();
         }

@@ -41,12 +41,7 @@ namespace FPNg.API.Controllers
         public async Task<ActionResult<InitialAmount>> GetInitialAmount(Guid userId)
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            InitialAmount initialAmount = await _repoInitialAmount.GetInitialAmount(userId);
-            if (initialAmount == null)
-            {
-                return NotFound();
-            }
-            return initialAmount;
+            return await _repoInitialAmount.GetInitialAmount(userId);
         }
 
         /// <summary>
