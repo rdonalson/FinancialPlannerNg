@@ -34,7 +34,7 @@ export class CreditListComponent implements OnInit {
       .subscribe({
         next: (data: VwCredit[]): void => {
           this.creditList = data;
-          console.log(JSON.stringify(this.creditList));
+          // console.log(JSON.stringify(this.creditList));
         },
         error: catchError((err: any) => this.err.handleError(err))
       });

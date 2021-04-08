@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import { Credit } from '../../shared/models/credit';
+import { Period } from '../../shared/models/period';
 import { UtilitiesService } from '../../shared/services/common/utilities.service';
 import { CreditService } from '../../shared/services/credit/credit.service';
+import { PeriodService } from '../../shared/services/period/period.service';
 
 @Component({
   templateUrl: './credit-edit.component.html',
@@ -12,22 +17,46 @@ import { CreditService } from '../../shared/services/credit/credit.service';
 export class CreditEditComponent implements OnInit {
 
   userId: string = '';
+  periods!: Period[];
   credit!: Credit;
+  creditForm!: FormGroup;
+  private sub!: Subscription;
 
   constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
     private util: UtilitiesService,
     private err: GlobalErrorHandlerService,
-    private creditService: CreditService
+    private creditService: CreditService,
+    private periodService: PeriodService
   ) { }
 
   ngOnInit(): void {
     this.initialize();
-    // this.credit.amount = 500.23;
-    // this.credit.name = 'Annual 1';
-    // this.credit.fkPeriod = 9;
-    // this.credit.annualMoy = 12;
-    // this.credit.annualDom = 15;
-    // this.saveCredit();
+    this.getPeriods();
+    this.creditForm = this.formBuilder.group({
+
+    });
+    // Read the product Id from the route parameter
+    // tslint:disable-next-line: deprecation
+    this.sub = this.route.params.subscribe(
+      params => {
+        const id = +params.id;
+        this.getCredit(id);
+      }
+    );
+  }
+
+  getCredit(id: number): any {
+    return this.creditService.getCredit(id)
+      // tslint:disable-next-line: deprecation
+      .subscribe({
+        next: (data: Credit): void => {
+          this.credit = data;
+          console.log(`Credit Edit getCredit: ${JSON.stringify(this.credit)}`);
+        },
+        error: catchError((err: any) => this.err.handleError(err))
+      });
   }
 
   saveCredit(): void {
@@ -35,32 +64,35 @@ export class CreditEditComponent implements OnInit {
       this.creditService.createCredit(this.credit)
         // tslint:disable-next-line: deprecation
         .subscribe({
-          next: () => this.util.onSaveComplete(`Record Created`),
+          next: () => {
+            console.log(`Credit Edit saveCredit/createCredit: ${JSON.stringify(this.credit)}`);
+            this.util.onSaveComplete(`Record Created`);
+          },
           error: catchError((err: any) => {
             this.util.onError(`Record Creation Failed`);
             return this.err.handleError(err);
           })
         });
     } else {
-      // this.intialAmountService.updateInitialAmount(this.initialAmount)
-      //   // tslint:disable-next-line: deprecation
-      //   .subscribe({
-      //     next: () => this.onSaveComplete(`Record Updated`),
-      //     error: catchError((err: any) => {
-      //       this.onError(`Record Update Failed`);
-      //       return this.err.handleError(err);
-      //     })
-      //   });
+      this.creditService.updateCredit(this.credit)
+        // tslint:disable-next-line: deprecation
+        .subscribe({
+          next: () => this.util.onSaveComplete(`Record Updated`),
+          error: catchError((err: any) => {
+            this.util.onError(`Record Update Failed`);
+            return this.err.handleError(err);
+          })
+        });
     }
   }
-  getCredit(id: number): any {
-    return this.creditService.getCredit(id)
+
+  getPeriods(): any {
+    return this.periodService.getPeriods()
       // tslint:disable-next-line: deprecation
       .subscribe({
-        next: (data: Credit): void => {
-          // this.Credit = data;
-          // console.log(JSON.stringify(this.Credit));
-          console.log(JSON.stringify(data));
+        next: (data: Period[]): void => {
+          this.periods = data;
+          console.log(`Credit Edit getPriods: ${JSON.stringify(this.periods)}`);
         },
         error: catchError((err: any) => this.err.handleError(err))
       });

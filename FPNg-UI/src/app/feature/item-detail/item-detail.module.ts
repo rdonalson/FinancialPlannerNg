@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
@@ -16,6 +16,7 @@ import { CreditListComponent } from './credit/credit-list/credit-list.component'
 import { CreditService } from './shared/services/credit/credit.service';
 import { CreditEditComponent } from './credit/credit-edit/credit-edit.component';
 import { UtilitiesService } from './shared/services/common/utilities.service';
+import { PeriodService } from './shared/services/period/period.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UtilitiesService } from './shared/services/common/utilities.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MessagesModule,
     MessageModule,
     ButtonModule,
@@ -38,6 +40,7 @@ import { UtilitiesService } from './shared/services/common/utilities.service';
   providers: [
     MessageService,
     UtilitiesService,
+    PeriodService,
     InitialAmountService,
     CreditService
   ]

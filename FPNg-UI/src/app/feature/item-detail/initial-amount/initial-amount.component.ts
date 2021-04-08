@@ -55,8 +55,7 @@ export class InitialAmountComponent implements OnInit {
             this.saveInitialAmount();
           } else {
             this.initialAmount = data;
-
-            console.log(`Record Retrieved: ${JSON.stringify(this.initialAmount)}`);
+            // console.log(`Record Retrieved: ${JSON.stringify(this.initialAmount)}`);
           }
         },
         error: catchError((err: any) => this.err.handleError(err))
@@ -75,7 +74,7 @@ export class InitialAmountComponent implements OnInit {
         .subscribe({
           next: (data: InitialAmount): void => {
             this.initialAmount = data;
-            console.log(`Record Created: ${JSON.stringify(this.initialAmount)}`);
+            // console.log(`Record Created: ${JSON.stringify(this.initialAmount)}`);
             this.util.onSaveComplete('Default Record Created');
           },
           error: catchError((err: any) => {
@@ -90,7 +89,7 @@ export class InitialAmountComponent implements OnInit {
         .subscribe({
           next: (data: InitialAmount) => {
             this.initialAmount = data;
-            console.log(`Record Updated: ${JSON.stringify(this.initialAmount)}`);
+            // console.log(`Record Updated: ${JSON.stringify(this.initialAmount)}`);
           },
           error: catchError((err: any) => {
             this.util.onError('Record Update Failed');

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreditEditComponent } from './credit/credit-edit/credit-edit.component';
-import { CreditListComponent } from './credit/credit-list/credit-list.component';
 
+import { CreditListComponent } from './credit/credit-list/credit-list.component';
 import { InitialAmountComponent } from './initial-amount/initial-amount.component';
 import { ItemDetailHomeComponent } from './item-detail-home.component';
 
@@ -24,7 +24,7 @@ const routes: Routes = [
             path: 'credit',
             children: [
               { path: '', component: CreditListComponent },
-              { path: 'edit', component: CreditEditComponent }
+              { path: 'edit/:id', component: CreditEditComponent }
             ]
           }
         ]

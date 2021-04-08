@@ -34,7 +34,9 @@
         <td>{{ credit.amount | currency: "USD" }}</td>
         <td>{{ credit.periodName }}</td>
         <td>
-          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"></button>
+          <button pButton pRipple icon="pi pi-pencil"
+            [routerLink]="['./edit', credit.pkCredit]"
+            class="p-button-rounded p-button-success p-mr-2"></button>
           <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
         </td>
       </tr>
