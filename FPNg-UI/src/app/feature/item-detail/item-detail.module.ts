@@ -7,6 +7,8 @@ import { MessageModule } from 'primeng/message';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 import { InitialAmountComponent } from './initial-amount/initial-amount.component';
 import { ItemDetailRoutingModule } from './item-detail-routing.module';
@@ -33,6 +35,7 @@ import { PeriodService } from './shared/services/period/period.service';
     MessageModule,
     ButtonModule,
     InputNumberModule,
+    InputTextModule,
     TableModule,
     ItemDetailRoutingModule
   ],

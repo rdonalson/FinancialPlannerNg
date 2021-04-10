@@ -25,7 +25,7 @@ export class PeriodService {
   getPeriods(): Observable<Period[]> {
     return this.http.get<Period[]>(this.url)
       .pipe(
-        tap((data: Period[]) => console.log('Service getPeriods: ' + JSON.stringify(data))),
+        // tap((data: Period[]) => console.log('Service getPeriods: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
@@ -39,7 +39,7 @@ export class PeriodService {
     const url = `${this.url}/${id}`;
     return this.http.get<Period>(url)
       .pipe(
-        tap((data: Period) => console.log('Service getPeriod: ' + JSON.stringify(data))),
+        // tap((data: Period) => console.log('Service getPeriod: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }

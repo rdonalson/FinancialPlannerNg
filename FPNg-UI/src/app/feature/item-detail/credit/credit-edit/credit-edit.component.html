@@ -1,11 +1,84 @@
-<p>credit-edit works!</p>
+<div class="card">
+  <div class="card-header">
+    {{ pageTitle }}
+  </div>
+
+  <div class="card-body">
+    <form novalidate (ngSubmit)="saveCredit()" [formGroup]="creditForm">
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="creditNameId">Name</label>
+        <div class="col-md-8">
+          <input
+            pInputText
+            class="form-control"
+            id="creditNameId"
+            type="text"
+            class="p-inputtext"
+            placeholder="Name (required)"
+            formControlName="Name"
+            [ngClass]="{ 'is-invalid': displayMessage.Name }"
+          />
+          <span class="invalid-feedback">
+            {{ displayMessage.Name }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" for="creditAmountId"
+          >Amount</label
+        >
+        <div class="col-md-8">
+          <p-inputNumber
+            id="creditAmountId"
+            formControlName="Amount"
+            mode="currency"
+            currency="USD"
+            placeholder="Amount (required)"
+            locale="en-US"
+            [ngClass]="{ 'is-invalid': displayMessage.Amount }"
+          >
+          </p-inputNumber>
+          <span class="invalid-feedback">
+            {{ displayMessage.Amount }}
+          </span>
+        </div>
+      </div>
 
 
 
 
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  style="width:80px;"
+                  type="submit"
+                  [title]="creditForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!creditForm.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px;"
+                  type="button"
+                  title="Cancel your edits"
+                  [routerLink]="['../../']">
+            Cancel
+          </button>
+          <!-- <button class="btn btn-outline-warning"
+                  style="width:80px"
+                  type="button"
+                  title="Delete this product"
+                  (click)="deleteProduct()">
+            Delete
+          </button> -->
+        </div>
+      </div>
+    </form>
+  </div>
 
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+</div>
 
-
-
-
-
+<p-messages></p-messages>

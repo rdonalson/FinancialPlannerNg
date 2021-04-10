@@ -6,7 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import * as auth from '../../../../../shared/auth-config.json';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import { VwCredit } from '../../models/vwcredit';
-import { Credit } from '../../models/credit';
+import { ICredit } from '../../models/credit';
 
 /**
  * Credit Service
@@ -36,11 +36,11 @@ export class CreditService {
   /**
    * Get a specific Credit
    * @param {number} id The id of the Credit
-   * @returns {Observable<Credit>} return the record
+   * @returns {Observable<ICredit>} return the record
    */
-  getCredit(id: number): Observable<Credit> {
+  getCredit(id: number): Observable<ICredit> {
     const url = `${this.url}/${id}`;
-    return this.http.get<Credit>(url)
+    return this.http.get<ICredit>(url)
       .pipe(
         // tap((data: Credit) => console.log('Service getCredit: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
@@ -49,29 +49,29 @@ export class CreditService {
 
   /**
    * Creates the new Credit for the User
-   * @param {Credit} credit The new record to be added
-   * @returns {Observable<Credit>} return the record
+   * @param {ICredit} credit The new record to be added
+   * @returns {Observable<ICredit>} return the record
    */
-  createCredit(credit: Credit): Observable<Credit> {
+  createCredit(credit: ICredit): Observable<ICredit> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Credit>(this.url, credit, { headers })
+    return this.http.post<ICredit>(this.url, credit, { headers })
       .pipe(
-        tap((data: Credit) => console.log('Service createCredit: ' + JSON.stringify(data))),
+        // tap((data: ICredit) => console.log('Service createCredit: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
 
   /**
    * Updates the Credit
-   * @param {Credit} credit The new record to be updated
-   * @returns {Observable<Credit>} return the record
+   * @param {ICredit} credit The new record to be updated
+   * @returns {Observable<ICredit>} return the record
    */
-  updateCredit(credit: Credit): Observable<Credit> {
+  updateCredit(credit: ICredit): Observable<ICredit> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.url}/${credit.pkCredit}`;
-    return this.http.put<Credit>(url, credit, { headers })
+    return this.http.put<ICredit>(url, credit, { headers })
       .pipe(
-        tap(() => console.log('updateCredit: ' + credit.pkCredit)),
+        // tap(() => console.log('updateCredit: ' + credit.pkCredit)),
         // Return the product on an update
         map(() => credit),
         catchError((err: any) => this.err.handleError(err))

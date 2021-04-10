@@ -1,6 +1,6 @@
 import { Period } from './period';
 
-export interface Credit {
+export interface ICredit {
   pkCredit: number;
   userId: string;
   name: string;

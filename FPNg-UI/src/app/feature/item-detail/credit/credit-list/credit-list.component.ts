@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { catchError } from 'rxjs/operators';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
-import { Credit } from '../../shared/models/credit';
+import { ICredit } from '../../shared/models/credit';
 import { VwCredit } from '../../shared/models/vwcredit';
 import { CreditService } from '../../shared/services/credit/credit.service';
 

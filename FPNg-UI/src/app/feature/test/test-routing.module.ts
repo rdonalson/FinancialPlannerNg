@@ -4,16 +4,20 @@ import { Routes, RouterModule } from '@angular/router';
 import { TodoEditComponent } from './todo/todo-edit/todo-edit.component';
 import { TodoViewComponent } from './todo/todo-view/todo-view.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TestFeatureComponent } from './test-feature/test-feature.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'test', 
+        path: 'test',
           children: [
             { path: '', component: TestHomeComponent },
             { path: 'dashboard', component: DashboardComponent },
+            {
+              path: 'test-feature', component: TestFeatureComponent
+            },
             { path: 'todo',
               children: [
                 { path: '', component: TodoViewComponent },

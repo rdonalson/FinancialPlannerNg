@@ -4,7 +4,7 @@ import { TestHomeComponent } from './test-home.component';
 import { TodoEditComponent } from './todo/todo-edit/todo-edit.component';
 import { TodoViewComponent } from './todo/todo-view/todo-view.component';
 import { TestFeatureComponent } from './test-feature/test-feature.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -20,6 +20,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -32,8 +33,10 @@ import { MessageService } from 'primeng/api';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
+    DropdownModule,
     MatButtonModule,
     MatToolbarModule,
     MatListModule,

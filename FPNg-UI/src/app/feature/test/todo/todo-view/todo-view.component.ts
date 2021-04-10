@@ -41,7 +41,7 @@ export class TodoViewComponent implements OnInit {
   removeTodo(id: string): void {
     this.service.deleteTodo(+id).subscribe(() => {
       this.getTodos();
-    })
+    });
   }
 
 }

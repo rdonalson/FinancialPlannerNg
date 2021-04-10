@@ -1,10 +1,72 @@
 <h4>Test Feature</h4>
 <p>
   <span class="p-float-label">
-    <input id="in-Title" type="text" [(ngModel)]="title" pInputText>
+    <input id="in-Title" type="text" [(ngModel)]="title" pInputText />
     <label for="in-Title">Title</label>
   </span>
 </p>
 <p><button type="button" pButton label="PrimeNG" (click)="upper()"></button></p>
-<p>{{title}}</p>
+<p>{{ title }}</p>
 
+<div class="container mt-5">
+  <form [formGroup]="myForm" (ngSubmit)="submit()">
+    <p>
+      <select
+        class="custom-select"
+        formControlName="fruit"
+        (change)="changeFruit($event)"
+      >
+        <option disabled>Choose Value</option>
+        <option value="">Choose Fruit</option>
+        <option *ngFor="let fruit of Fruits">
+          {{ fruit }}
+        </option>
+      </select>
+    </p>
+
+    <div
+      *ngIf="isValidated && fruit.errors?.required"
+      class="alert alert-danger mt-2"
+    >
+      Please choose a fruit
+    </div>
+
+    <p>
+      <p-dropdown
+        formControlName="city"
+        [options]="Cities"
+        placeholder="Select a City"
+        optionLabel="name"
+        optionValue="code"
+        (onChange)="changeCity($event)"
+      ></p-dropdown>
+    </p>
+
+    <div
+      *ngIf="isValidated && city.errors?.required"
+      class="alert alert-danger mt-2"
+    >
+      Please choose a city
+    </div>
+
+    <p>
+      <p-dropdown
+        formControlName="order"
+        [options]="Orders"
+        placeholder="Select an order"
+        optionLabel="name"
+        optionValue="id"
+        (onChange)="changeOrder($event)"
+      ></p-dropdown>
+    </p>
+
+    <div
+      *ngIf="isValidated && order.errors?.required"
+      class="alert alert-danger mt-2"
+    >
+      Please choose an order
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Submit</button>
+  </form>
+</div>
