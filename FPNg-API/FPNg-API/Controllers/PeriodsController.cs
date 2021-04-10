@@ -27,8 +27,6 @@ namespace FPNg.API.Controllers
             _repoPeriod = new RepoPeriod(context);
         }
 
-        // GET: api/Periods
-
         /// <summary>
         ///     Gets all of the Periods for use in UI Selectors
         ///     GET: api/Periods
