@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
 import { catchError } from 'rxjs/operators';
+import { ConfirmationService } from 'primeng/api';
+
+
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
-import { ICredit } from '../../shared/models/credit';
 import { VwCredit } from '../../shared/models/vwcredit';
+import { UtilitiesService } from '../../shared/services/common/utilities.service';
 import { CreditService } from '../../shared/services/credit/credit.service';
 
 @Component({
@@ -17,7 +19,8 @@ export class CreditListComponent implements OnInit {
   userId: string = '';
 
   constructor(
-    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private util: UtilitiesService,
     private err: GlobalErrorHandlerService,
     private creditService: CreditService
   ) { }
@@ -40,6 +43,33 @@ export class CreditListComponent implements OnInit {
       });
   }
 
-
-
+  deleteCredit(id: number): void {
+    if (id === 0) {
+      // Don't delete, it was never saved.
+      this.util.onSaveComplete('Credit not Found');
+    } else {
+      this.confirmationService.confirm({
+        message: 'Do you want to delete this record?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        accept: () => {
+          this.creditService.deleteCredit(id)
+          // tslint:disable-next-line: deprecation
+          .subscribe({
+          next: (data: any) => {
+            console.log(`Credit-Edit deleteCredit: ${JSON.stringify(data)}`);
+            this.util.onSaveComplete(`Credit Deleted`);
+          },
+          error: catchError((err: any) => {
+            this.util.onError(`Credit Delete Failed`);
+            return this.err.handleError(err);
+          }),
+          complete: () => location.reload()
+          });
+        }
+      });
+    }
+  }
 }
+
+

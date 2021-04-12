@@ -30,7 +30,7 @@ export class TodoViewComponent implements OnInit {
   addTodo(add: NgForm): void {
     this.service.postTodo(add.value).subscribe(() => {
       this.getTodos();
-    })
+    });
     add.resetForm();
   }
 

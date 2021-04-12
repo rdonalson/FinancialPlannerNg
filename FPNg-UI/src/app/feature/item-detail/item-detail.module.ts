@@ -1,14 +1,14 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { InitialAmountComponent } from './initial-amount/initial-amount.component';
 import { ItemDetailRoutingModule } from './item-detail-routing.module';
@@ -31,6 +31,7 @@ import { PeriodService } from './shared/services/period/period.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ConfirmDialogModule,
     MessagesModule,
     MessageModule,
     ButtonModule,
@@ -41,6 +42,7 @@ import { PeriodService } from './shared/services/period/period.service';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
+    ConfirmationService,
     MessageService,
     UtilitiesService,
     PeriodService,

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService, Message } from 'primeng/api';
 import { fromEvent, merge, Observable, Subscription } from 'rxjs';
 import { catchError, debounceTime } from 'rxjs/operators';
 
@@ -19,7 +20,6 @@ import { GenericValidator } from '../../shared/validators/generic-validator';
 export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[] = [];
   pageTitle: string = 'Edit Credit';
-
   userId: string = '';
   periods: Period[] = [];
   credit!: ICredit;
@@ -42,6 +42,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param {PeriodService} periodService
    */
   constructor(
+    private confirmationService: ConfirmationService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -161,10 +162,10 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe({
           next: () => {
             console.log(`Credit-Edit saveCredit/createCredit: ${JSON.stringify(this.credit)}`);
-            this.util.onSaveComplete(`Record Created`);
+            this.util.onSaveComplete(`Credit Created`);
           },
           error: catchError((err: any) => {
-            this.util.onError(`Record Creation Failed`);
+            this.util.onError(`Credit Creation Failed`);
             return this.err.handleError(err);
           }),
           complete: () => this.router.navigate(['../../'], { relativeTo: this.route })
@@ -175,14 +176,41 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe({
           next: (data: any) => {
             console.log(`Credit-Edit updateCredit: ${JSON.stringify(data)}`);
-            this.util.onSaveComplete(`Record Updated`);
+            this.util.onSaveComplete(`Credit Updated`);
           },
           error: catchError((err: any) => {
-            this.util.onError(`Record Update Failed`);
+            this.util.onError(`Credit Update Failed`);
             return this.err.handleError(err);
           }),
           complete: () => this.router.navigate(['../../'], { relativeTo: this.route })
         });
+    }
+  }
+
+  deleteCredit(): void {
+    if (this.credit.pkCredit === 0) {
+      // Don't delete, it was never saved.
+      this.util.onSaveComplete('Cannot Delete Credit not Saved');
+    } else {
+      this.confirmationService.confirm({
+        message: 'Do you want to delete this record?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        accept: () => {
+          this.creditService.deleteCredit(this.credit.pkCredit)
+            // tslint:disable-next-line: deprecation
+            .subscribe({
+              next: (data: any) => {
+                console.log(`Credit-Edit deleteCredit: ${JSON.stringify(data)}`);
+              },
+              error: catchError((err: any) => {
+                this.util.onError(`Credit Delete Failed`);
+                return this.err.handleError(err);
+              }),
+              complete: () => this.router.navigate(['../../'], { relativeTo: this.route })
+            });
+        }
+      });
     }
   }
 
@@ -197,6 +225,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
         error: catchError((err: any) => this.err.handleError(err))
       });
   }
+
 
   private initialize(): void {
     const claims = JSON.parse(localStorage.getItem('claims') || '{}');

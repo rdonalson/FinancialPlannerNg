@@ -56,7 +56,7 @@ export class CreditService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<ICredit>(this.url, credit, { headers })
       .pipe(
-        // tap((data: ICredit) => console.log('Service createCredit: ' + JSON.stringify(data))),
+        tap((data: ICredit) => console.log('Service createCredit: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
@@ -72,8 +72,18 @@ export class CreditService {
     return this.http.put<ICredit>(url, credit, { headers })
       .pipe(
         // tap(() => console.log('updateCredit: ' + credit.pkCredit)),
-        // Return the product on an update
+        // Return the Credit on an update
         map(() => credit),
+        catchError((err: any) => this.err.handleError(err))
+      );
+  }
+
+  deleteCredit(id: number): Observable<{}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.url}/${id}`;
+    return this.http.delete<ICredit>(url, { headers })
+      .pipe(
+        tap((data: any) => console.log('Service deleteCredit: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
