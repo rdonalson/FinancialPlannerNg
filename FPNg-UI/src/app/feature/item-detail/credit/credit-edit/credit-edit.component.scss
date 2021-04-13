@@ -11,9 +11,12 @@
   .top-spacer {
     margin-top: 1rem;
   }
+
   .p-dropdown {
-    width: 14rem;
+    width: auto;
+    max-width: 14rem;
   }
+
   .p-checkbox {
     padding-top: .5rem;
   }
