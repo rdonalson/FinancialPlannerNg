@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 
-import { InitialAmount } from '../shared/models/initial-amount';
+import { IInitialAmount } from '../shared/models/initial-amount';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import { InitialAmountService } from '../shared/services/initial-amount/initial-amount.service';
-import { UtilitiesService } from '../shared/services/common/utilities.service';
+import { MessageUtilService } from '../shared/services/common/message-util.service';
 
 /**
  * Class and Page that manage the initial starting amount that the User has in their
@@ -17,16 +17,16 @@ import { UtilitiesService } from '../shared/services/common/utilities.service';
 export class InitialAmountComponent implements OnInit {
   pageTitle: string = 'Initial Amount';
   userId: string = '';
-  initialAmount!: InitialAmount;
+  initialAmount!: IInitialAmount;
 
   /**
    * Base Constructor
-   * @param {UtilitiesService} util A common utilities service
+   * @param {MessageUtilService} util A common utilities service
    * @param {GlobalErrorHandlerService} err Error Handler
    * @param {InitialAmountService} intialAmountService Initial Amount Service
    */
   constructor(
-    private util: UtilitiesService,
+    private util: MessageUtilService,
     private err: GlobalErrorHandlerService,
     private intialAmountService: InitialAmountService
   ) { }
@@ -50,7 +50,7 @@ export class InitialAmountComponent implements OnInit {
     return this.intialAmountService.getInitialAmount(userId)
       // tslint:disable-next-line: deprecation
       .subscribe({
-        next: (data: InitialAmount): void => {
+        next: (data: IInitialAmount): void => {
           if (!data) {
             this.saveInitialAmount();
           } else {
@@ -72,7 +72,7 @@ export class InitialAmountComponent implements OnInit {
       this.intialAmountService.createInitialAmount(this.initialAmount)
         // tslint:disable-next-line: deprecation
         .subscribe({
-          next: (data: InitialAmount): void => {
+          next: (data: IInitialAmount): void => {
             this.initialAmount = data;
             // console.log(`Record Created: ${JSON.stringify(this.initialAmount)}`);
             this.util.onSaveComplete('Default Record Created');
@@ -87,7 +87,7 @@ export class InitialAmountComponent implements OnInit {
       this.intialAmountService.updateInitialAmount(this.initialAmount)
         // tslint:disable-next-line: deprecation
         .subscribe({
-          next: (data: InitialAmount) => {
+          next: (data: IInitialAmount) => {
             this.initialAmount = data;
             // console.log(`Record Updated: ${JSON.stringify(this.initialAmount)}`);
           },

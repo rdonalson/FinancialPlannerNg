@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import * as auth from '../../../../../shared/auth-config.json';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
-import { VwCredit } from '../../models/vwcredit';
+import { IVwCredit } from '../../models/vwcredit';
 import { ICredit } from '../../models/credit';
 
 /**
@@ -22,11 +22,11 @@ export class CreditService {
   /**
    * Gets all of the Credits for this user
    * @param {string} userId User's OID from Login
-   * @returns {Observable<VwCredit[]>} returns the records
+   * @returns {Observable<IVwCredit[]>} returns the records
    */
-  getCredits(userId: string): Observable<VwCredit[]> {
+  getCredits(userId: string): Observable<IVwCredit[]> {
     const url = `${this.url}/${userId}/list`;
-    return this.http.get<VwCredit[]>(url)
+    return this.http.get<IVwCredit[]>(url)
       .pipe(
         // tap((data: VwCredit[]) => console.log('Service getCredits: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))

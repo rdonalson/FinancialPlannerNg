@@ -21,6 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { DropdownModule } from 'primeng/dropdown';
     ButtonModule,
     InputTextModule,
     DropdownModule,
+    CheckboxModule,
     MatButtonModule,
     MatToolbarModule,
     MatListModule,

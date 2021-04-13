@@ -5,7 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import * as auth from '../../../../../shared/auth-config.json';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
-import { Period } from '../../models/period';
+import { IPeriod } from '../../models/period';
 
 /**
  * Period Service
@@ -20,10 +20,10 @@ export class PeriodService {
 
   /**
    * Gets all of the Periods for use in UI Selectors
-   * @returns {Observable<Period[]>} returns the records
+   * @returns {Observable<IPeriod[]>} returns the records
    */
-  getPeriods(): Observable<Period[]> {
-    return this.http.get<Period[]>(this.url)
+  getPeriods(): Observable<IPeriod[]> {
+    return this.http.get<IPeriod[]>(this.url)
       .pipe(
         // tap((data: Period[]) => console.log('Service getPeriods: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
@@ -33,11 +33,11 @@ export class PeriodService {
   /**
    * Get a specific Period
    * @param {number} id The id of the Period
-   * @returns {Observable<Period>} return the record
+   * @returns {Observable<IPeriod>} return the record
    */
-  getPeriod(id: number): Observable<Period> {
+  getPeriod(id: number): Observable<IPeriod> {
     const url = `${this.url}/${id}`;
-    return this.http.get<Period>(url)
+    return this.http.get<IPeriod>(url)
       .pipe(
         // tap((data: Period) => console.log('Service getPeriod: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))

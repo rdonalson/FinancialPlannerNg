@@ -5,72 +5,138 @@
 
   <div class="card-body">
     <form novalidate (ngSubmit)="saveCredit()" [formGroup]="creditForm">
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label" for="creditNameId">Name</label>
-        <div class="col-md-8">
-          <input
-            pInputText
-            class="form-control"
-            id="creditNameId"
-            type="text"
-            class="p-inputtext"
-            placeholder="Name (required)"
-            formControlName="Name"
-            [ngClass]="{ 'is-invalid': displayMessage.Name }"
-          />
-          <span class="invalid-feedback">
-            {{ displayMessage.Name }}
-          </span>
-        </div>
-      </div>
-
-      <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label" for="creditAmountId"
-          >Amount</label
-        >
-        <div class="col-md-8">
-          <p-inputNumber
-            id="creditAmountId"
-            formControlName="Amount"
-            mode="currency"
-            currency="USD"
-            placeholder="Amount (required)"
-            locale="en-US"
-            [ngClass]="{ 'is-invalid': displayMessage.Amount }"
+      <div class="p-fluid">
+        <div class="p-field p-grid">
+          <label for="nameId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Name</label
           >
-          </p-inputNumber>
-          <span class="invalid-feedback">
-            {{ displayMessage.Amount }}
-          </span>
+          <div class="p-col-12 p-md-10">
+            <input
+              pInputText
+              id="nameId"
+              type="text"
+              class="p-inputtext"
+              placeholder="Name (required)"
+              formControlName="Name"
+              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+            />
+          </div>
         </div>
-      </div>
 
+        <div class="p-field p-grid">
+          <label for="amountId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Amount</label
+          >
+          <div class="p-col-12 p-md-10">
+            <p-inputNumber
+              id="amountId"
+              formControlName="Amount"
+              mode="currency"
+              currency="USD"
+              placeholder="Amount (required)"
+              locale="en-US"
+              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+            >
+            </p-inputNumber>
+          </div>
+        </div>
 
+        <div class="p-field p-grid">
+          <label for="periodId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Period</label
+          >
+          <div class="p-col">
+            <p-dropdown
+              id="periodId"
+              formControlName="Period"
+              [options]="periods"
+              placeholder="Select a Period"
+              optionLabel="name"
+              optionValue="pkPeriod"
+              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+            ></p-dropdown>
+          </div>
+        </div>
 
+        <div class="p-field p-grid">
+          <label for="annualMOYId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Month</label
+          >
+          <div class="p-col">
+            <p-dropdown
+              id="annualMOYId"
+              formControlName="AnnualMOY"
+              [options]="months"
+              placeholder="Select a Month"
+              optionLabel="key"
+              optionValue="value"
+              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+            ></p-dropdown>
+          </div>
+        </div>
 
-      <div class="form-group row mb-2">
-        <div class="offset-md-2 col-md-4">
-          <button class="btn btn-primary mr-3"
-                  style="width:80px;"
-                  type="submit"
-                  [title]="creditForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                  [disabled]="!creditForm.valid">
-            Save
-          </button>
-          <button class="btn btn-outline-secondary mr-3"
-                  style="width:80px;"
-                  type="button"
-                  title="Cancel your edits"
-                  [routerLink]="['../../']">
-            Cancel
-          </button>
-          <button class="btn btn-outline-warning"
-                  style="width:80px"
-                  type="button"
-                  title="Delete this product"
-                  (click)="deleteCredit()">
-            Delete
-          </button>
+        <div class="p-field p-grid">
+          <label for="annualDOMId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Day</label
+          >
+          <div class="p-col">
+            <p-dropdown
+              id="annualDOMId"
+              formControlName="AnnualDOM"
+              [options]="days"
+              placeholder="Select a Day"
+              optionLabel="key"
+              optionValue="value"
+              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <div class="p-field p-grid">
+          <label for="dateRangeReqId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Date Range?</label
+          >
+          <div class="p-col p-field-checkbox">
+            <p-checkbox
+              formControlName="DateRangeReq"
+              [binary]="true"
+            ></p-checkbox>
+          </div>
+        </div>
+
+        <div class="p-field p-grid">
+          <div class="p-offset-2 p-col-6 top-spacer">
+            <button
+              pButton
+              type="button"
+              label="Save"
+              style="width: 80px"
+              type="submit"
+              [title]="
+                creditForm.valid
+                  ? 'Save your entered data'
+                  : 'Disabled until the form data is valid'
+              "
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Cancel"
+              class="p-button-secondary p-button-outlined"
+              style="width: 80px"
+              title="Cancel your edits"
+              [routerLink]="['../../']"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Delete"
+              class="p-button-danger p-button-outlined"
+              style="width: 80px"
+              title="Delete this product"
+              (click)="deleteCredit()"
+            ></button>
+          </div>
         </div>
       </div>
     </form>
@@ -80,5 +146,10 @@
     {{ errorMessage }}
   </div>
 </div>
-<p-confirmDialog position='top' [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}"></p-confirmDialog>
+<p-confirmDialog
+  position="top"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+>
+</p-confirmDialog>
 <p-messages></p-messages>

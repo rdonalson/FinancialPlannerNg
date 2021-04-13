@@ -1,4 +1,4 @@
-export interface VwCredit {
+export interface IVwCredit {
   pkCredit: number;
   userId: string;
   amount: number;

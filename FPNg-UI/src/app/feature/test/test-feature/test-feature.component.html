@@ -67,6 +67,33 @@
       Please choose an order
     </div>
 
+    <p>
+      <p-dropdown
+        formControlName="month"
+        [options]="months"
+        placeholder="Select a month"
+        optionLabel="name"
+        optionValue="value"
+        (onChange)="changeMonth($event)"
+      ></p-dropdown>
+    </p>
+
+    <div
+      *ngIf="isValidated && month.errors?.required"
+      class="alert alert-danger mt-2"
+    >
+      Please choose an month
+    </div>
+
+    <div class="p-field-checkbox">
+      <p-checkbox
+        [binary]="true"
+        formControlName="certified"
+        >
+      </p-checkbox>
+      <label for="binary">{{myForm.value.certified}}</label>
+    </div>
+
     <button type="submit" class="btn btn-success mt-3">Submit</button>
   </form>
 </div>

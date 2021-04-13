@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EnumUtilService } from '../common/services/enum.service';
 import { City } from '../common/models/city';
 import { Order } from '../common/models/order';
 
@@ -8,7 +9,7 @@ import { Order } from '../common/models/order';
   styleUrls: ['./test-feature.component.scss']
 })
 export class TestFeatureComponent implements OnInit {
-  title!: string;
+  months: any;
   isValidated = false;
   Fruits!: string[];
   Cities!: City[];
@@ -16,7 +17,25 @@ export class TestFeatureComponent implements OnInit {
   myForm!: FormGroup;
   selectedCity!: City;
   cityValue: any;
-  constructor(public fb: FormBuilder) {
+  checked: boolean = true;
+
+  get fruit(): any {
+    return this.myForm.get('fruit');
+  }
+  get city(): any {
+    return this.myForm.get('city');
+  }
+  get order(): any {
+    return this.myForm.get('order');
+  }
+  get month(): any {
+    return this.myForm.get('month');
+  }
+
+  constructor(
+    public fb: FormBuilder,
+    private enumService: EnumUtilService
+  ) {
     this.Fruits = ['Apple', 'Mengo', 'Banana', 'Strawberry'];
     this.Cities = [
       { name: 'New York', code: 'NY' },
@@ -31,26 +50,19 @@ export class TestFeatureComponent implements OnInit {
       { id: 3, name: 'order 3' },
       { id: 4, name: 'order 4' }
     ];
+    this.months = this.enumService.months;
   }
 
+  title!: string;
 
   ngOnInit(): void {
-
     this.myForm = this.fb.group({
       fruit: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      order: ['', [Validators.required]]
+      order: ['', [Validators.required]],
+      month: ['', [Validators.required]],
+      certified: [false]
     });
-  }
-
-  get fruit(): any {
-    return this.myForm.get('fruit');
-  }
-  get city(): any {
-    return this.myForm.get('city');
-  }
-  get order(): any {
-    return this.myForm.get('order');
   }
 
   changeFruit(e: any): void {
@@ -71,6 +83,11 @@ export class TestFeatureComponent implements OnInit {
     });
   }
 
+  changeMonth(e: any): void {
+    this.month.setValue(e.target.value, {
+      onlySelf: true
+    });
+  }
 
   submit(): any {
     this.isValidated = true;
@@ -80,8 +97,6 @@ export class TestFeatureComponent implements OnInit {
       alert(JSON.stringify(this.myForm.value));
     }
   }
-
-
 
   upper(): void {
     this.title = this.title.toUpperCase();

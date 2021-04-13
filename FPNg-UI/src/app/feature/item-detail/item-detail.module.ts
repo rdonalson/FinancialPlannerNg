@@ -9,6 +9,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { InitialAmountComponent } from './initial-amount/initial-amount.component';
 import { ItemDetailRoutingModule } from './item-detail-routing.module';
@@ -17,8 +19,9 @@ import { InitialAmountService } from './shared/services/initial-amount/initial-a
 import { CreditListComponent } from './credit/credit-list/credit-list.component';
 import { CreditService } from './shared/services/credit/credit.service';
 import { CreditEditComponent } from './credit/credit-edit/credit-edit.component';
-import { UtilitiesService } from './shared/services/common/utilities.service';
+import { MessageUtilService } from './shared/services/common/message-util.service';
 import { PeriodService } from './shared/services/period/period.service';
+import { ArrayUtilService } from './shared/services/common/array-util.service';
 
 @NgModule({
   declarations: [
@@ -32,11 +35,13 @@ import { PeriodService } from './shared/services/period/period.service';
     FormsModule,
     ReactiveFormsModule,
     ConfirmDialogModule,
+    DropdownModule,
     MessagesModule,
     MessageModule,
     ButtonModule,
     InputNumberModule,
     InputTextModule,
+    CheckboxModule,
     TableModule,
     ItemDetailRoutingModule
   ],
@@ -44,10 +49,11 @@ import { PeriodService } from './shared/services/period/period.service';
   providers: [
     ConfirmationService,
     MessageService,
-    UtilitiesService,
+    MessageUtilService,
     PeriodService,
     InitialAmountService,
-    CreditService
+    CreditService,
+    ArrayUtilService
   ]
 })
 export class ItemDetailModule { }

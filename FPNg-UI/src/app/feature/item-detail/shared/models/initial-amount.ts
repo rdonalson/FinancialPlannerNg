@@ -1,4 +1,4 @@
-export interface InitialAmount {
+export interface IInitialAmount {
   pkInitialAmount: number;
   userId: string;
   amount: number;

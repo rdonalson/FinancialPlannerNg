@@ -1,4 +1,4 @@
-import { Period } from './period';
+import { IPeriod } from './period';
 
 export interface ICredit {
   pkCredit: number;
@@ -28,5 +28,5 @@ export interface ICredit {
   semiAnnual2Day?: number;
   annualMoy?: number;
   annualDom?: number;
-  period?: Period;
+  period?: IPeriod;
 }

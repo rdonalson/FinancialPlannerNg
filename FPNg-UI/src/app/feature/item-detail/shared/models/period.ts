@@ -1,4 +1,4 @@
-export interface Period {
+export interface IPeriod {
   pkPeriod: number;
   name: string;
 

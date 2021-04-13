@@ -4,8 +4,8 @@ import { ConfirmationService } from 'primeng/api';
 
 
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
-import { VwCredit } from '../../shared/models/vwcredit';
-import { UtilitiesService } from '../../shared/services/common/utilities.service';
+import { IVwCredit } from '../../shared/models/vwcredit';
+import { MessageUtilService } from '../../shared/services/common/message-util.service';
 import { CreditService } from '../../shared/services/credit/credit.service';
 
 @Component({
@@ -14,13 +14,13 @@ import { CreditService } from '../../shared/services/credit/credit.service';
 })
 export class CreditListComponent implements OnInit {
   pageTitle: string = 'Manage Credits';
-  creditList: VwCredit[] = [];
-  selectedCredits: VwCredit[] = [];
+  creditList: IVwCredit[] = [];
+  selectedCredits: IVwCredit[] = [];
   userId: string = '';
 
   constructor(
     private confirmationService: ConfirmationService,
-    private util: UtilitiesService,
+    private util: MessageUtilService,
     private err: GlobalErrorHandlerService,
     private creditService: CreditService
   ) { }
@@ -35,7 +35,7 @@ export class CreditListComponent implements OnInit {
     return this.creditService.getCredits(userId)
       // tslint:disable-next-line: deprecation
       .subscribe({
-        next: (data: VwCredit[]): void => {
+        next: (data: IVwCredit[]): void => {
           this.creditList = data;
           // console.log(JSON.stringify(this.creditList));
         },

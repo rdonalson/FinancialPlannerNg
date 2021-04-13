@@ -7,8 +7,10 @@ import { catchError, debounceTime } from 'rxjs/operators';
 
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import { ICredit } from '../../shared/models/credit';
-import { Period } from '../../shared/models/period';
-import { UtilitiesService } from '../../shared/services/common/utilities.service';
+import { IKeyValue } from '../../shared/models/key-value';
+import { IPeriod } from '../../shared/models/period';
+import { ArrayUtilService } from '../../shared/services/common/array-util.service';
+import { MessageUtilService } from '../../shared/services/common/message-util.service';
 import { CreditService } from '../../shared/services/credit/credit.service';
 import { PeriodService } from '../../shared/services/period/period.service';
 import { GenericValidator } from '../../shared/validators/generic-validator';
@@ -21,7 +23,9 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[] = [];
   pageTitle: string = 'Edit Credit';
   userId: string = '';
-  periods: Period[] = [];
+  periods!: IPeriod[];
+  months!: IKeyValue[];
+  days!: IKeyValue[];
   credit!: ICredit;
   creditForm!: FormGroup;
   private sub!: Subscription;
@@ -36,7 +40,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param {FormBuilder} fb
    * @param {ActivatedRoute} route
    * @param {Router} router
-   * @param {UtilitiesService} util
+   * @param {MessageUtilService} util
    * @param {GlobalErrorHandlerService} err
    * @param {CreditService} creditService
    * @param {PeriodService} periodService
@@ -46,7 +50,8 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private util: UtilitiesService,
+    private util: MessageUtilService,
+    private array: ArrayUtilService,
     private err: GlobalErrorHandlerService,
     private creditService: CreditService,
     private periodService: PeriodService
@@ -64,6 +69,8 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     // Define an instance of the validator for use with this form,
     // passing in this form's set of validation messages.
     this.genericValidator = new GenericValidator(this.validationMessages);
+    this.months = array.Months;
+    this.days = array.DaysInTheMonth;
   }
 
   /**
@@ -78,7 +85,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       Period: ['', [Validators.required]],
       AnnualMOY: ['', [Validators.required]],
       AnnualDOM: ['', [Validators.required]],
-      DateRangeReq: ['']
+      DateRangeReq: [ false ]
     });
     // Read the product Id from the route parameter
     // tslint:disable-next-line: deprecation
@@ -132,6 +139,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       AnnualDOM: this.credit.annualDom,
       DateRangeReq: this.credit.dateRangeReq
     });
+    console.log(`Credit-Edit patchValue: ${JSON.stringify(this.creditForm.value)}`);
   }
 
   patchFormValuesBackToObject(periodId: number): void {
@@ -218,7 +226,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.periodService.getPeriods()
       // tslint:disable-next-line: deprecation
       .subscribe({
-        next: (data: Period[]): void => {
+        next: (data: IPeriod[]): void => {
           this.periods = data;
           // console.log(`Credit-Edit getPriods: ${JSON.stringify(this.periods)}`);
         },

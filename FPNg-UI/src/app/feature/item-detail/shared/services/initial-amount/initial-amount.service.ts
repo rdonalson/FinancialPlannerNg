@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import * as auth from '../../../../../shared/auth-config.json';
-import { InitialAmount } from '../../models/initial-amount';
+import { IInitialAmount } from '../../models/initial-amount';
 
 /**
  * Initial Amount Service
@@ -27,11 +27,11 @@ export class InitialAmountService {
   /**
    * Gets the Initial Amount for this user
    * @param {string} userId User's OID from Login
-   * @returns {Observable<InitialAmount>} return the record
+   * @returns {Observable<IInitialAmount>} return the record
    */
-  getInitialAmount(userId: string): Observable<InitialAmount> {
+  getInitialAmount(userId: string): Observable<IInitialAmount> {
     const url = `${this.url}/${userId}`;
-    return this.http.get<InitialAmount>(url)
+    return this.http.get<IInitialAmount>(url)
       .pipe(
         tap(data => console.log('getInitialAmount: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
@@ -40,12 +40,12 @@ export class InitialAmountService {
 
   /**
    * Creates the new Initial Amount for the User
-   * @param {InitialAmount} initialAmount The new record to be added
-   * @returns {Observable<InitialAmount>} return the record
+   * @param {IInitialAmount} initialAmount The new record to be added
+   * @returns {Observable<IInitialAmount>} return the record
    */
-  createInitialAmount(initialAmount: InitialAmount): Observable<InitialAmount> {
+  createInitialAmount(initialAmount: IInitialAmount): Observable<IInitialAmount> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<InitialAmount>(this.url, initialAmount, { headers })
+    return this.http.post<IInitialAmount>(this.url, initialAmount, { headers })
       .pipe(
         tap(data => console.log('createInitialAmount: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
@@ -54,13 +54,13 @@ export class InitialAmountService {
 
   /**
    * Updates the Initial Amount
-   * @param {InitialAmount} initialAmount The record to be updated
-   * @returns {Observable<InitialAmount>} return the record
+   * @param {IInitialAmount} initialAmount The record to be updated
+   * @returns {Observable<IInitialAmount>} return the record
    */
-  updateInitialAmount(initialAmount: InitialAmount): Observable<InitialAmount> {
+  updateInitialAmount(initialAmount: IInitialAmount): Observable<IInitialAmount> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.url}/${initialAmount.userId}`;
-    return this.http.put<InitialAmount>(url, initialAmount, { headers })
+    return this.http.put<IInitialAmount>(url, initialAmount, { headers })
       .pipe(
         tap(() => console.log('updateInitialAmount: ' + initialAmount.pkInitialAmount)),
         // Return the product on an update
