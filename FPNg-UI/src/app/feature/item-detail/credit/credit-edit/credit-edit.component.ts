@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService, Message } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { fromEvent, merge, Observable, Subscription } from 'rxjs';
 import { catchError, debounceTime } from 'rxjs/operators';
 
@@ -25,7 +26,8 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   userId: string = '';
   periods!: IPeriod[];
   months!: IKeyValue[];
-  days!: IKeyValue[];
+  daysInMonth!: IKeyValue[];
+  weekDays!: IKeyValue[];
   credit!: ICredit;
   creditForm!: FormGroup;
   private sub!: Subscription;
@@ -41,6 +43,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param {ActivatedRoute} route
    * @param {Router} router
    * @param {MessageUtilService} util
+   * @param {ArrayUtilService} array
    * @param {GlobalErrorHandlerService} err
    * @param {CreditService} creditService
    * @param {PeriodService} periodService
@@ -51,7 +54,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private util: MessageUtilService,
-    private array: ArrayUtilService,
+    array: ArrayUtilService,
     private err: GlobalErrorHandlerService,
     private creditService: CreditService,
     private periodService: PeriodService
@@ -63,14 +66,18 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       Amount: { required: 'Amount is required.' },
       Period: { required: 'Period is required.' },
       AnnualMOY: { required: 'Month of Occurence is required.' },
-      AnnualDOM: { required: 'Day within the Month of Occurence is required.' }
+      AnnualDOM: { required: 'Day within the Month of Occurence is required.' },
+      WeeklyDOW: { required: 'Day of the Week is required.' },
+      BeginDate: { required: 'Start Date is required.' },
+      EndDate: { required: 'End Date is required.' }
     };
 
     // Define an instance of the validator for use with this form,
     // passing in this form's set of validation messages.
     this.genericValidator = new GenericValidator(this.validationMessages);
     this.months = array.Months;
-    this.days = array.DaysInTheMonth;
+    this.daysInMonth = array.DaysInTheMonth;
+    this.weekDays = array.WeekDays;
   }
 
   /**
@@ -85,7 +92,10 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       Period: ['', [Validators.required]],
       AnnualMOY: ['', [Validators.required]],
       AnnualDOM: ['', [Validators.required]],
-      DateRangeReq: [ false ]
+      DateRangeReq: [false],
+      WeeklyDOW: ['', [Validators.required]],
+      BeginDate: ['', [Validators.required]],
+      EndDate: ['', [Validators.required]]
     });
     // Read the product Id from the route parameter
     // tslint:disable-next-line: deprecation
@@ -118,7 +128,8 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe({
         next: (data: ICredit): void => {
           this.onCreditRetrieved(data);
-          // console.log(`Credit-Edit getCredit: ${JSON.stringify(data)}`);
+          console.log(`Credit-Edit patchValue: ${JSON.stringify(this.creditForm.value)}`);
+          console.log(`Credit-Edit getCredit: ${JSON.stringify(data)}`);
         },
         error: catchError((err: any) => this.err.handleError(err))
       });
@@ -137,23 +148,30 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       Period: this.credit.fkPeriod,
       AnnualMOY: this.credit.annualMoy,
       AnnualDOM: this.credit.annualDom,
-      DateRangeReq: this.credit.dateRangeReq
+      DateRangeReq: this.credit.dateRangeReq,
+      WeeklyDOW: this.credit.weeklyDow,
+      BeginDate: (this.credit.beginDate !== null && this.credit.beginDate !== undefined ? formatDate(this.credit.beginDate, 'MM/dd/yyyy', 'en') : ''),
+      EndDate:  (this.credit.endDate !== null && this.credit.endDate !== undefined ? formatDate(this.credit.endDate, 'MM/dd/yyyy', 'en') : '')
     });
-    console.log(`Credit-Edit patchValue: ${JSON.stringify(this.creditForm.value)}`);
   }
 
-  patchFormValuesBackToObject(periodId: number): void {
-    switch (periodId) {
-      case 1: {
+  patchFormValuesBackToObject(): void {
+
+    this.credit.name = this.creditForm.value.Name;
+    this.credit.amount = this.creditForm.value.Amount;
+    this.credit.fkPeriod = this.creditForm.value.Period;
+    this.credit.dateRangeReq = this.creditForm.value.DateRangeReq;
+    this.credit.beginDate = (this.creditForm.value.BeginDate !== null) ? new Date(this.creditForm.value.BeginDate) : undefined;
+    this.credit.endDate = (this.creditForm.value.EndDate !== null) ? new Date(this.creditForm.value.EndDate) : undefined;
+
+    switch (this.credit.fkPeriod) {
+      case 3: {
+        this.credit.weeklyDow = this.creditForm.value.WeeklyDOW;
         break;
       }
       case 9: {
-        this.credit.name = this.creditForm.value.Name;
-        this.credit.amount = this.creditForm.value.Amount;
-        this.credit.fkPeriod = this.creditForm.value.Period;
         this.credit.annualMoy = this.creditForm.value.AnnualMOY;
         this.credit.annualDom = this.creditForm.value.AnnualDOM;
-        this.credit.dateRangeReq = this.creditForm.value.DateRangeReq;
         break;
       }
       default: {
@@ -163,7 +181,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   saveCredit(): void {
     // const p: ICredit = { ...this.credit, ...this.creditForm.value };
-    this.patchFormValuesBackToObject(9);
+    this.patchFormValuesBackToObject();
     if (this.credit.pkCredit === 0) {
       this.creditService.createCredit(this.credit)
         // tslint:disable-next-line: deprecation

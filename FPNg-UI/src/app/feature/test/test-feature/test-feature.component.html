@@ -94,6 +94,12 @@
       <label for="binary">{{myForm.value.certified}}</label>
     </div>
 
+    <div class="p-field p-col-12 p-md-4">
+      <label for="icon">Icon</label>
+      <p-calendar formControlName="certDate" [showIcon]="true" inputId="icon"></p-calendar>
+      <label for="icon">{{myForm.value.certDate}}</label>
+    </div>
+
     <button type="submit" class="btn btn-success mt-3">Submit</button>
   </form>
 </div>

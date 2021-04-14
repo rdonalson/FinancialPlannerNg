@@ -17,6 +17,7 @@ export class TestFeatureComponent implements OnInit {
   myForm!: FormGroup;
   selectedCity!: City;
   cityValue: any;
+  certDate: Date = new Date('2020-05-05'); // new Date();
   checked: boolean = true;
 
   get fruit(): any {
@@ -61,7 +62,12 @@ export class TestFeatureComponent implements OnInit {
       city: ['', [Validators.required]],
       order: ['', [Validators.required]],
       month: ['', [Validators.required]],
-      certified: [false]
+      certified: [],
+      certDate: ['', [Validators.required]]
+    });
+
+    this.myForm.patchValue({
+      certDate: this.certDate
     });
   }
 

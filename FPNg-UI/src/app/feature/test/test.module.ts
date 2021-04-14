@@ -22,6 +22,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     InputTextModule,
     DropdownModule,
     CheckboxModule,
+    CalendarModule,
     MatButtonModule,
     MatToolbarModule,
     MatListModule,

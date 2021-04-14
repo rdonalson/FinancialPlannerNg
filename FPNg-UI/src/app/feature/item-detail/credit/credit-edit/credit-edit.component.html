@@ -5,7 +5,7 @@
 
   <div class="card-body">
     <form novalidate (ngSubmit)="saveCredit()" [formGroup]="creditForm">
-      <div class="p-fluid">
+      <div class="p-fluid ">
         <div class="p-field p-grid">
           <label for="nameId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
             >Name</label
@@ -54,7 +54,8 @@
               optionLabel="name"
               optionValue="pkPeriod"
               [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-            ></p-dropdown>
+            >
+            </p-dropdown>
           </div>
         </div>
 
@@ -83,7 +84,7 @@
             <p-dropdown
               id="annualDOMId"
               formControlName="AnnualDOM"
-              [options]="days"
+              [options]="daysInMonth"
               placeholder="Select a Day"
               optionLabel="key"
               optionValue="value"
@@ -101,6 +102,52 @@
               formControlName="DateRangeReq"
               [binary]="true"
             ></p-checkbox>
+          </div>
+        </div>
+
+        <div class="p-field p-grid">
+          <label for="beginDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Start Date</label
+          >
+          <div class="p-col">
+            <p-calendar
+              id="beginDateId"
+              formControlName="BeginDate"
+              [showIcon]="true"
+              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+            ></p-calendar>
+          </div>
+        </div>
+
+        <div class="p-field p-grid">
+          <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >End Date</label
+          >
+          <div class="p-col">
+            <p-calendar
+              id="endDateId"
+              formControlName="EndDate"
+              [showIcon]="true"
+              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="p-field p-grid">
+          <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Day of Week</label
+          >
+          <div class="p-col p-formgroup-inline">
+            <div *ngFor="let day of weekDays" class="p-field-radiobutton">
+              <p-radioButton
+                [inputId]="day.key"
+                name="WeeklyDOW"
+                [value]="day.value"
+                formControlName="WeeklyDOW"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              >
+              </p-radioButton>
+              <label [for]="day.key">{{ day.key }}</label>
+            </div>
           </div>
         </div>
 
