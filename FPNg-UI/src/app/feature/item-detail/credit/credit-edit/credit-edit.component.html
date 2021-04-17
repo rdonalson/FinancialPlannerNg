@@ -4,8 +4,11 @@
   </div>
 
   <div class="card-body">
+    <!-- Credit Reactive Form -->
     <form novalidate (ngSubmit)="saveCredit()" [formGroup]="creditForm">
-      <div class="p-fluid ">
+      <div class="p-fluid">
+        <!-- Common fields -->
+        <!-- Name -->
         <div class="p-field p-grid">
           <label for="nameId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
             >Name</label
@@ -22,7 +25,7 @@
             />
           </div>
         </div>
-
+        <!-- Amount -->
         <div class="p-field p-grid">
           <label for="amountId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
             >Amount</label
@@ -40,7 +43,7 @@
             </p-inputNumber>
           </div>
         </div>
-
+        <!-- Period -->
         <div class="p-field p-grid">
           <label for="periodId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
             >Period</label
@@ -53,104 +56,219 @@
               placeholder="Select a Period"
               optionLabel="name"
               optionValue="pkPeriod"
+              (onChange)="getPeriod($event)"
               [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
             >
             </p-dropdown>
           </div>
         </div>
 
-        <div class="p-field p-grid">
-          <label for="annualMOYId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-            >Month</label
-          >
-          <div class="p-col">
-            <p-dropdown
-              id="annualMOYId"
-              formControlName="AnnualMOY"
-              [options]="months"
-              placeholder="Select a Month"
-              optionLabel="key"
-              optionValue="value"
-              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-            ></p-dropdown>
+        <!-- *** Period -> Show / Hide Sections *** -->
+        <!-- Weekly -->
+        <div *ngIf="periodSwitch === 3">
+          <div class="p-field p-grid">
+            <label for="weeklyDowId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Day of Week</label>
+            <div class="p-col p-formgroup-inline">
+              <div id="weeklyDowId" *ngFor="let day of weekDays" class="p-field-radiobutton">
+                <p-radioButton
+                  [inputId]="day.key"
+                  [value]="day.value"
+                  formControlName="WeeklyDow"
+                  [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                >
+                </p-radioButton>
+                <label [for]="day.key">{{ day.key }}</label>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="p-field p-grid">
-          <label for="annualDOMId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-            >Day</label
-          >
-          <div class="p-col">
-            <p-dropdown
-              id="annualDOMId"
-              formControlName="AnnualDOM"
-              [options]="daysInMonth"
-              placeholder="Select a Day"
-              optionLabel="key"
-              optionValue="value"
-              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-            ></p-dropdown>
-          </div>
-        </div>
-
-        <div class="p-field p-grid">
-          <label for="dateRangeReqId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-            >Date Range?</label
-          >
-          <div class="p-col p-field-checkbox">
-            <p-checkbox
-              formControlName="DateRangeReq"
-              [binary]="true"
-            ></p-checkbox>
-          </div>
-        </div>
-
-        <div class="p-field p-grid">
-          <label for="beginDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-            >Start Date</label
-          >
-          <div class="p-col">
-            <p-calendar
-              id="beginDateId"
-              formControlName="BeginDate"
-              [showIcon]="true"
-              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-            ></p-calendar>
-          </div>
-        </div>
-
-        <div class="p-field p-grid">
-          <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-            >End Date</label
-          >
-          <div class="p-col">
-            <p-calendar
-              id="endDateId"
-              formControlName="EndDate"
-              [showIcon]="true"
-              [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-            ></p-calendar>
-          </div>
-        </div>
-        <div class="p-field p-grid">
-          <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-            >Day of Week</label
-          >
-          <div class="p-col p-formgroup-inline">
-            <div *ngFor="let day of weekDays" class="p-field-radiobutton">
-              <p-radioButton
-                [inputId]="day.key"
-                name="WeeklyDOW"
-                [value]="day.value"
-                formControlName="WeeklyDOW"
+        <!-- Initialization Date for Every Two Weeks & Date for the Single Occurence -->
+        <div *ngIf="periodSwitch === 4 || periodSwitch === 1">
+          <div class="p-field p-grid">
+            <label for="initDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Initialization Date</label
+            >
+            <div class="p-col">
+              <p-calendar
+                id="initDateId"
+                placeholder="Select a date for start"
+                formControlName="InitializationDate"
+                [showIcon]="true"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-              >
-              </p-radioButton>
-              <label [for]="day.key">{{ day.key }}</label>
+              ></p-calendar>
+            </div>
+          </div>
+        </div>
+        <!-- Every Other Week -->
+        <div *ngIf="periodSwitch === 4">
+          <div class="p-field p-grid">
+            <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Day of Week</label>
+            <div class="p-col p-formgroup-inline">
+              <div *ngFor="let day of weekDays" class="p-field-radiobutton">
+                <p-radioButton
+                  [inputId]="day.key"
+                  [value]="day.value"
+                  formControlName="EverOtherWeekDow"
+                  [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                >
+                </p-radioButton>
+                <label [for]="day.key">{{ day.key }}</label>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- Bi-Monthly -->
+        <div *ngIf="periodSwitch === 5">
+          <!-- 1st Day of Month -->
+          <div class="p-field p-grid">
+            <label for="monthlyDay1Id" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >1st Day of Month</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="monthlyDay1Id"
+                formControlName="BiMonthlyDay1"
+                [options]="daysInMonth"
+                placeholder="Select a Day"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+          <!-- 2nd Day of Month -->
+          <div class="p-field p-grid">
+            <label for="monthlyDay2Id" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >2nd Day of Month</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="monthlyDay2Id"
+                formControlName="BiMonthlyDay2"
+                [options]="daysInMonth"
+                placeholder="Select a Day"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monthly -->
+        <div *ngIf="periodSwitch === 6">
+          <!-- Day of Month -->
+          <div class="p-field p-grid">
+            <label for="monthlyDomId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Day of the Month</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="monthlyDomId"
+                formControlName="MonthlyDom"
+                [options]="daysInMonth"
+                placeholder="Select a Day"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+        </div>
+
+        <!-- Annual -->
+        <div *ngIf="periodSwitch === 9">
+          <!-- Month -->
+          <div class="p-field p-grid">
+            <label for="annualMoyId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Month</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="annualMoyId"
+                formControlName="AnnualMoy"
+                [options]="months"
+                placeholder="Select a Month"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+          <!-- Day of Month -->
+          <div class="p-field p-grid">
+            <label for="annualDomId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Day</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="annualDomId"
+                formControlName="AnnualDom"
+                [options]="daysInMonth"
+                placeholder="Select a Day"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="periodSwitch !== 1">
+          <!-- Date Range for Credit: Date Range Checkbox, Show Date Range DIV, Start Date & End Date Calendars -->
+          <div class="p-field p-grid">
+            <label for="dateRangeReqId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Date Range?</label
+            >
+            <div class="p-col p-field-checkbox">
+              <p-checkbox
+                formControlName="DateRangeReq"
+                [binary]="true"
+                (onChange)="showHideDateRange($event)"
+              >
+              </p-checkbox>
+            </div>
+          </div>
+        </div>
+        <!-- Show Date Range DIV -->
+        <div *ngIf="dateRangeToggle && (periodSwitch !== 4 && periodSwitch !== 1)">
+          <!-- Start Date -->
+          <div class="p-field p-grid">
+            <label for="beginDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Start Date</label
+            >
+            <div class="p-col">
+              <p-calendar
+                id="beginDateId"
+                placeholder="Select a start date"
+                formControlName="BeginDate"
+                [showIcon]="true"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-calendar>
+            </div>
+          </div>
+        </div>
+        <!-- Show Date Range DIV -->
+        <div *ngIf="dateRangeToggle && (periodSwitch !== 4 && periodSwitch !== 1)">
+          <!-- End Date -->
+          <div class="p-field p-grid">
+            <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >End Date</label
+            >
+            <div class="p-col">
+              <p-calendar
+                id="endDateId"
+                placeholder="Select an end date"
+                formControlName="EndDate"
+                [showIcon]="true"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <!-- Control Buttons -->
         <div class="p-field p-grid">
           <div class="p-offset-2 p-col-6 top-spacer">
             <button
@@ -164,6 +282,7 @@
                   ? 'Save your entered data'
                   : 'Disabled until the form data is valid'
               "
+              [disabled]="!creditForm.valid"
             ></button>
             <button
               pButton
@@ -187,10 +306,6 @@
         </div>
       </div>
     </form>
-  </div>
-
-  <div class="alert alert-danger" *ngIf="errorMessage">
-    {{ errorMessage }}
   </div>
 </div>
 <p-confirmDialog
