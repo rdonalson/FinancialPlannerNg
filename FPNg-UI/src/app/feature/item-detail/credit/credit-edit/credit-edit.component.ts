@@ -32,6 +32,10 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   creditForm!: FormGroup;
   dateRangeForm!: FormGroup;
   private sub!: Subscription;
+  periodSwitch: number | undefined;
+  annualToggle: boolean | undefined;
+  dateRangeToggle: boolean | undefined;
+
   errorMessage!: string;
   // Use with the generic validation message class
   displayMessage: { [key: string]: string } = {};
@@ -82,9 +86,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.weekDays = array.WeekDays;
   }
 
-  periodSwitch: number | undefined;
-  annualToggle: boolean | undefined;
-  dateRangeToggle: boolean | undefined;
+  //#region Events
 
   /**
    * Initialize the form
@@ -96,18 +98,21 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       Name: ['', [Validators.required]],
       Amount: ['', [Validators.required]],
       Period: ['', [Validators.required]],
+      // Date Range
       DateRangeReq: [false],
       BeginDate: [''],
       EndDate: [''],
-
+      // Weekly
       WeeklyDow: [''],
+      // Every Two Weeks (Every other week)
       EverOtherWeekDow: [''],
       InitializationDate: [''],
-
+      // Bi-Monthly (Twice a month)
       BiMonthlyDay1: [''],
       BiMonthlyDay2: [''],
+      // Monthly
       MonthlyDom: [''],
-
+      // Quarterly
       Quarterly1Month: [''],
       Quarterly1Day: [''],
       Quarterly2Month: [''],
@@ -116,12 +121,12 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       Quarterly3Day: [''],
       Quarterly4Month: [''],
       Quarterly4Day: [''],
-
+      // Semi-Annual (Twice a year)
       SemiAnnual1Month: [''],
       SemiAnnual1Day: [''],
       SemiAnnual2Month: [''],
       SemiAnnual2Day: [''],
-
+      // Annual
       AnnualMoy: [''],
       AnnualDom: [''],
     });
@@ -134,6 +139,9 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  /**
+   * Runs last and gathers all the field changes
+   */
   ngAfterViewInit(): void {
     // Watch for the blur event from any input element on the form.
     // This is required because the valueChanges does not provide notification on blur
@@ -148,171 +156,87 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.displayMessage = this.genericValidator.processMessages(this.creditForm);
       });
   }
+
+  /**
+   * Gets the user's Period Selection
+   * @param {any} e The selected value from the Period Drowdown Selector in UI
+   */
   getPeriod(e: any): void {
     this.periodSwitch = e.value;
     this.setPeriodFields(this.periodSwitch);
   }
-  setPeriodFields(period?: number): void {
-    this.updateWeeklyValidation(period);
-    this.updateEveryTwoWeeksAndOneTimeValidation(period);
-    this.updateBiMonthlyValidation(period);
-    this.updateMonthlyValidation(period);
-    this.updateAnnualValidation(period);
-  }
-  private updateWeeklyValidation(period?: number): void {
-    if (period === 3) {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['WeeklyDow'].setValidators([Validators.required]);
-    } else {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['WeeklyDow'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['WeeklyDow'].setValue(null);
-    }
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['WeeklyDow'].updateValueAndValidity();
-  }
 
-  private updateEveryTwoWeeksAndOneTimeValidation(period?: number): void {
-    if (period === 4 || period === 1) {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['InitializationDate'].setValidators([Validators.required]);
-    } else {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['InitializationDate'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['InitializationDate'].setValue(null);
-    }
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['InitializationDate'].updateValueAndValidity();
-
-    if (period === 1) {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['DateRangeReq'].setValue(false);
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['EndDate'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['EndDate'].setValue(null);
-    }
-
-    if (period === 4) {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['EverOtherWeekDow'].setValidators([Validators.required]);
-    } else {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['EverOtherWeekDow'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['EverOtherWeekDow'].setValue(null);
-    }
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['EverOtherWeekDow'].updateValueAndValidity();
-  }
-
-  private updateBiMonthlyValidation(period?: number): void {
-    if (period === 5) {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['BiMonthlyDay1'].setValidators([Validators.required]);
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['BiMonthlyDay2'].setValidators([Validators.required]);
-    } else {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['BiMonthlyDay1'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['BiMonthlyDay1'].setValue(null);
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['BiMonthlyDay2'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['BiMonthlyDay2'].setValue(null);
-    }
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['BiMonthlyDay1'].updateValueAndValidity();
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['BiMonthlyDay2'].updateValueAndValidity();  }
-
-  private updateMonthlyValidation(period?: number): void {
-    if (period === 6) {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['MonthlyDom'].setValidators([Validators.required]);
-    } else {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['MonthlyDom'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['MonthlyDom'].setValue(null);
-    }
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['MonthlyDom'].updateValueAndValidity();
-  }
-
-  private updateAnnualValidation(period?: number): void {
-    if (period === 9) {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['AnnualMoy'].setValidators([Validators.required]);
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['AnnualDom'].setValidators([Validators.required]);
-    } else {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['AnnualMoy'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['AnnualMoy'].setValue(null);
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['AnnualDom'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['AnnualDom'].setValue(null);
-    }
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['AnnualMoy'].updateValueAndValidity();
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['AnnualDom'].updateValueAndValidity();
-  }
-
+  /**
+   * Allows the user to select a Date Range
+   * @param {any} e Checked: True/False show Date Range Calendar Selectors
+   */
   showHideDateRange(e: any): void {
     this.dateRangeToggle = e.checked;
     this.updateDateRangeValidation(this.dateRangeToggle);
   }
 
-  private updateDateRangeValidation(toggle?: boolean): void {
-    if (toggle) {
-      if (this.periodSwitch !== 4 && this.periodSwitch !== 1) {
-        // tslint:disable-next-line: no-string-literal
-        this.creditForm.controls['BeginDate'].setValidators([Validators.required]);
-        // tslint:disable-next-line: no-string-literal
-        this.creditForm.controls['EndDate'].setValidators([Validators.required]);
-      } else {
-        // tslint:disable-next-line: no-string-literal
-        this.creditForm.controls['EndDate'].setValidators([Validators.required]);
-      }
-    } else {
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['BeginDate'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['BeginDate'].setValue(null);
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['EndDate'].clearValidators();
-      // tslint:disable-next-line: no-string-literal
-      this.creditForm.controls['EndDate'].setValue(null);
-    }
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['BeginDate'].updateValueAndValidity();
-    // tslint:disable-next-line: no-string-literal
-    this.creditForm.controls['EndDate'].updateValueAndValidity();
+  /**
+   * Removes the "sub" observable for Prameter retrieval
+   */
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
+  //#endregion Events
+
+  //#region Utilities
   /**
-   * Get a specific Credit
-   * @param {number} id The id of the Credit
-   * @returns {any} result
+   * Called on Form Init; gets users OID from Claims object in localstorage
+   * Also initializes a new ICredit class
    */
-  getCredit(id: number): any {
-    return this.creditService.getCredit(id)
-      // tslint:disable-next-line: deprecation
-      .subscribe({
-        next: (data: ICredit): void => {
-          this.onCreditRetrieved(data);
-          console.log(`Credit-Edit patchValue: ${JSON.stringify(this.creditForm.value)}`);
-          console.log(`Credit-Edit getCredit: ${JSON.stringify(data)}`);
-        },
-        error: catchError((err: any) => this.err.handleError(err))
-      });
+  private initialize(): void {
+    const claims = JSON.parse(localStorage.getItem('claims') || '{}');
+    this.userId = claims.oid;
+
+    this.credit = {
+      pkCredit: 0,
+      userId: this.userId,
+      name: '',
+      amount: 0,
+      fkPeriod: 1,
+      dateRangeReq: false,
+      beginDate: undefined,
+      endDate: undefined,
+      weeklyDow: undefined,
+      everOtherWeekDow: undefined,
+      biMonthlyDay1: undefined,
+      biMonthlyDay2: undefined,
+      monthlyDom: undefined,
+      quarterly1Month: undefined,
+      quarterly1Day: undefined,
+      quarterly2Month: undefined,
+      quarterly2Day: undefined,
+      quarterly3Month: undefined,
+      quarterly3Day: undefined,
+      quarterly4Month: undefined,
+      quarterly4Day: undefined,
+      semiAnnual1Month: undefined,
+      semiAnnual1Day: undefined,
+      semiAnnual2Month: undefined,
+      semiAnnual2Day: undefined,
+      annualMoy: undefined,
+      annualDom: undefined,
+      period: undefined
+    };
+  }
+  /**
+   * Calls all of the update validation functions which turns validation on/off
+   * for various field combination in the "creditForm" formbuild
+   * based on user's Period selection
+   * @param {number} period The Period Key Value
+   */
+  setPeriodFields(period?: number): void {
+    this.updateWeeklyValidation(period);
+    this.updateEveryTwoWeeksAndOneTimeValidation(period);
+    this.updateBiMonthlyValidation(period);
+    this.updateMonthlyValidation(period);
+    this.updateSemiAnnualValidation(period);
+    this.updateAnnualValidation(period);
   }
 
   /**
@@ -335,9 +259,9 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       DateRangeReq: this.credit.dateRangeReq,
       BeginDate: (
         (this.credit.beginDate !== null && this.credit.beginDate !== undefined
-        && (this.periodSwitch !== 4 && this.periodSwitch !== 1))
-        ? formatDate(this.credit.beginDate, 'MM/dd/yyyy', 'en')
-        : ''),
+          && (this.periodSwitch !== 4 && this.periodSwitch !== 1))
+          ? formatDate(this.credit.beginDate, 'MM/dd/yyyy', 'en')
+          : ''),
       EndDate: (this.credit.endDate !== null && this.credit.endDate !== undefined
         ? formatDate(this.credit.endDate, 'MM/dd/yyyy', 'en')
         : ''),
@@ -345,13 +269,9 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       EverOtherWeekDow: this.credit.everOtherWeekDow,
       InitializationDate: (
         (this.credit.beginDate !== null && this.credit.beginDate !== undefined
-            && (this.periodSwitch === 4 || this.periodSwitch === 1))
-        ? formatDate(this.credit.beginDate, 'MM/dd/yyyy', 'en')
-        : ''),
-      // InitializationDate: (
-      //   (this.credit.beginDate !== null && this.credit.beginDate !== undefined)
-      //   ? formatDate(this.credit.beginDate, 'MM/dd/yyyy', 'en')
-      //   : ''),
+          && (this.periodSwitch === 4 || this.periodSwitch === 1))
+          ? formatDate(this.credit.beginDate, 'MM/dd/yyyy', 'en')
+          : ''),
       BiMonthlyDay1: this.credit.biMonthlyDay1,
       BiMonthlyDay2: this.credit.biMonthlyDay2,
       MonthlyDom: this.credit.monthlyDom,
@@ -390,11 +310,11 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       this.creditForm.value.InitializationDate !== null && (this.periodSwitch === 4 || this.periodSwitch === 1)
         ? new Date(this.creditForm.value.InitializationDate)
         : (
-            ((this.creditForm.value.BeginDate !== null)
-              ? new Date(this.creditForm.value.BeginDate)
-              : undefined)
+          ((this.creditForm.value.BeginDate !== null)
+            ? new Date(this.creditForm.value.BeginDate)
+            : undefined)
         )
-      );
+    );
     // End Date for Date Range
     this.credit.endDate = (this.creditForm.value.EndDate !== null) ? new Date(this.creditForm.value.EndDate) : undefined;
     // Every Two Weeks (Every Other Week)
@@ -423,7 +343,208 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.credit.annualMoy = this.creditForm.value.AnnualMoy;
     this.credit.annualDom = this.creditForm.value.AnnualDom;
   }
+  //#endregion Utilities
 
+  //#region Validation Helpers
+  /**
+   * Handles Validation for the "Weekly" Fields:
+   *  "WeeklyDow" Weekday Radio Button Array, determines weekday of occurrence
+   * @param {number} period The user's period selection
+   */
+   private updateWeeklyValidation(period?: number): void {
+    if (period === 3) {
+      this.creditForm.controls['WeeklyDow'].setValidators([Validators.required]);
+    } else {
+      this.creditForm.controls['WeeklyDow'].clearValidators();
+      this.creditForm.controls['WeeklyDow'].setValue(null);
+    }
+    this.creditForm.controls['WeeklyDow'].updateValueAndValidity();
+  }
+
+  /**
+   * Handles Validation for "Every Two Weeks" and "One Time Occurrence" Fields:
+   * "Every Two Weeks" ->
+   *    "InitializationDate" Calendar Selector, which represents the Period's first occurrence.
+   *      Note: This value from this formbuild field reuses the "beginDate" field in credit (ICredit)
+   *            Also if a "Date Range" selected for this period it doesn't need the "BeginDate" because that value is handled
+   *            by "InitializationDate".  So part of the Date Range "EndDate" Validation is must be handled here.
+   *    "EverOtherWeekDow" Weekday Radio Button Array determines the weekday of occurrence.
+   * "One Time Occurrence" ->
+   *    "InitializationDate" is required for this period's day of occurrence
+   *      Note: There will never be a Date Range for this Period
+   * @param {number} period The user's period selection
+   */
+  private updateEveryTwoWeeksAndOneTimeValidation(period?: number): void {
+    if (period === 4 || period === 1) {
+      this.creditForm.controls['InitializationDate'].setValidators([Validators.required]);
+    } else {
+      this.creditForm.controls['InitializationDate'].clearValidators();
+      this.creditForm.controls['InitializationDate'].setValue(null);
+    }
+    this.creditForm.controls['InitializationDate'].updateValueAndValidity();
+
+    if (period === 1) {
+      this.creditForm.controls['DateRangeReq'].setValue(false);
+      this.creditForm.controls['EndDate'].clearValidators();
+      this.creditForm.controls['EndDate'].setValue(null);
+    }
+
+    if (period === 4) {
+      this.creditForm.controls['EverOtherWeekDow'].setValidators([Validators.required]);
+    } else {
+      this.creditForm.controls['EverOtherWeekDow'].clearValidators();
+      this.creditForm.controls['EverOtherWeekDow'].setValue(null);
+    }
+    this.creditForm.controls['EverOtherWeekDow'].updateValueAndValidity();
+  }
+
+  /**
+   * Handles Validation for the "Bi-Monthly" Fields:
+   * "BiMonthlyDay1" Dropdown Selector with days in the month, 1-28, select the first day of occurrence in the month
+   * "BiMonthlyDay2" Similar to first selector, intended for the second day of occurrence in the month
+   * @param {number} period The user's period selection
+   */
+  private updateBiMonthlyValidation(period?: number): void {
+    if (period === 5) {
+      this.creditForm.controls['BiMonthlyDay1'].setValidators([Validators.required]);
+      this.creditForm.controls['BiMonthlyDay2'].setValidators([Validators.required]);
+    } else {
+      this.creditForm.controls['BiMonthlyDay1'].clearValidators();
+      this.creditForm.controls['BiMonthlyDay1'].setValue(null);
+      this.creditForm.controls['BiMonthlyDay2'].clearValidators();
+      this.creditForm.controls['BiMonthlyDay2'].setValue(null);
+    }
+    this.creditForm.controls['BiMonthlyDay1'].updateValueAndValidity();
+    this.creditForm.controls['BiMonthlyDay2'].updateValueAndValidity();
+  }
+
+  /**
+   * Handles Validation for the "Monthly" Fields:
+   * "MonthlyDom" Dropdown Selector with days in the month, 1-28, select the day of occurrence in the month
+   * @param {number} period The user's period selection
+   */
+  private updateMonthlyValidation(period?: number): void {
+    if (period === 6) {
+      this.creditForm.controls['MonthlyDom'].setValidators([Validators.required]);
+    } else {
+      this.creditForm.controls['MonthlyDom'].clearValidators();
+      this.creditForm.controls['MonthlyDom'].setValue(null);
+    }
+    this.creditForm.controls['MonthlyDom'].updateValueAndValidity();
+  }
+
+  /**
+   * Handles Validation for the "Semi-Annual" Fields:
+   * @param {number} period The user's period selection
+   */
+  private updateSemiAnnualValidation(period?: number): void {
+    if (period === 8) {
+      this.creditForm.controls['SemiAnnual1Month'].setValidators([Validators.required]);
+      this.creditForm.controls['SemiAnnual1Day'].setValidators([Validators.required]);
+      this.creditForm.controls['SemiAnnual2Month'].setValidators([Validators.required]);
+      this.creditForm.controls['SemiAnnual2Day'].setValidators([Validators.required]);
+    } else {
+      this.creditForm.controls['SemiAnnual1Month'].clearValidators();
+      this.creditForm.controls['SemiAnnual1Month'].setValue(null);
+
+      this.creditForm.controls['SemiAnnual1Day'].clearValidators();
+      this.creditForm.controls['SemiAnnual1Day'].setValue(null);
+
+      this.creditForm.controls['SemiAnnual2Month'].clearValidators();
+      this.creditForm.controls['SemiAnnual2Month'].setValue(null);
+
+      this.creditForm.controls['SemiAnnual2Day'].clearValidators();
+      this.creditForm.controls['SemiAnnual2Day'].setValue(null);
+
+    }
+    this.creditForm.controls['SemiAnnual1Month'].updateValueAndValidity();
+    this.creditForm.controls['SemiAnnual1Day'].updateValueAndValidity();
+    this.creditForm.controls['SemiAnnual2Month'].updateValueAndValidity();
+    this.creditForm.controls['SemiAnnual2Day'].updateValueAndValidity();
+  }
+
+  /**
+   * Handles Validation for the "Annual" Fields:
+   * "AnnualMoy" Dropdown Selector with months in the year, January-December, select the month of occurrence in the year
+   * "MonthlyDom" Dropdown Selector with days in the month, 1-28, select the day of occurrence in the month
+   * @param {number} period The user's period selection
+   */
+  private updateAnnualValidation(period?: number): void {
+    if (period === 9) {
+      this.creditForm.controls['AnnualMoy'].setValidators([Validators.required]);
+      this.creditForm.controls['AnnualDom'].setValidators([Validators.required]);
+    } else {
+      this.creditForm.controls['AnnualMoy'].clearValidators();
+      this.creditForm.controls['AnnualMoy'].setValue(null);
+      this.creditForm.controls['AnnualDom'].clearValidators();
+      this.creditForm.controls['AnnualDom'].setValue(null);
+    }
+    this.creditForm.controls['AnnualMoy'].updateValueAndValidity();
+    this.creditForm.controls['AnnualDom'].updateValueAndValidity();
+  }
+
+  /**
+   * Handles Validation for the "Annual" Fields:
+   * "BeginDate" Calendar Selector, allows the user to set a Start Date for a particular Credit
+   * "EndDate" Calendar Selector, allows the user to set a Stop Date for a particular Credit
+   * @param {number} period The user's period selection
+   */
+  private updateDateRangeValidation(toggle?: boolean): void {
+    if (toggle) {
+      if (this.periodSwitch !== 4 && this.periodSwitch !== 1) {
+        this.creditForm.controls['BeginDate'].setValidators([Validators.required]);
+        this.creditForm.controls['EndDate'].setValidators([Validators.required]);
+      } else {
+        this.creditForm.controls['EndDate'].setValidators([Validators.required]);
+      }
+    } else {
+      this.creditForm.controls['BeginDate'].clearValidators();
+      this.creditForm.controls['BeginDate'].setValue(null);
+      this.creditForm.controls['EndDate'].clearValidators();
+      this.creditForm.controls['EndDate'].setValue(null);
+    }
+    this.creditForm.controls['BeginDate'].updateValueAndValidity();
+    this.creditForm.controls['EndDate'].updateValueAndValidity();
+  }
+  //#endregion Validation Helpers
+
+  //#region Data Functions
+  //#region Reads
+  /**
+   * Gets the complete list of Periods
+   * @returns {any} result
+   */
+  getPeriods(): any {
+    return this.periodService.getPeriods()
+      // tslint:disable-next-line: deprecation
+      .subscribe({
+        next: (data: IPeriod[]): void => {
+          this.periods = data;
+          // console.log(`Credit-Edit getPriods: ${JSON.stringify(this.periods)}`);
+        },
+        error: catchError((err: any) => this.err.handleError(err))
+      });
+  }
+
+  /**
+   * Get a specific Credit
+   * @param {number} id The id of the Credit
+   * @returns {any} result
+   */
+  getCredit(id: number): any {
+    return this.creditService.getCredit(id)
+      // tslint:disable-next-line: deprecation
+      .subscribe({
+        next: (data: ICredit): void => {
+          this.onCreditRetrieved(data);
+          console.log(`Credit-Edit patchValue: ${JSON.stringify(this.creditForm.value)}`);
+          console.log(`Credit-Edit getCredit: ${JSON.stringify(data)}`);
+        },
+        error: catchError((err: any) => this.err.handleError(err))
+      });
+  }
+  //#endregion Reads
+  //#region Writes
   /**
    * Upserts the database credit record by either calling the
    * "createCredit" or "updateCredit" API calls based on
@@ -496,63 +617,6 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
   }
-
-  /**
-   * Gets the complete list of Periods
-   * @returns {any} result
-   */
-  getPeriods(): any {
-    return this.periodService.getPeriods()
-      // tslint:disable-next-line: deprecation
-      .subscribe({
-        next: (data: IPeriod[]): void => {
-          this.periods = data;
-          // console.log(`Credit-Edit getPriods: ${JSON.stringify(this.periods)}`);
-        },
-        error: catchError((err: any) => this.err.handleError(err))
-      });
-  }
-
-  private initialize(): void {
-    const claims = JSON.parse(localStorage.getItem('claims') || '{}');
-    this.userId = claims.oid;
-
-    this.credit = {
-      pkCredit: 0,
-      userId: this.userId,
-      name: '',
-      amount: 0,
-      fkPeriod: 1,
-      dateRangeReq: false,
-      beginDate: undefined,
-      endDate: undefined,
-      weeklyDow: undefined,
-      everOtherWeekDow: undefined,
-      biMonthlyDay1: undefined,
-      biMonthlyDay2: undefined,
-      monthlyDom: undefined,
-      quarterly1Month: undefined,
-      quarterly1Day: undefined,
-      quarterly2Month: undefined,
-      quarterly2Day: undefined,
-      quarterly3Month: undefined,
-      quarterly3Day: undefined,
-      quarterly4Month: undefined,
-      quarterly4Day: undefined,
-      semiAnnual1Month: undefined,
-      semiAnnual1Day: undefined,
-      semiAnnual2Month: undefined,
-      semiAnnual2Day: undefined,
-      annualMoy: undefined,
-      annualDom: undefined,
-      period: undefined
-    };
-  }
-
-  /**
-   * Removes the "sub" observable for Prameter retrieval
-   */
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
+  //#endregion Writes
+  //#endregion Data Functions
 }

@@ -177,6 +177,100 @@
           </div>
         </div>
 
+        <!-- Monthly -->
+        <div *ngIf="periodSwitch === 6">
+          <!-- Day of Month -->
+          <div class="p-field p-grid">
+            <label for="monthlyDomId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Day of the Month</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="monthlyDomId"
+                formControlName="MonthlyDom"
+                [options]="daysInMonth"
+                placeholder="Select a Day"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semi-Annual -->
+        <div *ngIf="periodSwitch === 8">
+          <!-- Month 1 -->
+          <div class="p-field p-grid">
+            <label for="semiAnnualMoy1Id" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >1st Month</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="semiAnnualMoy1Id"
+                formControlName="SemiAnnual1Month"
+                [options]="months"
+                placeholder="Select a Month"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+          <!-- Day of Month 1 -->
+          <div class="p-field p-grid">
+            <label for="semiAnnualDom1Id" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Day in Month 1</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="semiAnnualDom1Id"
+                formControlName="SemiAnnual1Day"
+                [options]="daysInMonth"
+                placeholder="Select a Day"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+
+          <!-- Month 2 -->
+          <div class="p-field p-grid">
+            <label for="semiAnnualMoy2Id" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >2nd Month</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="semiAnnualMoy2Id"
+                formControlName="SemiAnnual2Month"
+                [options]="months"
+                placeholder="Select a Month"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+          <!-- Day of Month 2 -->
+          <div class="p-field p-grid">
+            <label for="semiAnnualDom1Id" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+              >Day in Month 2</label
+            >
+            <div class="p-col">
+              <p-dropdown
+                id="semiAnnualDom2Id"
+                formControlName="SemiAnnual2Day"
+                [options]="daysInMonth"
+                placeholder="Select a Day"
+                optionLabel="key"
+                optionValue="value"
+                [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              ></p-dropdown>
+            </div>
+          </div>
+        </div>
+
         <!-- Annual -->
         <div *ngIf="periodSwitch === 9">
           <!-- Month -->
@@ -250,7 +344,7 @@
           </div>
         </div>
         <!-- Show Date Range DIV -->
-        <div *ngIf="dateRangeToggle && (periodSwitch !== 4 && periodSwitch !== 1)">
+        <div *ngIf="dateRangeToggle">
           <!-- End Date -->
           <div class="p-field p-grid">
             <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
