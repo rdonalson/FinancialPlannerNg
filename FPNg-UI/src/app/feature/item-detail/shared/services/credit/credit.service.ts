@@ -19,6 +19,7 @@ export class CreditService {
     private err: GlobalErrorHandlerService
   ) { }
 
+  //#region Reads
   /**
    * Gets all of the Credits for this user
    * @param {string} userId User's OID from Login
@@ -46,9 +47,11 @@ export class CreditService {
         catchError((err: any) => this.err.handleError(err))
       );
   }
+  //#endregion Reads
 
+  //#region Writes
   /**
-   * Creates the new Credit for the User
+   * Creates a new Credit Record
    * @param {ICredit} credit The new record to be added
    * @returns {Observable<ICredit>} return the record
    */
@@ -62,7 +65,7 @@ export class CreditService {
   }
 
   /**
-   * Updates the Credit
+   * Updates a specific Credit Record
    * @param {ICredit} credit The new record to be updated
    * @returns {Observable<ICredit>} return the record
    */
@@ -78,6 +81,11 @@ export class CreditService {
       );
   }
 
+  /**
+   * Deletes a specific Credit Record
+   * @param {number} id The id of the Credit
+   * @returns {Observable<ICredit>} return the record
+   */
   deleteCredit(id: number): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.url}/${id}`;
@@ -87,4 +95,5 @@ export class CreditService {
         catchError((err: any) => this.err.handleError(err))
       );
   }
+  //#endregion Writes
 }

@@ -21,26 +21,24 @@ import { GenericValidator } from '../../shared/validators/generic-validator';
   styleUrls: ['./credit-edit.component.scss']
 })
 export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
+  private userId: string = '';
+  private credit!: ICredit;
+  private sub!: Subscription;
+  private errorMessage!: string;
+  // Use with the generic validation message class
+  private displayMessage: { [key: string]: string } = {};
+  private validationMessages: { [key: string]: { [key: string]: string } };
+  private genericValidator: GenericValidator;
+
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[] = [];
   pageTitle: string = 'Edit Credit';
-  userId: string = '';
   periods!: IPeriod[];
   months!: IKeyValue[];
   daysInMonth!: IKeyValue[];
   weekDays!: IKeyValue[];
-  credit!: ICredit;
   creditForm!: FormGroup;
-  dateRangeForm!: FormGroup;
-  private sub!: Subscription;
   periodSwitch: number | undefined;
-  annualToggle: boolean | undefined;
   dateRangeToggle: boolean | undefined;
-
-  errorMessage!: string;
-  // Use with the generic validation message class
-  displayMessage: { [key: string]: string } = {};
-  private validationMessages: { [key: string]: { [key: string]: string } };
-  private genericValidator: GenericValidator;
 
   /**
    * Base Constructor
@@ -235,6 +233,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateEveryTwoWeeksAndOneTimeValidation(period);
     this.updateBiMonthlyValidation(period);
     this.updateMonthlyValidation(period);
+    this.updateQuarterlyValidation(period);
     this.updateSemiAnnualValidation(period);
     this.updateAnnualValidation(period);
   }
@@ -253,9 +252,11 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dateRangeToggle = this.credit.dateRangeReq;
     // Update the data on the form
     this.creditForm.patchValue({
+      // Common Fields
       Name: this.credit.name,
       Amount: this.credit.amount,
       Period: this.credit.fkPeriod,
+      // Date Range
       DateRangeReq: this.credit.dateRangeReq,
       BeginDate: (
         (this.credit.beginDate !== null && this.credit.beginDate !== undefined
@@ -265,16 +266,24 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       EndDate: (this.credit.endDate !== null && this.credit.endDate !== undefined
         ? formatDate(this.credit.endDate, 'MM/dd/yyyy', 'en')
         : ''),
-      WeeklyDow: this.credit.weeklyDow,
-      EverOtherWeekDow: this.credit.everOtherWeekDow,
+      // "InitializationDate" is used With "One Time Occurrence" and with
+      // "Every Other Week", with the latter it is used in the place of "BeginDate"
       InitializationDate: (
         (this.credit.beginDate !== null && this.credit.beginDate !== undefined
           && (this.periodSwitch === 4 || this.periodSwitch === 1))
           ? formatDate(this.credit.beginDate, 'MM/dd/yyyy', 'en')
           : ''),
+
+      // Weekly
+      WeeklyDow: this.credit.weeklyDow,
+      // Every Other Week (Every Two Weeks)
+      EverOtherWeekDow: this.credit.everOtherWeekDow,
+      // Bi-Monthly
       BiMonthlyDay1: this.credit.biMonthlyDay1,
       BiMonthlyDay2: this.credit.biMonthlyDay2,
+      // Monthly
       MonthlyDom: this.credit.monthlyDom,
+      // Quarterly
       Quarterly1Month: this.credit.quarterly1Month,
       Quarterly1Day: this.credit.quarterly1Day,
       Quarterly2Month: this.credit.quarterly2Month,
@@ -283,10 +292,12 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       Quarterly3Day: this.credit.quarterly3Day,
       Quarterly4Month: this.credit.quarterly4Month,
       Quarterly4Day: this.credit.quarterly4Day,
+      // Semi-Annual
       SemiAnnual1Month: this.credit.semiAnnual1Month,
       SemiAnnual1Day: this.credit.semiAnnual1Day,
       SemiAnnual2Month: this.credit.semiAnnual2Month,
       SemiAnnual2Day: this.credit.semiAnnual2Day,
+      // Annual
       AnnualMoy: this.credit.annualMoy,
       AnnualDom: this.credit.annualDom,
     });
@@ -351,7 +362,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    *  "WeeklyDow" Weekday Radio Button Array, determines weekday of occurrence
    * @param {number} period The user's period selection
    */
-   private updateWeeklyValidation(period?: number): void {
+  private updateWeeklyValidation(period?: number): void {
     if (period === 3) {
       this.creditForm.controls['WeeklyDow'].setValidators([Validators.required]);
     } else {
@@ -434,31 +445,91 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
+   * Handles Validation for the "Quarterly" Fields:
+   * "Quarterly[1-4]Month" Dropdown Selectors with months in the year, January-December, select the month of occurrence in the year
+   * "Quarterly[1-4]Day" Dropdown Selectors with days in the month, 1-28, select the day of occurrence in the month
+   * @param {number} period The user's period selection
+   */
+  private updateQuarterlyValidation(period?: number): void {
+    if (period === 7) {
+      // First Quarter
+      this.creditForm.controls['Quarterly1Month'].setValidators([Validators.required]);
+      this.creditForm.controls['Quarterly1Day'].setValidators([Validators.required]);
+      // Second Quarter
+      this.creditForm.controls['Quarterly2Month'].setValidators([Validators.required]);
+      this.creditForm.controls['Quarterly2Day'].setValidators([Validators.required]);
+      // Third Quarter
+      this.creditForm.controls['Quarterly3Month'].setValidators([Validators.required]);
+      this.creditForm.controls['Quarterly3Day'].setValidators([Validators.required]);
+      // Fourth Quarter
+      this.creditForm.controls['Quarterly4Month'].setValidators([Validators.required]);
+      this.creditForm.controls['Quarterly4Day'].setValidators([Validators.required]);
+    } else {
+      // First Quarter
+      this.creditForm.controls['Quarterly1Month'].clearValidators();
+      this.creditForm.controls['Quarterly1Month'].setValue(null);
+      this.creditForm.controls['Quarterly1Day'].clearValidators();
+      this.creditForm.controls['Quarterly1Day'].setValue(null);
+      // Second Quarter
+      this.creditForm.controls['Quarterly2Month'].clearValidators();
+      this.creditForm.controls['Quarterly2Month'].setValue(null);
+      this.creditForm.controls['Quarterly2Day'].clearValidators();
+      this.creditForm.controls['Quarterly2Day'].setValue(null);
+      // Third Quarter
+      this.creditForm.controls['Quarterly3Month'].clearValidators();
+      this.creditForm.controls['Quarterly3Month'].setValue(null);
+      this.creditForm.controls['Quarterly3Day'].clearValidators();
+      this.creditForm.controls['Quarterly3Day'].setValue(null);
+      // Fourth Quarter
+      this.creditForm.controls['Quarterly4Month'].clearValidators();
+      this.creditForm.controls['Quarterly4Month'].setValue(null);
+      this.creditForm.controls['Quarterly4Day'].clearValidators();
+      this.creditForm.controls['Quarterly4Day'].setValue(null);
+    }
+    // First Quarter
+    this.creditForm.controls['Quarterly1Month'].updateValueAndValidity();
+    this.creditForm.controls['Quarterly1Day'].updateValueAndValidity();
+    // Second Quarter
+    this.creditForm.controls['Quarterly2Month'].updateValueAndValidity();
+    this.creditForm.controls['Quarterly2Day'].updateValueAndValidity();
+    // Third Quarter
+    this.creditForm.controls['Quarterly3Month'].updateValueAndValidity();
+    this.creditForm.controls['Quarterly3Day'].updateValueAndValidity();
+    // Fourth Quarter
+    this.creditForm.controls['Quarterly4Month'].updateValueAndValidity();
+    this.creditForm.controls['Quarterly4Day'].updateValueAndValidity();
+  }
+
+  /**
    * Handles Validation for the "Semi-Annual" Fields:
+   * "SemiAnnual[1-2]Month" Dropdown Selectors with months in the year, January-December, select the month of occurrence in the year
+   * "SemiAnnual[1-2]Day" Dropdown Selectors with days in the month, 1-28, select the day of occurrence in the month
    * @param {number} period The user's period selection
    */
   private updateSemiAnnualValidation(period?: number): void {
     if (period === 8) {
+      // First Annum
       this.creditForm.controls['SemiAnnual1Month'].setValidators([Validators.required]);
       this.creditForm.controls['SemiAnnual1Day'].setValidators([Validators.required]);
+      // Second Annum
       this.creditForm.controls['SemiAnnual2Month'].setValidators([Validators.required]);
       this.creditForm.controls['SemiAnnual2Day'].setValidators([Validators.required]);
     } else {
+      // First Annum
       this.creditForm.controls['SemiAnnual1Month'].clearValidators();
       this.creditForm.controls['SemiAnnual1Month'].setValue(null);
-
       this.creditForm.controls['SemiAnnual1Day'].clearValidators();
       this.creditForm.controls['SemiAnnual1Day'].setValue(null);
-
+      // Second Annum
       this.creditForm.controls['SemiAnnual2Month'].clearValidators();
       this.creditForm.controls['SemiAnnual2Month'].setValue(null);
-
       this.creditForm.controls['SemiAnnual2Day'].clearValidators();
       this.creditForm.controls['SemiAnnual2Day'].setValue(null);
-
     }
+    // First Annum
     this.creditForm.controls['SemiAnnual1Month'].updateValueAndValidity();
     this.creditForm.controls['SemiAnnual1Day'].updateValueAndValidity();
+    // Second Annum
     this.creditForm.controls['SemiAnnual2Month'].updateValueAndValidity();
     this.creditForm.controls['SemiAnnual2Day'].updateValueAndValidity();
   }

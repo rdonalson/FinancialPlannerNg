@@ -12,6 +12,11 @@
     margin-top: 1rem;
   }
 
+  .p-col-max-width-15 {
+    width: auto;
+    max-width: 15rem;
+  }
+
   .p-dropdown {
     width: auto;
     max-width: 14rem;
@@ -31,8 +36,3 @@
   }
 }
 
-//@media screen and (max-width: 960px) {
-  // :host ::ng-deep {
-
-  // }
-//}
