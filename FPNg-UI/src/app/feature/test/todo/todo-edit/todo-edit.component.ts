@@ -19,11 +19,11 @@ export class TodoEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private service: TodoService) { }
 
   ngOnInit(): void {
-    // tslint:disable-next-line: deprecation
+    // eslint-disable-next-line import/no-deprecated
     this.route.paramMap.subscribe((params) => {
-      // tslint:disable-next-line: no-non-null-assertion
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const id = +params.get('id')!;
-      // tslint:disable-next-line: deprecation
+      // eslint-disable-next-line import/no-deprecated
       this.service.getTodo(+id).subscribe((response: Todo) => {
         this.todo = response;
       });

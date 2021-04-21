@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -38,7 +39,7 @@ const isIE =
  * For more info, visit: https://github.com/AzureAD/microsoft-authentication-library-for-js
  * /blob/dev/lib/msal-angular/docs/v2-docs/configuration.md
  */
-export function MSALInstanceFactory(): IPublicClientApplication {
+export function msalInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: auth.credentials.clientId,
@@ -59,7 +60,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
  * https://github.com/AzureAD/microsoft-authentication-library-for-js
  * /blob/dev/lib/msal-angular/docs/v2-docs/initialization.md#get-tokens-for-web-api-calls
  */
-export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+export function msalInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set(
     auth.resources.todoListApi.resourceUri,
@@ -76,7 +77,7 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
  * Set your default interaction type for MSALGuard here. If you have any
  * additional scopes you want the user to consent upon login, add them here as well.
  */
-export function MSALGuardConfigFactory(): MsalGuardConfiguration {
+export function msalGuardConfigFactory(): MsalGuardConfiguration {
   return { interactionType: InteractionType.Redirect };
 }
 
@@ -100,15 +101,15 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     },
     {
       provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory,
+      useFactory: msalInstanceFactory,
     },
     {
       provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory,
+      useFactory: msalGuardConfigFactory,
     },
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfigFactory,
+      useFactory: msalInterceptorConfigFactory,
     },
     MsalService,
     MsalGuard,

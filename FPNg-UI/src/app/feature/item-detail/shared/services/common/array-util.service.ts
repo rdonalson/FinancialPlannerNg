@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { IKeyValue } from '../../models/key-value';
 
@@ -6,16 +7,29 @@ export class ArrayUtilService {
   private months!: IKeyValue[];
   private weekDays!: IKeyValue[];
   private daysInTheMonth!: IKeyValue[];
+
+  /**
+   * Months array: for use in Dropdown Selectors
+   */
   public get Months(): IKeyValue[] {
     return this.months;
   }
+  /**
+   * Weekdays array: for use in Radio Button Selector Groups
+   */
   public get WeekDays(): IKeyValue[] {
     return this.weekDays;
   }
+  /**
+   * Days in the Month array: for use in Dropdown Selectors
+   */
   public get DaysInTheMonth(): IKeyValue[] {
     return this.daysInTheMonth;
   }
 
+  /**
+   * Base Constructor
+   */
   constructor() {
     this.daysInTheMonth = [
       { key: ' 1', value: 1 },

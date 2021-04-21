@@ -18,7 +18,7 @@
       >
         <option disabled>Choose Value</option>
         <option value="">Choose Fruit</option>
-        <option *ngFor="let fruit of Fruits">
+        <option *ngFor="let fruit of fruits">
           {{ fruit }}
         </option>
       </select>
@@ -34,7 +34,7 @@
     <p>
       <p-dropdown
         formControlName="city"
-        [options]="Cities"
+        [options]="cities"
         placeholder="Select a City"
         optionLabel="name"
         optionValue="code"
@@ -52,7 +52,7 @@
     <p>
       <p-dropdown
         formControlName="order"
-        [options]="Orders"
+        [options]="orders"
         placeholder="Select an order"
         optionLabel="name"
         optionValue="id"

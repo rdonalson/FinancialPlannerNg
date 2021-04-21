@@ -22,6 +22,7 @@ export class CreditService {
   //#region Reads
   /**
    * Gets all of the Credits for this user
+   *
    * @param {string} userId User's OID from Login
    * @returns {Observable<IVwCredit[]>} returns the records
    */
@@ -36,6 +37,7 @@ export class CreditService {
 
   /**
    * Get a specific Credit
+   *
    * @param {number} id The id of the Credit
    * @returns {Observable<ICredit>} return the record
    */
@@ -52,11 +54,12 @@ export class CreditService {
   //#region Writes
   /**
    * Creates a new Credit Record
+   *
    * @param {ICredit} credit The new record to be added
    * @returns {Observable<ICredit>} return the record
    */
   createCredit(credit: ICredit): Observable<ICredit> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'content-type': 'application/json' });
     return this.http.post<ICredit>(this.url, credit, { headers })
       .pipe(
         tap((data: ICredit) => console.log('Service createCredit: ' + JSON.stringify(data))),
@@ -66,11 +69,12 @@ export class CreditService {
 
   /**
    * Updates a specific Credit Record
+   *
    * @param {ICredit} credit The new record to be updated
    * @returns {Observable<ICredit>} return the record
    */
   updateCredit(credit: ICredit): Observable<ICredit> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'content-type': 'application/json' });
     const url = `${this.url}/${credit.pkCredit}`;
     return this.http.put<ICredit>(url, credit, { headers })
       .pipe(
@@ -83,11 +87,12 @@ export class CreditService {
 
   /**
    * Deletes a specific Credit Record
+   *
    * @param {number} id The id of the Credit
    * @returns {Observable<ICredit>} return the record
    */
-  deleteCredit(id: number): Observable<{}> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  deleteCredit(id: number): Observable<null> {
+    const headers = new HttpHeaders({ 'content-type': 'application/json' });
     const url = `${this.url}/${id}`;
     return this.http.delete<ICredit>(url, { headers })
       .pipe(

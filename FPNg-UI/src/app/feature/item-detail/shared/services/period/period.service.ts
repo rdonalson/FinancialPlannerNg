@@ -18,8 +18,10 @@ export class PeriodService {
     private err: GlobalErrorHandlerService
   ) { }
 
+  //#region Reads
   /**
    * Gets all of the Periods for use in UI Selectors
+   *
    * @returns {Observable<IPeriod[]>} returns the records
    */
   getPeriods(): Observable<IPeriod[]> {
@@ -32,6 +34,7 @@ export class PeriodService {
 
   /**
    * Get a specific Period
+   *
    * @param {number} id The id of the Period
    * @returns {Observable<IPeriod>} return the record
    */
@@ -43,5 +46,5 @@ export class PeriodService {
         catchError((err: any) => this.err.handleError(err))
       );
   }
-
+  //#endregion Reads
 }

@@ -28,7 +28,7 @@ import { SharedModule } from './shared/shared.module';
 export class AppModule implements OnInit {
   constructor(public primengConfig: PrimeNGConfig) {}
 
-  // tslint:disable-next-line:contextual-lifecycle
+  // eslint-disable-next-line @angular-eslint/contextual-lifecycle
   ngOnInit(): void {
     this.primengConfig.ripple = true;
   }

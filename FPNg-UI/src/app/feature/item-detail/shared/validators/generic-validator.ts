@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-delimiter-style */
 import { FormGroup } from '@angular/forms';
 
 // Generic validator for Reactive forms

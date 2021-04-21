@@ -15,7 +15,7 @@ export class InitialAmountService {
   private url = auth.resources.todoListApi.resourceUri + '/initialamounts';
 
   /**
-   * Base Constructor
+   * Base Constructor   *
    * @param {HttpClient} http Used for calling the Apis
    * @param {GlobalErrorHandlerService} err Error Handler
    */
@@ -24,8 +24,10 @@ export class InitialAmountService {
     private err: GlobalErrorHandlerService
   ) { }
 
+  //#region Reads
   /**
    * Gets the Initial Amount for this user
+   *
    * @param {string} userId User's OID from Login
    * @returns {Observable<IInitialAmount>} return the record
    */
@@ -37,14 +39,17 @@ export class InitialAmountService {
         catchError((err: any) => this.err.handleError(err))
       );
   }
+  //#endregion Reads
 
+  //#region Writes
   /**
    * Creates the new Initial Amount for the User
+   *
    * @param {IInitialAmount} initialAmount The new record to be added
    * @returns {Observable<IInitialAmount>} return the record
    */
   createInitialAmount(initialAmount: IInitialAmount): Observable<IInitialAmount> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'content-type': 'application/json' });
     return this.http.post<IInitialAmount>(this.url, initialAmount, { headers })
       .pipe(
         tap(data => console.log('createInitialAmount: ' + JSON.stringify(data))),
@@ -54,11 +59,12 @@ export class InitialAmountService {
 
   /**
    * Updates the Initial Amount
+   *
    * @param {IInitialAmount} initialAmount The record to be updated
    * @returns {Observable<IInitialAmount>} return the record
    */
   updateInitialAmount(initialAmount: IInitialAmount): Observable<IInitialAmount> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'content-type': 'application/json' });
     const url = `${this.url}/${initialAmount.userId}`;
     return this.http.put<IInitialAmount>(url, initialAmount, { headers })
       .pipe(
@@ -68,4 +74,5 @@ export class InitialAmountService {
         catchError((err: any) => this.err.handleError(err))
       );
   }
+  //#endregion Writes
 }

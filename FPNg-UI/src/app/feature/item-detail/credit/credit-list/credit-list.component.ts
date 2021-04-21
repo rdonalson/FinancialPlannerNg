@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { ConfirmationService } from 'primeng/api';
@@ -7,30 +8,50 @@ import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-er
 import { IVwCredit } from '../../shared/models/vwcredit';
 import { MessageUtilService } from '../../shared/services/common/message-util.service';
 import { CreditService } from '../../shared/services/credit/credit.service';
+import { GeneralUtilService } from 'src/app/core/services/common/general-util.service';
 
 @Component({
   templateUrl: './credit-list.component.html',
   styleUrls: ['./credit-list.component.scss']
 })
 export class CreditListComponent implements OnInit {
-  pageTitle: string = 'Manage Credits';
+  pageTitle = 'Manage Credits';
   creditList: IVwCredit[] = [];
   selectedCredits: IVwCredit[] = [];
-  userId: string = '';
+  userId = '';
 
+  /**
+   * Base Constructor
+   *
+   * @param {GeneralUtilService} generalUtilService
+   * @param {MessageUtilService} messageUtilService
+   * @param {GlobalErrorHandlerService} err
+   * @param {ConfirmationService} confirmationService
+   * @param {CreditService} creditService
+   */
   constructor(
-    private confirmationService: ConfirmationService,
-    private util: MessageUtilService,
+    private generalUtilService: GeneralUtilService,
+    private messageUtilService: MessageUtilService,
     private err: GlobalErrorHandlerService,
+    private confirmationService: ConfirmationService,
     private creditService: CreditService
   ) { }
 
+  /**
+   * Initialize the form
+   */
   ngOnInit(): void {
-    const claims = JSON.parse(localStorage.getItem('claims') || '{}');
-    this.userId = claims.oid;
+    this.userId = this.generalUtilService.getUserOid();
     this.getCredits(this.userId);
   }
 
+  //#region Data Functions
+  //#region Reads
+  /**
+   *
+   * @param {string} userId User's OID
+   * @returns {any}
+   */
   getCredits(userId: string): any {
     return this.creditService.getCredits(userId)
       // tslint:disable-next-line: deprecation
@@ -39,14 +60,23 @@ export class CreditListComponent implements OnInit {
           this.creditList = data;
           // console.log(JSON.stringify(this.creditList));
         },
-        error: catchError((err: any) => this.err.handleError(err))
+        error: catchError((err: any) => this.err.handleError(err)),
+        complete: () => {
+          // console.log('getCredits complete');
+        }
       });
   }
-
+  //#endregion Reads
+  //#region Writes
+  /**
+   * Delete a specific Credit
+   * Prompt User before committing
+   * @param {number} id The id of the Credit
+   */
   deleteCredit(id: number): void {
     if (id === 0) {
       // Don't delete, it was never saved.
-      this.util.onSaveComplete('Credit not Found');
+      this.messageUtilService.onSaveComplete('Credit not Found');
     } else {
       this.confirmationService.confirm({
         message: 'Do you want to delete this record?',
@@ -58,10 +88,10 @@ export class CreditListComponent implements OnInit {
           .subscribe({
           next: (data: any) => {
             console.log(`Credit-Edit deleteCredit: ${JSON.stringify(data)}`);
-            this.util.onSaveComplete(`Credit Deleted`);
+            this.messageUtilService.onSaveComplete(`Credit Deleted`);
           },
           error: catchError((err: any) => {
-            this.util.onError(`Credit Delete Failed`);
+            this.messageUtilService.onError(`Credit Delete Failed`);
             return this.err.handleError(err);
           }),
           complete: () => location.reload()
@@ -70,6 +100,8 @@ export class CreditListComponent implements OnInit {
       });
     }
   }
+  //#endregion Writes
+  //#endregion Data Functions
 }
 
 

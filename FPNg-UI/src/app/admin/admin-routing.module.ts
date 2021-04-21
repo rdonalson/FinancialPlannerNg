@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './system/error/error.component';
 import { PageNotFoundComponent } from './system/page-not-found/page-not-found.component';
 
-// tslint:disable-next-line:one-variable-per-declaration
+// eslint-disable-next-line one-var
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'error', component: ErrorComponent },

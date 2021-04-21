@@ -15,6 +15,7 @@ import { MessageUtilService } from '../../shared/services/common/message-util.se
 import { CreditService } from '../../shared/services/credit/credit.service';
 import { PeriodService } from '../../shared/services/period/period.service';
 import { GenericValidator } from '../../shared/validators/generic-validator';
+import { GeneralUtilService } from 'src/app/core/services/common/general-util.service';
 
 @Component({
   templateUrl: './credit-edit.component.html',
@@ -42,21 +43,25 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Base Constructor
+   *
+   * @param {GeneralUtilService} claimsUtilService
+   * @param {ConfirmationService} confirmationService
    * @param {FormBuilder} fb
    * @param {ActivatedRoute} route
    * @param {Router} router
-   * @param {MessageUtilService} util
+   * @param {MessageUtilService} messageUtilService
    * @param {ArrayUtilService} array
    * @param {GlobalErrorHandlerService} err
    * @param {CreditService} creditService
    * @param {PeriodService} periodService
    */
   constructor(
+    private claimsUtilService: GeneralUtilService,
     private confirmationService: ConfirmationService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private util: MessageUtilService,
+    private messageUtilService: MessageUtilService,
     array: ArrayUtilService,
     private err: GlobalErrorHandlerService,
     private creditService: CreditService,
@@ -85,7 +90,6 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //#region Events
-
   /**
    * Initialize the form
    */
@@ -130,7 +134,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     // Read the product Id from the route parameter
     this.sub = this.route.params
-      // tslint:disable-next-line: deprecation
+      // eslint-disable-next-line import/no-deprecated
       .subscribe((params: any) => {
         const id = +params.id;
         this.getCredit(id);
@@ -149,7 +153,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     // Merge the blur event observable with the valueChanges observable
     // so we only need to subscribe once.
     merge(this.creditForm.valueChanges, ...controlBlurs).pipe(debounceTime(800))
-      // tslint:disable-next-line: deprecation
+      // eslint-disable-next-line import/no-deprecated
       .subscribe((value: any) => {
         this.displayMessage = this.genericValidator.processMessages(this.creditForm);
       });
@@ -157,6 +161,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Gets the user's Period Selection
+   *
    * @param {any} e The selected value from the Period Drowdown Selector in UI
    */
   getPeriod(e: any): void {
@@ -166,6 +171,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Allows the user to select a Date Range
+   *
    * @param {any} e Checked: True/False show Date Range Calendar Selectors
    */
   showHideDateRange(e: any): void {
@@ -179,7 +185,6 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
-
   //#endregion Events
 
   //#region Utilities
@@ -188,9 +193,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * Also initializes a new ICredit class
    */
   private initialize(): void {
-    const claims = JSON.parse(localStorage.getItem('claims') || '{}');
-    this.userId = claims.oid;
-
+    this.userId = this.claimsUtilService.getUserOid();
     this.credit = {
       pkCredit: 0,
       userId: this.userId,
@@ -226,6 +229,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * Calls all of the update validation functions which turns validation on/off
    * for various field combination in the "creditForm" formbuild
    * based on user's Period selection
+   *
    * @param {number} period The Period Key Value
    */
   setPeriodFields(period?: number): void {
@@ -241,6 +245,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Populates the "creditForm" fields with the retrieved Credit record
    * Initializes varibles necessary for operation
+   *
    * @param {ICredit} credit The retrieved Credit record
    */
   onCreditRetrieved(credit: ICredit): void {
@@ -360,6 +365,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Handles Validation for the "Weekly" Fields:
    *  "WeeklyDow" Weekday Radio Button Array, determines weekday of occurrence
+   *
    * @param {number} period The user's period selection
    */
   private updateWeeklyValidation(period?: number): void {
@@ -383,6 +389,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * "One Time Occurrence" ->
    *    "InitializationDate" is required for this period's day of occurrence
    *      Note: There will never be a Date Range for this Period
+   *
    * @param {number} period The user's period selection
    */
   private updateEveryTwoWeeksAndOneTimeValidation(period?: number): void {
@@ -413,6 +420,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handles Validation for the "Bi-Monthly" Fields:
    * "BiMonthlyDay1" Dropdown Selector with days in the month, 1-28, select the first day of occurrence in the month
    * "BiMonthlyDay2" Similar to first selector, intended for the second day of occurrence in the month
+   *
    * @param {number} period The user's period selection
    */
   private updateBiMonthlyValidation(period?: number): void {
@@ -432,6 +440,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Handles Validation for the "Monthly" Fields:
    * "MonthlyDom" Dropdown Selector with days in the month, 1-28, select the day of occurrence in the month
+   *
    * @param {number} period The user's period selection
    */
   private updateMonthlyValidation(period?: number): void {
@@ -448,6 +457,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handles Validation for the "Quarterly" Fields:
    * "Quarterly[1-4]Month" Dropdown Selectors with months in the year, January-December, select the month of occurrence in the year
    * "Quarterly[1-4]Day" Dropdown Selectors with days in the month, 1-28, select the day of occurrence in the month
+   *
    * @param {number} period The user's period selection
    */
   private updateQuarterlyValidation(period?: number): void {
@@ -504,6 +514,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handles Validation for the "Semi-Annual" Fields:
    * "SemiAnnual[1-2]Month" Dropdown Selectors with months in the year, January-December, select the month of occurrence in the year
    * "SemiAnnual[1-2]Day" Dropdown Selectors with days in the month, 1-28, select the day of occurrence in the month
+   *
    * @param {number} period The user's period selection
    */
   private updateSemiAnnualValidation(period?: number): void {
@@ -538,6 +549,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handles Validation for the "Annual" Fields:
    * "AnnualMoy" Dropdown Selector with months in the year, January-December, select the month of occurrence in the year
    * "MonthlyDom" Dropdown Selector with days in the month, 1-28, select the day of occurrence in the month
+   *
    * @param {number} period The user's period selection
    */
   private updateAnnualValidation(period?: number): void {
@@ -558,6 +570,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handles Validation for the "Annual" Fields:
    * "BeginDate" Calendar Selector, allows the user to set a Start Date for a particular Credit
    * "EndDate" Calendar Selector, allows the user to set a Stop Date for a particular Credit
+   *
    * @param {number} period The user's period selection
    */
   private updateDateRangeValidation(toggle?: boolean): void {
@@ -583,11 +596,12 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   //#region Reads
   /**
    * Gets the complete list of Periods
+   *
    * @returns {any} result
    */
   getPeriods(): any {
     return this.periodService.getPeriods()
-      // tslint:disable-next-line: deprecation
+      // eslint-disable-next-line import/no-deprecated
       .subscribe({
         next: (data: IPeriod[]): void => {
           this.periods = data;
@@ -599,12 +613,13 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Get a specific Credit
+   *
    * @param {number} id The id of the Credit
    * @returns {any} result
    */
   getCredit(id: number): any {
     return this.creditService.getCredit(id)
-      // tslint:disable-next-line: deprecation
+      // eslint-disable-next-line import/no-deprecated
       .subscribe({
         next: (data: ICredit): void => {
           this.onCreditRetrieved(data);
@@ -625,28 +640,28 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.patchFormValuesBackToObject();
     if (this.credit.pkCredit === 0) {
       this.creditService.createCredit(this.credit)
-        // tslint:disable-next-line: deprecation
+        // eslint-disable-next-line import/no-deprecated
         .subscribe({
           next: () => {
             console.log(`Credit-Edit saveCredit/createCredit: ${JSON.stringify(this.credit)}`);
-            this.util.onSaveComplete(`Credit Created`);
+            this.messageUtilService.onSaveComplete(`Credit Created`);
           },
           error: catchError((err: any) => {
-            this.util.onError(`Credit Creation Failed`);
+            this.messageUtilService.onError(`Credit Creation Failed`);
             return this.err.handleError(err);
           }),
           complete: () => this.router.navigate(['../../'], { relativeTo: this.route })
         });
     } else {
       this.creditService.updateCredit(this.credit)
-        // tslint:disable-next-line: deprecation
+        // eslint-disable-next-line import/no-deprecated
         .subscribe({
           next: (data: any) => {
             console.log(`Credit-Edit updateCredit: ${JSON.stringify(data)}`);
-            this.util.onSaveComplete(`Credit Updated`);
+            this.messageUtilService.onSaveComplete(`Credit Updated`);
           },
           error: catchError((err: any) => {
-            this.util.onError(`Credit Update Failed`);
+            this.messageUtilService.onError(`Credit Update Failed`);
             return this.err.handleError(err);
           }),
           complete: () => this.router.navigate(['../../'], { relativeTo: this.route })
@@ -665,7 +680,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   deleteCredit(): void {
     if (this.credit.pkCredit === 0) {
       // Don't delete, it was never saved.
-      this.util.onSaveComplete('New Credit entries discarded');
+      this.messageUtilService.onSaveComplete('New Credit entries discarded');
     } else {
       this.confirmationService.confirm({
         message: 'Do you want to delete this record?',
@@ -673,13 +688,13 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
         icon: 'pi pi-info-circle',
         accept: () => {
           this.creditService.deleteCredit(this.credit.pkCredit)
-            // tslint:disable-next-line: deprecation
+            // eslint-disable-next-line import/no-deprecated
             .subscribe({
               next: (data: any) => {
                 console.log(`Credit-Edit deleteCredit: ${JSON.stringify(data)}`);
               },
               error: catchError((err: any) => {
-                this.util.onError(`Credit Delete Failed`);
+                this.messageUtilService.onError(`Credit Delete Failed`);
                 return this.err.handleError(err);
               }),
               complete: () => this.router.navigate(['../../'], { relativeTo: this.route })

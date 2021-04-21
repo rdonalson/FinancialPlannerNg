@@ -9,11 +9,12 @@ import { Order } from '../common/models/order';
   styleUrls: ['./test-feature.component.scss']
 })
 export class TestFeatureComponent implements OnInit {
+  title!: string;
   months: any;
   isValidated = false;
-  Fruits!: string[];
-  Cities!: City[];
-  Orders!: Order[];
+  fruits!: string[];
+  cities!: City[];
+  orders!: Order[];
   myForm!: FormGroup;
   selectedCity!: City;
   cityValue: any;
@@ -37,15 +38,15 @@ export class TestFeatureComponent implements OnInit {
     public fb: FormBuilder,
     private enumService: EnumUtilService
   ) {
-    this.Fruits = ['Apple', 'Mengo', 'Banana', 'Strawberry'];
-    this.Cities = [
+    this.fruits = ['Apple', 'Mengo', 'Banana', 'Strawberry'];
+    this.cities = [
       { name: 'New York', code: 'NY' },
       { name: 'Rome', code: 'RM' },
       { name: 'London', code: 'LDN' },
       { name: 'Istanbul', code: 'IST' },
       { name: 'Paris', code: 'PRS' }
     ];
-    this.Orders = [
+    this.orders = [
       { id: 1, name: 'order 1' },
       { id: 2, name: 'order 2' },
       { id: 3, name: 'order 3' },
@@ -53,8 +54,6 @@ export class TestFeatureComponent implements OnInit {
     ];
     this.months = this.enumService.months;
   }
-
-  title!: string;
 
   ngOnInit(): void {
     this.myForm = this.fb.group({

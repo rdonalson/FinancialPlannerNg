@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-shadow */
 import { Injectable } from '@angular/core';
 
 @Injectable({

@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   constructor(private authService: MsalService) {}
 
   ngOnInit(): void {
-    // tslint:disable-next-line: deprecation
+    // eslint-disable-next-line import/no-deprecated
     this.authService.handleRedirectObservable().subscribe({
       next: (result) => console.log(result),
       error: (error) => console.log(error),

@@ -4,6 +4,7 @@
   </div>
   <div class="card-body" #cardBody >
     <div class="p-grid p-fluid">
+      <!-- Data Input Field -->
       <div class="p-field ">
         <p-inputNumber
           [(ngModel)]="initialAmount.amount"
@@ -14,6 +15,7 @@
           tabindex="1" >
         </p-inputNumber>
       </div>
+      <!-- Save Changes Button -->
       <div class="p-field">
         <button pButton pRipple
           type="button"
@@ -25,4 +27,5 @@
     </div>
   </div>
 </div>
+<!-- Informational Messages -->
 <p-messages></p-messages>

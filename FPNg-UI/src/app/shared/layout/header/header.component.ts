@@ -19,8 +19,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isIframe = false;
   loggedIn = false;
 
-  // tslint:disable-next-line: variable-name
-  private readonly _destroying$ = new Subject<void>();
+  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
+  private readonly destroying$ = new Subject<void>();
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
@@ -171,8 +171,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.msalBroadcastService.msalSubject$
       .pipe(
         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS),
-        takeUntil(this._destroying$)
+        takeUntil(this.destroying$)
       )
+      // eslint-disable-next-line import/no-deprecated
       // tslint:disable-next-line: deprecation
       .subscribe({
         next: (result: any) => this.getClaims(result),
@@ -197,9 +198,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
       if (this.msalGuardConfig.authRequest) {
         this.authService.loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
+          // tslint:disable-next-line: deprecation
           .subscribe(() => this.checkAccount());
       } else {
         this.authService.loginPopup()
+          // tslint:disable-next-line: deprecation
           .subscribe(() => this.checkAccount());
       }
     } else {
@@ -218,7 +221,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // unsubscribe to events when component is destroyed
   ngOnDestroy(): void {
-    this._destroying$.next(undefined);
-    this._destroying$.complete();
+    this.destroying$.next(undefined);
+    this.destroying$.complete();
   }
 }
