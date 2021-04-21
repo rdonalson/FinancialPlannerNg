@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { EventMessage, EventType, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
 import { MenuItem } from 'primeng/api';
@@ -13,21 +16,30 @@ import { filter, takeUntil } from 'rxjs/operators';
 export class HeaderComponent implements OnInit, OnDestroy {
   items: MenuItem[] = [];
   claims: any;
-  userName: string = '';
+  userName = '';
   oid!: string;
   title = 'Financial Planner Ng';
   isIframe = false;
   loggedIn = false;
-
-  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
   private readonly destroying$ = new Subject<void>();
 
+  /**
+   * Base Constructor
+   * @param {Router} router
+   * @param {MsalGuardConfiguration} msalGuardConfig
+   * @param {MsalService} authService
+   * @param {MsalBroadcastService} msalBroadcastService
+   */
   constructor(
+    private router: Router,
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService
   ) { }
 
+  /**
+   * Initialize the Page
+   */
   ngOnInit(): void {
 
     this.items = [
@@ -173,7 +185,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS),
         takeUntil(this.destroying$)
       )
-      // eslint-disable-next-line import/no-deprecated
       // tslint:disable-next-line: deprecation
       .subscribe({
         next: (result: any) => this.getClaims(result),
@@ -184,16 +195,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * Once login is complete get the Claims data and save it to localStorage
+   * @param {any} result
+   */
   getClaims(result: any): void {
     this.loggedIn = this.authService.instance.getAllAccounts().length > 0;
     const claims = JSON.parse(JSON.stringify(result.payload));
     localStorage.setItem('claims', JSON.stringify(claims.idTokenClaims || '{}'));
     this.claims = JSON.parse(localStorage.getItem('claims') || '{}');
   }
+
+  /**
+   * Insure that there is a least one account in the Claims data
+   */
   checkAccount(): void {
     this.loggedIn = this.authService.instance.getAllAccounts().length > 0;
   }
 
+  /**
+   * Login Routine
+   */
   login(): void {
     if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
       if (this.msalGuardConfig.authRequest) {
@@ -213,13 +235,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  /**
+   * Logout Routine
+   */
   logout(): void {
-    // this.router.navigateByUrl('/home');
+    this.router.navigate(['/home']);
     localStorage.removeItem('claims');
     this.authService.logout();
   }
 
-  // unsubscribe to events when component is destroyed
+  /**
+   * Unsubscribe from events when component is destroyed
+   */
   ngOnDestroy(): void {
     this.destroying$.next(undefined);
     this.destroying$.complete();
