@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
@@ -22,17 +25,19 @@ import { GeneralUtilService } from 'src/app/core/services/common/general-util.se
   styleUrls: ['./credit-edit.component.scss']
 })
 export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
-  private userId: string = '';
+  private userId = '';
+  private defaultPath = '../../';
+  // private returnMessage!: string;
   private credit!: ICredit;
   private sub!: Subscription;
-  private errorMessage!: string;
-  // Use with the generic validation message class
-  private displayMessage: { [key: string]: string } = {};
   private validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
+  // Use with the generic validation message class
+  private displayMessage: { [key: string]: string } = {};
+
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[] = [];
-  pageTitle: string = 'Edit Credit';
+  pageTitle = 'Edit Credit';
   periods!: IPeriod[];
   months!: IKeyValue[];
   daysInMonth!: IKeyValue[];
@@ -42,8 +47,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   dateRangeToggle: boolean | undefined;
 
   /**
-   * Base Constructor
-   *
+   * Base Constructor   *
    * @param {GeneralUtilService} claimsUtilService
    * @param {ConfirmationService} confirmationService
    * @param {FormBuilder} fb
@@ -77,8 +81,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
       EndDate: { required: 'End Date is required.' },
       WeeklyDow: { required: 'Day of the Week is required.' },
       AnnualMoy: { required: 'Month of Occurence is required.' },
-      AnnualDom: { required: 'Day within the Month of Occurence is required.' },
-
+      AnnualDom: { required: 'Day within the Month of Occurence is required.' }
     };
 
     // Define an instance of the validator for use with this form,
@@ -134,11 +137,12 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     // Read the product Id from the route parameter
     this.sub = this.route.params
-      // eslint-disable-next-line import/no-deprecated
+      // tslint:disable-next-line: deprecation
       .subscribe((params: any) => {
         const id = +params.id;
         this.getCredit(id);
       });
+
   }
 
   /**
@@ -153,15 +157,14 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     // Merge the blur event observable with the valueChanges observable
     // so we only need to subscribe once.
     merge(this.creditForm.valueChanges, ...controlBlurs).pipe(debounceTime(800))
-      // eslint-disable-next-line import/no-deprecated
-      .subscribe((value: any) => {
+      // tslint:disable-next-line: deprecation
+      .subscribe(() => {
         this.displayMessage = this.genericValidator.processMessages(this.creditForm);
       });
   }
 
   /**
-   * Gets the user's Period Selection
-   *
+   * Gets the user's Period Selection   *
    * @param {any} e The selected value from the Period Drowdown Selector in UI
    */
   getPeriod(e: any): void {
@@ -570,7 +573,6 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handles Validation for the "Annual" Fields:
    * "BeginDate" Calendar Selector, allows the user to set a Start Date for a particular Credit
    * "EndDate" Calendar Selector, allows the user to set a Stop Date for a particular Credit
-   *
    * @param {number} period The user's period selection
    */
   private updateDateRangeValidation(toggle?: boolean): void {
@@ -596,37 +598,41 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   //#region Reads
   /**
    * Gets the complete list of Periods
-   *
    * @returns {any} result
    */
   getPeriods(): any {
     return this.periodService.getPeriods()
-      // eslint-disable-next-line import/no-deprecated
+      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: IPeriod[]): void => {
           this.periods = data;
           // console.log(`Credit-Edit getPriods: ${JSON.stringify(this.periods)}`);
         },
-        error: catchError((err: any) => this.err.handleError(err))
+        error: catchError((err: any) => this.err.handleError(err)),
+        complete: () => {
+          // console.log('getPeriods complete');
+        }
       });
   }
 
   /**
    * Get a specific Credit
-   *
    * @param {number} id The id of the Credit
    * @returns {any} result
    */
   getCredit(id: number): any {
     return this.creditService.getCredit(id)
-      // eslint-disable-next-line import/no-deprecated
+      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: ICredit): void => {
           this.onCreditRetrieved(data);
-          console.log(`Credit-Edit patchValue: ${JSON.stringify(this.creditForm.value)}`);
-          console.log(`Credit-Edit getCredit: ${JSON.stringify(data)}`);
+          // console.log(`Credit-Edit patchValue: ${JSON.stringify(this.creditForm.value)}`);
+          // console.log(`Credit-Edit getCredit: ${JSON.stringify(data)}`);
         },
-        error: catchError((err: any) => this.err.handleError(err))
+        error: catchError((err: any) => this.err.handleError(err)),
+        complete: () => {
+          // console.log('getCredit complete');
+        }
       });
   }
   //#endregion Reads
@@ -640,31 +646,25 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     this.patchFormValuesBackToObject();
     if (this.credit.pkCredit === 0) {
       this.creditService.createCredit(this.credit)
-        // eslint-disable-next-line import/no-deprecated
+        // tslint:disable-next-line: deprecation
         .subscribe({
-          next: () => {
-            console.log(`Credit-Edit saveCredit/createCredit: ${JSON.stringify(this.credit)}`);
-            this.messageUtilService.onSaveComplete(`Credit Created`);
-          },
+          next: () => {},
           error: catchError((err: any) => {
             this.messageUtilService.onError(`Credit Creation Failed`);
             return this.err.handleError(err);
           }),
-          complete: () => this.router.navigate(['../../'], { relativeTo: this.route })
+          complete: () =>  this.messageUtilService.onCompleteNav('Credit Created', this.defaultPath, this.route)
         });
     } else {
       this.creditService.updateCredit(this.credit)
-        // eslint-disable-next-line import/no-deprecated
+        // tslint:disable-next-line: deprecation
         .subscribe({
-          next: (data: any) => {
-            console.log(`Credit-Edit updateCredit: ${JSON.stringify(data)}`);
-            this.messageUtilService.onSaveComplete(`Credit Updated`);
-          },
+          next: () => {},
           error: catchError((err: any) => {
             this.messageUtilService.onError(`Credit Update Failed`);
             return this.err.handleError(err);
           }),
-          complete: () => this.router.navigate(['../../'], { relativeTo: this.route })
+          complete: () => this.messageUtilService.onCompleteNav('Credit Updated', this.defaultPath, this.route)
         });
     }
   }
@@ -680,7 +680,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   deleteCredit(): void {
     if (this.credit.pkCredit === 0) {
       // Don't delete, it was never saved.
-      this.messageUtilService.onSaveComplete('New Credit entries discarded');
+      this.messageUtilService.onComplete('New Credit entries discarded');
     } else {
       this.confirmationService.confirm({
         message: 'Do you want to delete this record?',
@@ -688,16 +688,14 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
         icon: 'pi pi-info-circle',
         accept: () => {
           this.creditService.deleteCredit(this.credit.pkCredit)
-            // eslint-disable-next-line import/no-deprecated
+            // tslint:disable-next-line: deprecation
             .subscribe({
-              next: (data: any) => {
-                console.log(`Credit-Edit deleteCredit: ${JSON.stringify(data)}`);
-              },
+              next: () => {},
               error: catchError((err: any) => {
                 this.messageUtilService.onError(`Credit Delete Failed`);
                 return this.err.handleError(err);
               }),
-              complete: () => this.router.navigate(['../../'], { relativeTo: this.route })
+              complete: () => this.messageUtilService.onCompleteNav('Credit Deleted', this.defaultPath, this.route)
             });
         }
       });

@@ -9,6 +9,7 @@ import { IVwCredit } from '../../shared/models/vwcredit';
 import { MessageUtilService } from '../../shared/services/common/message-util.service';
 import { CreditService } from '../../shared/services/credit/credit.service';
 import { GeneralUtilService } from 'src/app/core/services/common/general-util.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   templateUrl: './credit-list.component.html',
@@ -18,6 +19,7 @@ export class CreditListComponent implements OnInit {
   pageTitle = 'Manage Credits';
   creditList: IVwCredit[] = [];
   selectedCredits: IVwCredit[] = [];
+  private returnMessage!: string;
   userId = '';
 
   /**
@@ -32,6 +34,8 @@ export class CreditListComponent implements OnInit {
   constructor(
     private generalUtilService: GeneralUtilService,
     private messageUtilService: MessageUtilService,
+    private route: ActivatedRoute,
+    private router: Router,
     private err: GlobalErrorHandlerService,
     private confirmationService: ConfirmationService,
     private creditService: CreditService
@@ -48,7 +52,7 @@ export class CreditListComponent implements OnInit {
   //#region Data Functions
   //#region Reads
   /**
-   *
+   * Get the User's List of Credits
    * @param {string} userId User's OID
    * @returns {any}
    */
@@ -76,7 +80,7 @@ export class CreditListComponent implements OnInit {
   deleteCredit(id: number): void {
     if (id === 0) {
       // Don't delete, it was never saved.
-      this.messageUtilService.onSaveComplete('Credit not Found');
+      this.messageUtilService.onComplete('Credit not Found');
     } else {
       this.confirmationService.confirm({
         message: 'Do you want to delete this record?',
@@ -86,10 +90,7 @@ export class CreditListComponent implements OnInit {
           this.creditService.deleteCredit(id)
           // tslint:disable-next-line: deprecation
           .subscribe({
-          next: (data: any) => {
-            console.log(`Credit-Edit deleteCredit: ${JSON.stringify(data)}`);
-            this.messageUtilService.onSaveComplete(`Credit Deleted`);
-          },
+          next: () => this.messageUtilService.onComplete(`Credit Deleted`),
           error: catchError((err: any) => {
             this.messageUtilService.onError(`Credit Delete Failed`);
             return this.err.handleError(err);

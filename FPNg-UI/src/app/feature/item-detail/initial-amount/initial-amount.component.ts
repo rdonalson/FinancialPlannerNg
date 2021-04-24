@@ -89,9 +89,7 @@ export class InitialAmountComponent implements OnInit {
             this.messageUtilService.onError('Record Creation Failed');
             return this.err.handleError(err);
           }),
-          complete: () => {
-            this.messageUtilService.onSaveComplete('Default Record Created');
-          }
+          complete: () => this.messageUtilService.onComplete('Default Initial Amount Created')
         });
     } else {
       // Update the existing record
@@ -106,9 +104,7 @@ export class InitialAmountComponent implements OnInit {
             this.messageUtilService.onError('Record Update Failed');
             return this.err.handleError(err);
           }),
-          complete: () => {
-            this.messageUtilService.onSaveComplete('Record Updated');
-          }
+          complete: () => this.messageUtilService.onComplete('Initial Amount Updated')
         });
     }
   }
