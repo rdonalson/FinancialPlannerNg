@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
-import { fromEvent, merge, Observable, Subscription } from 'rxjs';
-import { catchError, debounceTime } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import { ICredit } from '../../shared/models/credit';
@@ -24,16 +24,15 @@ import { GeneralUtilService } from 'src/app/core/services/common/general-util.se
   templateUrl: './credit-edit.component.html',
   styleUrls: ['./credit-edit.component.scss']
 })
-export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CreditEditComponent implements OnInit, OnDestroy {
   private userId = '';
-  private defaultPath = '../../';
-  // private returnMessage!: string;
+  defaultPath = '../../';
   private credit!: ICredit;
   private sub!: Subscription;
-  private validationMessages: { [key: string]: { [key: string]: string } };
-  private genericValidator: GenericValidator;
+  validationMessages: { [key: string]: { [key: string]: string } };
+  // private genericValidator: GenericValidator;
   // Use with the generic validation message class
-  private displayMessage: { [key: string]: string } = {};
+  // displayMessage: { [key: string]: string } = {};
 
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[] = [];
@@ -47,12 +46,11 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   dateRangeToggle: boolean | undefined;
 
   /**
-   * Base Constructor   *
+   * Base Constructor
    * @param {GeneralUtilService} claimsUtilService
    * @param {ConfirmationService} confirmationService
    * @param {FormBuilder} fb
    * @param {ActivatedRoute} route
-   * @param {Router} router
    * @param {MessageUtilService} messageUtilService
    * @param {ArrayUtilService} array
    * @param {GlobalErrorHandlerService} err
@@ -64,7 +62,6 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
     private messageUtilService: MessageUtilService,
     array: ArrayUtilService,
     private err: GlobalErrorHandlerService,
@@ -86,7 +83,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Define an instance of the validator for use with this form,
     // passing in this form's set of validation messages.
-    this.genericValidator = new GenericValidator(this.validationMessages);
+    // this.genericValidator = new GenericValidator(this.validationMessages);
     this.months = array.Months;
     this.daysInMonth = array.DaysInTheMonth;
     this.weekDays = array.WeekDays;
@@ -94,7 +91,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //#region Events
   /**
-   * Initialize the form
+   * Initialize the Credit Interface, gets the Period list and initizes the FormBuilder
    */
   ngOnInit(): void {
     this.initialize();
@@ -148,23 +145,24 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Runs last and gathers all the field changes
    */
-  ngAfterViewInit(): void {
-    // Watch for the blur event from any input element on the form.
-    // This is required because the valueChanges does not provide notification on blur
-    const controlBlurs: Observable<any>[] = this.formInputElements
-      .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+  // ngAfterViewInit(): void {
+  //   // Watch for the blur event from any input element on the form.
+  //   // This is required because the valueChanges does not provide notification on blur
+  //   const controlBlurs: Observable<any>[] = this.formInputElements
+  //     .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
 
-    // Merge the blur event observable with the valueChanges observable
-    // so we only need to subscribe once.
-    merge(this.creditForm.valueChanges, ...controlBlurs).pipe(debounceTime(800))
-      // tslint:disable-next-line: deprecation
-      .subscribe(() => {
-        this.displayMessage = this.genericValidator.processMessages(this.creditForm);
-      });
-  }
+  //   // Merge the blur event observable with the valueChanges observable
+  //   // so we only need to subscribe once.
+  //   merge(this.creditForm.valueChanges, ...controlBlurs)
+  //     .pipe(debounceTime(800))
+  //     // tslint:disable-next-line: deprecation
+  //     .subscribe(() => {
+  //       this.displayMessage = this.genericValidator.processMessages(this.creditForm);
+  //     });
+  // }
 
   /**
-   * Gets the user's Period Selection   *
+   * Gets the user's Period Selection
    * @param {any} e The selected value from the Period Drowdown Selector in UI
    */
   getPeriod(e: any): void {
@@ -173,8 +171,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Allows the user to select a Date Range
-   *
+   * Allows the user to select a Date Range by showing the Date Range fields
    * @param {any} e Checked: True/False show Date Range Calendar Selectors
    */
   showHideDateRange(e: any): void {
@@ -609,9 +606,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
           // console.log(`Credit-Edit getPriods: ${JSON.stringify(this.periods)}`);
         },
         error: catchError((err: any) => this.err.handleError(err)),
-        complete: () => {
-          // console.log('getPeriods complete');
-        }
+        complete: () => {}
       });
   }
 
@@ -630,9 +625,7 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
           // console.log(`Credit-Edit getCredit: ${JSON.stringify(data)}`);
         },
         error: catchError((err: any) => this.err.handleError(err)),
-        complete: () => {
-          // console.log('getCredit complete');
-        }
+        complete: () => {}
       });
   }
   //#endregion Reads
@@ -642,7 +635,13 @@ export class CreditEditComponent implements OnInit, AfterViewInit, OnDestroy {
    * "createCredit" or "updateCredit" API calls based on
    * whether the primary key "pkCredit" is zero or not
    */
-  saveCredit(): void {
+  saveCredit(): any {
+    if (this.creditForm.invalid) {
+      Object.keys(this.creditForm.controls).forEach(key => {
+        this.creditForm.controls[key].markAsDirty();
+      });
+      return null;
+    }
     this.patchFormValuesBackToObject();
     if (this.credit.pkCredit === 0) {
       this.creditService.createCredit(this.credit)

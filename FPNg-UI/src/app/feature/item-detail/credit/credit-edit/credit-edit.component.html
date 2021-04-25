@@ -22,6 +22,7 @@
               placeholder="Name (required)"
               formControlName="Name"
               [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              pTooltip="{{ validationMessages['Name'].required }}" tooltipPosition="left"
             />
           </div>
         </div>
@@ -39,6 +40,7 @@
               placeholder="Amount (required)"
               locale="en-US"
               [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              pTooltip="{{ validationMessages['Amount'].required }}" tooltipPosition="left"
             >
             </p-inputNumber>
           </div>
@@ -58,6 +60,7 @@
               optionValue="pkPeriod"
               (onChange)="getPeriod($event)"
               [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+              pTooltip="{{ validationMessages['Period'].required }}" tooltipPosition="left"
             >
             </p-dropdown>
           </div>
@@ -81,7 +84,8 @@
                   [value]="day.value"
                   formControlName="WeeklyDow"
                   [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-                >
+                  pTooltip="{{ validationMessages['WeeklyDow'].required }}" tooltipPosition="left"
+                  >
                 </p-radioButton>
                 <label [for]="day.key">{{ day.key }}</label>
               </div>
@@ -384,6 +388,7 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ validationMessages['AnnualMoy'].required }}" tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -401,6 +406,7 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ validationMessages['AnnualDom'].required }}" tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -438,6 +444,7 @@
                 formControlName="BeginDate"
                 [showIcon]="true"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ validationMessages['BeginDate'].required }}" tooltipPosition="left"
               ></p-calendar>
             </div>
           </div>
@@ -456,7 +463,8 @@
                 formControlName="EndDate"
                 [showIcon]="true"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-              ></p-calendar>
+                pTooltip="{{ validationMessages['EndDate'].required }}" tooltipPosition="left"
+                ></p-calendar>
             </div>
           </div>
         </div>
@@ -475,7 +483,7 @@
                   ? 'Save your entered data'
                   : 'Disabled until the form data is valid'
               "
-              [disabled]="!creditForm.valid"
+
             ></button>
             <button
               pButton
@@ -484,7 +492,7 @@
               class="p-button-secondary p-button-outlined"
               style="width: 80px"
               title="Cancel your edits"
-              [routerLink]="['../../']"
+              [routerLink]="[defaultPath]"
             ></button>
             <button
               pButton
@@ -507,4 +515,4 @@
   [style]="{ width: '50vw' }"
 ></p-confirmDialog>
 <!-- Informational Messages -->
-<p-messages></p-messages>
+<p-messages></p-messages>&nbsp;

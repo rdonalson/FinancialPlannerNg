@@ -12,6 +12,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { CalendarModule } from 'primeng/calendar';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { InitialAmountComponent } from './initial-amount/initial-amount.component';
 import { ItemDetailRoutingModule } from './item-detail-routing.module';
@@ -23,7 +25,7 @@ import { CreditEditComponent } from './credit/credit-edit/credit-edit.component'
 import { MessageUtilService } from './shared/services/common/message-util.service';
 import { PeriodService } from './shared/services/period/period.service';
 import { ArrayUtilService } from './shared/services/common/array-util.service';
-import { CalendarModule } from 'primeng/calendar';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { CalendarModule } from 'primeng/calendar';
     RadioButtonModule,
     CalendarModule,
     TableModule,
+    TooltipModule,
     ItemDetailRoutingModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
