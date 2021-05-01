@@ -22,7 +22,8 @@
               placeholder="Name (required)"
               formControlName="Name"
               [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-              pTooltip="{{ validationMessages['Name'].required }}" tooltipPosition="left"
+              pTooltip="{{ messages['Name'].required }}"
+              tooltipPosition="left"
             />
           </div>
         </div>
@@ -40,7 +41,8 @@
               placeholder="Amount (required)"
               locale="en-US"
               [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-              pTooltip="{{ validationMessages['Amount'].required }}" tooltipPosition="left"
+              pTooltip="{{ messages['Amount'].required }}"
+              tooltipPosition="left"
             >
             </p-inputNumber>
           </div>
@@ -60,7 +62,8 @@
               optionValue="pkPeriod"
               (onChange)="getPeriod($event)"
               [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-              pTooltip="{{ validationMessages['Period'].required }}" tooltipPosition="left"
+              pTooltip="{{ messages['Period'].required }}"
+              tooltipPosition="left"
             >
             </p-dropdown>
           </div>
@@ -84,15 +87,16 @@
                   [value]="day.value"
                   formControlName="WeeklyDow"
                   [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-                  pTooltip="{{ validationMessages['WeeklyDow'].required }}" tooltipPosition="left"
-                  >
+                  pTooltip="{{ messages['WeeklyDow'].required }}"
+                  tooltipPosition="left"
+                >
                 </p-radioButton>
                 <label [for]="day.key">{{ day.key }}</label>
               </div>
             </div>
           </div>
         </div>
-        <!-- Initialization Date for Every Two Weeks & Date for the Single Occurence -->
+        <!-- Initialization Date for Every Two Weeks & One Time Occurence -->
         <div *ngIf="periodSwitch === 4 || periodSwitch === 1">
           <div class="p-field p-grid">
             <label for="initDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
@@ -101,10 +105,16 @@
             <div class="p-col">
               <p-calendar
                 id="initDateId"
-                placeholder="Select a date for start"
+                placeholder="Select a date"
                 formControlName="InitializationDate"
                 [showIcon]="true"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{
+                  periodSwitch === 4
+                    ? messages['InitDateEOW'].required
+                    : messages['InitDateOTO'].required
+                }}"
+                tooltipPosition="left"
               ></p-calendar>
             </div>
           </div>
@@ -120,6 +130,8 @@
                   [value]="day.value"
                   formControlName="EverOtherWeekDow"
                   [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                  pTooltip="{{ messages['WeeklyDow'].required }}"
+                  tooltipPosition="left"
                 >
                 </p-radioButton>
                 <label [for]="day.key">{{ day.key }}</label>
@@ -144,6 +156,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['BiMonthlyDay1'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -161,6 +175,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['BiMonthlyDay2'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -182,6 +198,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['MonthlyDay'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -205,6 +223,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['MonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
             <div class="p-col">
@@ -215,6 +235,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['DayInMonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -235,6 +257,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['MonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
             <div class="p-col">
@@ -245,6 +269,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['DayInMonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -265,6 +291,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['MonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
             <div class="p-col">
@@ -275,6 +303,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['DayInMonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -295,6 +325,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['MonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
             <div class="p-col">
@@ -305,6 +337,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['DayInMonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -328,6 +362,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['MonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
             <div class="p-col">
@@ -338,6 +374,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['DayInMonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -357,6 +395,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['MonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
             <div class="p-col">
@@ -367,6 +407,8 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
+                pTooltip="{{ messages['DayInMonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
@@ -374,12 +416,11 @@
 
         <!-- Annual -->
         <div *ngIf="periodSwitch === 9">
-          <!-- Month -->
           <div class="p-field p-grid">
             <label for="annualMoyId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-              >Month</label
+              >Month & Day</label
             >
-            <div class="p-col">
+            <div class="p-col p-col-max-width-15">
               <p-dropdown
                 id="annualMoyId"
                 formControlName="AnnualMoy"
@@ -388,30 +429,25 @@
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-                pTooltip="{{ validationMessages['AnnualMoy'].required }}" tooltipPosition="left"
+                pTooltip="{{ messages['MonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
-          </div>
-          <!-- Day of Month -->
-          <div class="p-field p-grid">
-            <label for="annualDomId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-              >Day</label
-            >
             <div class="p-col">
               <p-dropdown
-                id="annualDomId"
                 formControlName="AnnualDom"
                 [options]="daysInMonth"
                 placeholder="Select a Day"
                 optionLabel="key"
                 optionValue="value"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-                pTooltip="{{ validationMessages['AnnualDom'].required }}" tooltipPosition="left"
+                pTooltip="{{ messages['DayInMonthOfOccurrence'].required }}"
+                tooltipPosition="left"
               ></p-dropdown>
             </div>
           </div>
         </div>
-
+        <!-- Date Range -->
         <div *ngIf="periodSwitch !== 1">
           <!-- Date Range for Credit: Date Range Checkbox, Show Date Range DIV, Start Date & End Date Calendars -->
           <div class="p-field p-grid">
@@ -423,6 +459,8 @@
                 formControlName="DateRangeReq"
                 [binary]="true"
                 (onChange)="showHideDateRange($event)"
+                pTooltip="{{ messages['DateRangeReq'].optional }}"
+                tooltipPosition="left"
               >
               </p-checkbox>
             </div>
@@ -444,7 +482,8 @@
                 formControlName="BeginDate"
                 [showIcon]="true"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-                pTooltip="{{ validationMessages['BeginDate'].required }}" tooltipPosition="left"
+                pTooltip="{{ messages['BeginDate'].required }}"
+                tooltipPosition="left"
               ></p-calendar>
             </div>
           </div>
@@ -463,8 +502,9 @@
                 formControlName="EndDate"
                 [showIcon]="true"
                 [ngClass]="{ 'is-invalid': 'ng-invalid ng-dirty' }"
-                pTooltip="{{ validationMessages['EndDate'].required }}" tooltipPosition="left"
-                ></p-calendar>
+                pTooltip="{{ messages['EndDate'].required }}"
+                tooltipPosition="left"
+              ></p-calendar>
             </div>
           </div>
         </div>
@@ -483,7 +523,6 @@
                   ? 'Save your entered data'
                   : 'Disabled until the form data is valid'
               "
-
             ></button>
             <button
               pButton

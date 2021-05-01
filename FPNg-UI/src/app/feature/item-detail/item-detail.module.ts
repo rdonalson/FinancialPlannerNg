@@ -25,6 +25,7 @@ import { CreditEditComponent } from './credit/credit-edit/credit-edit.component'
 import { MessageUtilService } from './shared/services/common/message-util.service';
 import { PeriodService } from './shared/services/period/period.service';
 import { ArrayUtilService } from './shared/services/common/array-util.service';
+import { ItemDetailCommonService } from './shared/services/common/item-detail-common.service';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { ArrayUtilService } from './shared/services/common/array-util.service';
     PeriodService,
     InitialAmountService,
     CreditService,
-    ArrayUtilService
+    ArrayUtilService,
+    ItemDetailCommonService
   ]
 })
 export class ItemDetailModule { }
