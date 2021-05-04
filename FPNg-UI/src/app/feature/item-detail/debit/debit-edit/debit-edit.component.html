@@ -20,8 +20,8 @@
     </div>
   </div>
   <div class="card-body">
-    <!-- Credit Reactive Form -->
-    <form novalidate (ngSubmit)="saveCredit()" [formGroup]="creditForm">
+    <!-- Debit Reactive Form -->
+    <form novalidate (ngSubmit)="saveDebit()" [formGroup]="debitForm">
       <div class="p-fluid">
         <!-- Common fields -->
         <!-- Name -->
@@ -465,7 +465,7 @@
         </div>
         <!-- Date Range -->
         <div *ngIf="periodSwitch !== 1">
-          <!-- Date Range for Credit: Date Range Checkbox, Show Date Range DIV, Start Date & End Date Calendars -->
+          <!-- Date Range for Debit: Date Range Checkbox, Show Date Range DIV, Start Date & End Date Calendars -->
           <div class="p-field p-grid">
             <label for="dateRangeReqId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
               >Date Range?</label
@@ -535,7 +535,7 @@
               style="width: 80px"
               type="submit"
               [title]="
-                creditForm.valid
+                debitForm.valid
                   ? 'Save your entered data'
                   : 'Disabled until the form data is valid'
               "
@@ -556,7 +556,7 @@
               class="p-button-danger p-button-outlined"
               style="width: 80px"
               title="Delete this product"
-              (click)="deleteCredit()"
+              (click)="deleteDebit()"
             ></button>
           </div>
         </div>
@@ -571,3 +571,4 @@
 ></p-confirmDialog>
 <!-- Informational Messages -->
 <p-messages></p-messages>&nbsp;
+

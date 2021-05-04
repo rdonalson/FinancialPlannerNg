@@ -1,15 +1,15 @@
 <div class="card">
-  <!-- Credits Display Table -->
+  <!-- Debits Display Table -->
   <p-table
     #dt
-    [value]="creditList"
+    [value]="debitList"
     [rows]="7"
     [paginator]="true"
     [globalFilterFields]="['name', 'amount', 'periodName']"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
     [rowHover]="true"
-    dataKey="pkCredit"
+    dataKey="pkDebit"
   >
     <!-- Header -->
     <ng-template pTemplate="caption">
@@ -58,17 +58,17 @@
       </tr>
     </ng-template>
     <!-- Body: Data -->
-    <ng-template pTemplate="body" let-credit>
+    <ng-template pTemplate="body" let-debit>
       <tr>
-        <td>{{ credit.name }}</td>
-        <td>{{ credit.amount | currency: "USD" }}</td>
-        <td>{{ credit.periodName }}</td>
+        <td>{{ debit.name }}</td>
+        <td>{{ debit.amount | currency: "USD" }}</td>
+        <td>{{ debit.periodName }}</td>
         <td>
           <button
             pButton
             pRipple
             icon="pi pi-pencil"
-            [routerLink]="['./edit', credit.pkCredit]"
+            [routerLink]="['./edit', debit.pkDebit]"
             class="p-button-rounded p-button-success p-mr-2"
           ></button>
           <button
@@ -76,7 +76,7 @@
             pRipple
             icon="pi pi-trash"
             class="p-button-rounded p-button-warning"
-            (click)="deleteCredit(credit.pkCredit)"
+            (click)="deleteDebit(debit.pkDebit)"
           ></button>
         </td>
       </tr>
@@ -86,8 +86,5 @@
 <!-- Informational Messages -->
 <p-messages></p-messages>
 <!-- Delete Confirm Popup -->
-<p-confirmDialog
-  position="top"
-  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-  [style]="{ width: '50vw' }"
-></p-confirmDialog>
+<p-confirmDialog position='top' [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}"></p-confirmDialog>
+

@@ -26,6 +26,8 @@ import { MessageUtilService } from './shared/services/common/message-util.servic
 import { PeriodService } from './shared/services/period/period.service';
 import { ArrayUtilService } from './shared/services/common/array-util.service';
 import { ItemDetailCommonService } from './shared/services/common/item-detail-common.service';
+import { DebitListComponent } from './debit/debit-list/debit-list.component';
+import { DebitEditComponent } from './debit/debit-edit/debit-edit.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { ItemDetailCommonService } from './shared/services/common/item-detail-co
     InitialAmountComponent,
     ItemDetailHomeComponent,
     CreditListComponent,
-    CreditEditComponent
+    CreditEditComponent,
+    DebitListComponent,
+    DebitEditComponent
   ],
   imports: [
     CommonModule,

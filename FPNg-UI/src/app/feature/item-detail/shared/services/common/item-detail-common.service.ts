@@ -1,10 +1,93 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable()
 export class ItemDetailCommonService {
 
+  private messages: { [key: string]: { [key: string]: string; }; };
 
+  /**
+   * Messages used in the field tooltips
+   */
+  public get Messages(): { [key: string]: { [key: string]: string; }; } {
+    return this.messages;
+  }
+
+  /**
+   * Base Constructor
+   */
+  constructor() {
+    // Defines all of the validation messages for the Credit & Debit forms.
+    // These could instead be retrieved from a file or database.
+    this.messages = {
+      // Common Fields
+      Name: { required: 'Required:  Enter a descriptive Name' },
+      Amount: { required: 'Required:  Enter an Amount' },
+      Period: { required: 'Required:  Select a Period' },
+      // Date Range
+      DateRangeReq: { optional: 'Optional:  Only select if this Period is going to be for a limited period of time' },
+      BeginDate: { required: 'Required:  Select a Start Date' },
+      EndDate: { required: 'Required:  Select an End Date' },
+      // Weekly & Every Other Week (Every Two Weeks)
+      WeeklyDow: { required: 'Required:  Select a Day of the Week.' },
+      // One time Occurrence & Every Other Week (Every Two Weeks)
+      InitDateOTO: { required: 'Required:  Select the date of occurrence' },
+      InitDateEOW: { required: 'Required:  Select a date on or before the day you want this Period to Start' },
+      // Monthly & Bi-Monthly
+      MonthlyDay: { required: 'Required:  Select the Day of occurrence' },
+      BiMonthlyDay1: { required: 'Required:  Select the First Day of occurrence' },
+      BiMonthlyDay2: { required: 'Required:  Select the Second Day of occurrence' },
+      // Annual, Semi-Annual & Quarterly
+      MonthOfOccurrence: { required: 'Required:  Select the Month of Occurence' },
+      DayInMonthOfOccurrence: { required: 'Required:  Select the Day within that Month' }
+    };
+  }
+
+  //#region Common Functions
+  /**
+   * Initialized the CRUD Form
+   * @param {FormBuilder} fb Form Builder input from CRUD forms
+   * @returns Initialized Form
+   */
+  generateForm(fb: FormBuilder): FormGroup {
+    return fb.group({
+      Name: ['', [Validators.required]],
+      Amount: ['', [Validators.required]],
+      Period: ['', [Validators.required]],
+      // Date Range
+      DateRangeReq: [false],
+      BeginDate: [''],
+      EndDate: [''],
+      // Weekly
+      WeeklyDow: [''],
+      // Every Two Weeks (Every other week)
+      EverOtherWeekDow: [''],
+      InitializationDate: [''],
+      // Bi-Monthly (Twice a month)
+      BiMonthlyDay1: [''],
+      BiMonthlyDay2: [''],
+      // Monthly
+      MonthlyDom: [''],
+      // Quarterly
+      Quarterly1Month: [''],
+      Quarterly1Day: [''],
+      Quarterly2Month: [''],
+      Quarterly2Day: [''],
+      Quarterly3Month: [''],
+      Quarterly3Day: [''],
+      Quarterly4Month: [''],
+      Quarterly4Day: [''],
+      // Semi-Annual (Twice a year)
+      SemiAnnual1Month: [''],
+      SemiAnnual1Day: [''],
+      SemiAnnual2Month: [''],
+      SemiAnnual2Day: [''],
+      // Annual
+      AnnualMoy: [''],
+      AnnualDom: [''],
+    });
+  }
+  //#endregion Common Functions
 
   //#region Validation Helpers
   /**

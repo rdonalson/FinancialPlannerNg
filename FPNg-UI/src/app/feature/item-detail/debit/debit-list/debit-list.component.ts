@@ -5,29 +5,30 @@ import { ConfirmationService } from 'primeng/api';
 
 
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
-import { IVwCredit } from '../../shared/models/vwcredit';
+import { IVwDebit } from '../../shared/models/vwdebit';
 import { MessageUtilService } from '../../shared/services/common/message-util.service';
-import { CreditService } from '../../shared/services/credit/credit.service';
+import { DebitService } from '../../shared/services/debit/debit.service';
 import { GeneralUtilService } from 'src/app/core/services/common/general-util.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  templateUrl: './credit-list.component.html',
-  styleUrls: ['./credit-list.component.scss']
+  templateUrl: './debit-list.component.html',
+  styleUrls: ['./debit-list.component.scss']
 })
-export class CreditListComponent implements OnInit {
-  pageTitle = 'Manage Credits';
-  creditList: IVwCredit[] = [];
-  selectedCredits: IVwCredit[] = [];
+export class DebitListComponent implements OnInit {
+  pageTitle = 'Manage Debits';
+  debitList: IVwDebit[] = [];
+  selectedDebits: IVwDebit[] = [];
   userId = '';
 
   /**
    * Base Constructor
+   *
    * @param {GeneralUtilService} generalUtilService
    * @param {MessageUtilService} messageUtilService
    * @param {GlobalErrorHandlerService} err
    * @param {ConfirmationService} confirmationService
-   * @param {CreditService} creditService
+   * @param {DebitService} debitService
    */
   constructor(
     private generalUtilService: GeneralUtilService,
@@ -36,7 +37,7 @@ export class CreditListComponent implements OnInit {
     private router: Router,
     private err: GlobalErrorHandlerService,
     private confirmationService: ConfirmationService,
-    private creditService: CreditService
+    private debitService: DebitService
   ) { }
 
   /**
@@ -44,53 +45,53 @@ export class CreditListComponent implements OnInit {
    */
   ngOnInit(): void {
     this.userId = this.generalUtilService.getUserOid();
-    this.getCredits(this.userId);
+    this.getDebits(this.userId);
   }
 
   //#region Data Functions
   //#region Reads
   /**
-   * Get the User's List of Credits
+   * Get the User's List of Debits
    * @param {string} userId User's OID
    * @returns {any}
    */
-  getCredits(userId: string): any {
-    return this.creditService.getCredits(userId)
+  getDebits(userId: string): any {
+    return this.debitService.getDebits(userId)
       // tslint:disable-next-line: deprecation
       .subscribe({
-        next: (data: IVwCredit[]): void => {
-          this.creditList = data;
-          // console.log(JSON.stringify(this.creditList));
+        next: (data: IVwDebit[]): void => {
+          this.debitList = data;
+          // console.log(JSON.stringify(this.debitList));
         },
         error: catchError((err: any) => this.err.handleError(err)),
         complete: () => {
-          // console.log('getCredits complete');
+          // console.log('getDebits complete');
         }
       });
   }
   //#endregion Reads
   //#region Writes
   /**
-   * Delete a specific Credit
+   * Delete a specific Debit
    * Prompt User before committing
-   * @param {number} id The id of the Credit
+   * @param {number} id The id of the Debit
    */
-  deleteCredit(id: number): void {
+  deleteDebit(id: number): void {
     if (id === 0) {
       // Don't delete, it was never saved.
-      this.messageUtilService.onComplete('Credit not Found');
+      this.messageUtilService.onComplete('Debit not Found');
     } else {
       this.confirmationService.confirm({
         message: 'Do you want to delete this record?',
         header: 'Delete Confirmation',
         icon: 'pi pi-info-circle',
         accept: () => {
-          this.creditService.deleteCredit(id)
+          this.debitService.deleteDebit(id)
           // tslint:disable-next-line: deprecation
           .subscribe({
-          next: () => this.messageUtilService.onComplete(`Credit Deleted`),
+          next: () => this.messageUtilService.onComplete(`Debit Deleted`),
           error: catchError((err: any) => {
-            this.messageUtilService.onError(`Credit Delete Failed`);
+            this.messageUtilService.onError(`Debit Delete Failed`);
             return this.err.handleError(err);
           }),
           complete: () => location.reload()

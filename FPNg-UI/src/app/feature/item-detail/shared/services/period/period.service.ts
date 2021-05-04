@@ -34,7 +34,6 @@ export class PeriodService {
 
   /**
    * Get a specific Period
-   *
    * @param {number} id The id of the Period
    * @returns {Observable<IPeriod>} return the record
    */
