@@ -6,16 +6,18 @@ import { FeatureRoutingModule } from './feature-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ItemDetailModule } from './item-detail/item-detail.module';
 import { TestModule } from './test/test.module';
+import { DisplayModule } from './display/display.module';
 
 @NgModule({
-  declarations: [],
+
   imports: [
     SharedModule,
     CommonModule,
     FormsModule,
     FeatureRoutingModule,
+    TestModule,
     ItemDetailModule,
-    TestModule
+    DisplayModule
   ],
   exports: [],
   providers: [
