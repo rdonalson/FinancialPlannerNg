@@ -6,8 +6,7 @@ import { CalendarModule } from 'primeng/calendar';
 
 import { DisplayRoutingModule } from './display-routing.module';
 import { DisplayHomeComponent } from './display-home.component';
-
-
+import { DisplayService } from './shared/services/display/display.service';
 
 @NgModule({
   declarations: [DisplayHomeComponent],
@@ -17,6 +16,9 @@ import { DisplayHomeComponent } from './display-home.component';
     ButtonModule,
     CalendarModule,
     DisplayRoutingModule
+  ],
+  providers: [
+    DisplayService
   ]
 })
 export class DisplayModule { }

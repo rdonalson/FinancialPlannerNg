@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,6 +15,11 @@ import { ICredit } from '../../models/credit';
 @Injectable()
 export class CreditService {
   private url = auth.resources.todoListApi.resourceUri + '/credits';
+  /**
+   * Base Constructor
+   * @param {HttpClient} http
+   * @param {GlobalErrorHandlerService} err
+   */
   constructor(
     private http: HttpClient,
     private err: GlobalErrorHandlerService
