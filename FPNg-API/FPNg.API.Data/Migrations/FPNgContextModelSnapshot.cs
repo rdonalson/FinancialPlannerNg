@@ -238,6 +238,47 @@ namespace FPNg.API.Data.Migrations
                     b.ToTable("InitialAmount","ItemDetail");
                 });
 
+            modelBuilder.Entity("FPNg.API.Data.Domain.Ledger", b =>
+                {
+                    b.Property<double?>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CreditSummary")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DebitSummary")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("ItemType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Net")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("OccurrenceDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PeriodName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RollupKey")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("RunningTotal")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("WDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Year")
+                        .HasColumnType("int");
+
+                    b.ToTable("Ledger");
+                });
+
             modelBuilder.Entity("FPNg.API.Data.Domain.Period", b =>
                 {
                     b.Property<int>("PkPeriod")

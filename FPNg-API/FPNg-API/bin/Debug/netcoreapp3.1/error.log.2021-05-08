@@ -1,0 +1,5 @@
+2021-05-08 13:06:44,997  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Now listening on: https://localhost:5001
+ 2021-05-08 13:06:45,124  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Application started. Press Ctrl+C to shut down.
+ 2021-05-08 13:06:45,165  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Hosting environment: Development
+ 2021-05-08 13:06:45,174  INFO Microsoft.Hosting.Lifetime.LogMessage [0] - MESSAGE: Content root path: C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API
+ 

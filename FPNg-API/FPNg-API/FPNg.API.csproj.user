@@ -6,7 +6,7 @@
   <PropertyGroup>
     <ActiveDebugProfile>FPNg.API</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>FPNg-API - Web Deploy</NameOfLastUsedPublishProfile>
-    <Controller_SelectedScaffolderID>ApiControllerWithActionsScaffolder</Controller_SelectedScaffolderID>
+    <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ControllerDialogWidth>650</WebStackScaffolding_ControllerDialogWidth>
     <WebStackScaffolding_IsLayoutPageSelected>True</WebStackScaffolding_IsLayoutPageSelected>

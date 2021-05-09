@@ -18,8 +18,4 @@
     <ProjectReference Include="..\FPNg.API.Data\FPNg.API.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Display\" />
-  </ItemGroup>
-
 </Project>

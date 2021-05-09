@@ -18,6 +18,7 @@ namespace FPNg.API.Data.Context
         public virtual DbSet<Period> Periods { get; set; }
         public virtual DbSet<VwCredit> VwCredits { get; set; }
         public virtual DbSet<VwDebit> VwDebits { get; set; }
+        public virtual DbSet<Ledger> Ledger { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -172,6 +173,11 @@ namespace FPNg.API.Data.Context
                     .HasMaxLength(75);
 
                 entity.Property(e => e.WeeklyDow).HasColumnName("WeeklyDOW");
+            });
+
+            modelBuilder.Entity<Ledger>(entity =>
+            {
+                entity.HasNoKey();
             });
 
             OnModelCreatingPartial(modelBuilder);
