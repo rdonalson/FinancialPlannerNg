@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-header">
+    <div class="p-fluid p-d-flex p-ai-center">
+      <div class="title-div left">
+        <span>
+          {{ pageTitle }}
+        </span>
+      </div>
+      <div class="right">
+        <button
+          pButton
+          pRipple
+          label="Calculate"
+          icon="pi pi-clock"
+          class="p-button-success p-mr-2"
+          (click)="calculate()"
+        ></button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <p-tabView styleClass="tabview-custom">
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <i class="pi pi-calendar"></i>
+          <span>&nbsp;Date Range</span>
+        </ng-template>
+        <!-- Start Date -->
+        <div class="p-field p-grid">
+          <label for="beginDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Start Date</label
+          >
+          <div class="p-col">
+            <p-calendar
+              id="beginDateId"
+              placeholder="Select a start date"
+              [showIcon]="true"
+              tooltipPosition="left"
+            ></p-calendar>
+          </div>
+        </div>
+        <!-- End Date -->
+        <div class="p-field p-grid">
+          <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >End Date</label
+          >
+          <div class="p-col">
+            <p-calendar
+              id="endDateId"
+              placeholder="Select an end date"
+              [showIcon]="true"
+              tooltipPosition="left"
+            ></p-calendar>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <i class="pi pi-chart-line"></i>
+          <span>&nbsp;Chart</span>
+        </ng-template>
+        <app-chart></app-chart>
+      </p-tabPanel>
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <i class="pi pi-list"></i>
+          <span>&nbsp;Ledger</span>
+        </ng-template>
+        <app-ledger [ledgerList]="ledgerList"></app-ledger>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

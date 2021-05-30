@@ -1,0 +1,64 @@
+<p-table [value]="ledgerList" dataKey="rollupKey">
+  <ng-template pTemplate="header">
+      <tr>
+          <th style="width: 3rem"></th>
+          <th pSortableColumn="wDate">Date <p-sortIcon field="wDate"></p-sortIcon></th>
+          <th pSortableColumn="creditSummary">Credit Summary<p-sortIcon field="creditSummary"></p-sortIcon></th>
+          <th pSortableColumn="debitSummary">Debits Summary<p-sortIcon field="debitSummary"></p-sortIcon></th>
+          <th pSortableColumn="net">Net Change<p-sortIcon field="net"></p-sortIcon></th>
+          <th pSortableColumn="upDown">Net Change<p-sortIcon field="upDown"></p-sortIcon></th>
+          <th pSortableColumn="runningTotal">Balance <p-sortIcon field="runningTotal"></p-sortIcon></th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-ledger let-expanded="expanded">
+      <tr>
+          <td *ngIf="ledger.items.length === 0">
+            <div style="width: 3rem"></div>
+          </td>
+          <td *ngIf="ledger.items.length !== 0">
+            <button type="button" pButton pRipple [pRowToggler]="ledger" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+        </td>
+          <td>{{ledger.wDate | date :'shortDate' }}</td>
+          <td>{{ledger.creditSummary | currency:'USD'}}</td>
+          <td>{{ledger.debitSummary | currency:'USD'}}</td>
+          <td>{{ledger.net | currency:'USD'}}</td>
+          <td>{{ledger.net | itemType }}</td>
+          <td>{{ledger.runningTotal | currency:'USD'}}</td>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-ledger>
+      <tr>
+          <td colspan="7">
+              <div class="p-p-3">
+                  <p-table [value]="ledger.items" dataKey="itemKey">
+                      <ng-template pTemplate="header">
+                          <tr>
+                            <th style="width: 3rem"></th>
+                            <th pSortableColumn="periodName">Period <p-sortIcon field="periodName"></p-sortIcon></th>
+                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+                            <th pSortableColumn="type">Item Type <p-sortIcon field="type"></p-sortIcon></th>
+
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-item>
+                          <tr>
+                            <td style="width: 3rem"></td>
+                            <td>{{ item.periodName }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.amount | currency:'USD'}}</td>
+                            <td>{{ item.amount | creditOrDebit }}</td>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage">
+                          <tr>
+                              <td colspan="6">There are no items for this date.</td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+              </div>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+
