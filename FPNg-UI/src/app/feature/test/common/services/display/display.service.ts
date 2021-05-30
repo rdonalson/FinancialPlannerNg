@@ -38,9 +38,9 @@ export class DisplayService {
   createLedger(ledgerParams: ILedgerParams): Observable<ILedger[]> {
 
     const headers = new HttpHeaders({ 'content-type': 'application/json' });
-    return this.http.post<ILedger[]>(this.url, ledgerParams, { headers } )
+    return this.http.post<ILedger[]>(this.url, ledgerParams, { headers })
       .pipe(
-        tap((data: ILedger[]) => console.log('Service createLedger: ' + JSON.stringify(data))),
+        // tap((data: ILedger[]) => console.log('Service createLedger: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }

@@ -29,6 +29,7 @@
             "assets": [
               "src/assets/icons",
               "src/assets/images",
+              "src/app/feature/test/common/api",
               "src/web.config"
             ],
             "styles": [

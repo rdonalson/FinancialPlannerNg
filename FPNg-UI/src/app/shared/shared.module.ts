@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -82,13 +81,15 @@ export function msalGuardConfigFactory(): MsalGuardConfiguration {
 }
 
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent],
+  declarations: [
+    FooterComponent,
+    HeaderComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     MenuModule,
     MenubarModule,
-    ButtonModule,
     ButtonModule,
     InputTextModule
   ],

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DisplayHomeComponent } from './display-home.component';
+import { DataTransformationComponent } from './data-transformation.component';
 
-describe('DisplayHomeComponent', () => {
-  let component: DisplayHomeComponent;
-  let fixture: ComponentFixture<DisplayHomeComponent>;
+describe('DataTransformationComponent', () => {
+  let component: DataTransformationComponent;
+  let fixture: ComponentFixture<DataTransformationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DisplayHomeComponent ]
+      declarations: [ DataTransformationComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DisplayHomeComponent);
+    fixture = TestBed.createComponent(DataTransformationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

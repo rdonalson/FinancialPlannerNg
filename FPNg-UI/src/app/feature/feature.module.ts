@@ -6,7 +6,6 @@ import { FeatureRoutingModule } from './feature-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ItemDetailModule } from './item-detail/item-detail.module';
 import { TestModule } from './test/test.module';
-import { DisplayModule } from './display/display.module';
 
 @NgModule({
 
@@ -16,8 +15,7 @@ import { DisplayModule } from './display/display.module';
     FormsModule,
     FeatureRoutingModule,
     TestModule,
-    ItemDetailModule,
-    DisplayModule
+    ItemDetailModule
   ],
   exports: [],
   providers: [
