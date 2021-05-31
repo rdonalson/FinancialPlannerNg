@@ -27,11 +27,10 @@
         </ng-template>
         <!-- Start Date -->
         <div class="p-field p-grid">
-          <label for="beginDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-            >Start Date</label
-          >
+          <label for="beginDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Start Date</label>
           <div class="p-col">
             <p-calendar
+              [(ngModel)]="ledgerParams.timeFrameBegin"
               id="beginDateId"
               placeholder="Select a start date"
               [showIcon]="true"
@@ -41,11 +40,10 @@
         </div>
         <!-- End Date -->
         <div class="p-field p-grid">
-          <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
-            >End Date</label
-          >
+          <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">End Date</label>
           <div class="p-col">
             <p-calendar
+              [(ngModel)]="ledgerParams.timeFrameEnd"
               id="endDateId"
               placeholder="Select an end date"
               [showIcon]="true"
@@ -59,7 +57,7 @@
           <i class="pi pi-chart-line"></i>
           <span>&nbsp;Chart</span>
         </ng-template>
-        <app-chart></app-chart>
+        <app-chart [ledgerList]="ledgerList"></app-chart>
       </p-tabPanel>
       <p-tabPanel>
         <ng-template pTemplate="header">

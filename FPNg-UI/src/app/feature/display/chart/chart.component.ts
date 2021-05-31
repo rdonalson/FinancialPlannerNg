@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { Component, Input, OnInit } from '@angular/core';
+import { ILedgerVM } from '../shared/view-models/ledger-vm';
 
 @Component({
   selector: 'app-chart',
@@ -6,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
+  @Input() ledgerList: ILedgerVM[] = [];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

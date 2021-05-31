@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { GeneralUtilService } from 'src/app/core/services/common/general-util.service';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
-import { MessageUtilService } from '../item-detail/shared/services/common/message-util.service';
 import { ILedger } from './shared/models/ledger';
 import { ILedgerParams } from './shared/models/ledger-params';
 import { DisplayService } from './shared/services/display/display.service';
@@ -24,17 +23,14 @@ export class DisplayMainComponent implements OnInit {
   ledger: ILedger[] = [];
   ledgerList: ILedgerVM[] = [];
 
-
   /**
    * Base Constructor
    * @param {GeneralUtilService} claimsUtilService
-   * @param {MessageUtilService} messageUtilService
    * @param {GlobalErrorHandlerService} err
    * @param {DisplayService} displayService
    */
   constructor(
     private claimsUtilService: GeneralUtilService,
-    private messageUtilService: MessageUtilService,
     private err: GlobalErrorHandlerService,
     private displayService: DisplayService,
   ) { }
@@ -44,9 +40,13 @@ export class DisplayMainComponent implements OnInit {
    */
   ngOnInit(): void {
     this.userId = this.claimsUtilService.getUserOid();
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setMonth(endDate.getMonth() + 3);
+
     this.ledgerParams = {
-      timeFrameBegin: new Date('2021-01-01'),
-      timeFrameEnd: new Date('2021-12-31'),
+      timeFrameBegin: startDate,
+      timeFrameEnd: endDate,
       userId: this.userId,
       groupingTranform: 0
     };
@@ -64,7 +64,6 @@ export class DisplayMainComponent implements OnInit {
    */
   createLedger(ledgerParams: ILedgerParams): any {
     return this.displayService.createLedger(ledgerParams)
-      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: ILedger[]): void => {
           this.ledger = data;
@@ -77,6 +76,12 @@ export class DisplayMainComponent implements OnInit {
   }
 
 
+  /**
+   * Transform the Base Ledger dataset which consists of linear data where there the single day
+   * values repeat for Debit and Credit data into the LedgerList.
+   * In the LedgerList The Day values are distinct and the Debit and Credit items are grouped
+   * into an items array for that day.
+   */
   transformLedger(): void {
     let items: IItemVM[] = [];
     let cntr: number = 1;
@@ -127,7 +132,9 @@ export class DisplayMainComponent implements OnInit {
     // console.log(`Transform -> ledgerItems: ${JSON.stringify(this.ledgerList)}`);
   }
 
-
+  /**
+   * A click event that generates a new Ledger dataset when the User click the "Generate" button
+   */
   calculate(): void { this.createLedger(this.ledgerParams); }
 
 

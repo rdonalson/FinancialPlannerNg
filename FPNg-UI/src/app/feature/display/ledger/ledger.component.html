@@ -16,7 +16,11 @@
             <div style="width: 3rem"></div>
           </td>
           <td *ngIf="ledger.items.length !== 0">
-            <button type="button" pButton pRipple [pRowToggler]="ledger" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            <button type="button"
+                pButton pRipple [pRowToggler]="ledger"
+                class="p-button-text p-button-rounded p-button-plain"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+            </button>
         </td>
           <td>{{ledger.wDate | date :'shortDate' }}</td>
           <td>{{ledger.creditSummary | currency:'USD'}}</td>
