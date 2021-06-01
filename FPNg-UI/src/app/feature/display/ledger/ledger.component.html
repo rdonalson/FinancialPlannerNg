@@ -6,7 +6,6 @@
           <th pSortableColumn="creditSummary">Credit Summary<p-sortIcon field="creditSummary"></p-sortIcon></th>
           <th pSortableColumn="debitSummary">Debits Summary<p-sortIcon field="debitSummary"></p-sortIcon></th>
           <th pSortableColumn="net">Net Change<p-sortIcon field="net"></p-sortIcon></th>
-          <th pSortableColumn="upDown">Net Change<p-sortIcon field="upDown"></p-sortIcon></th>
           <th pSortableColumn="runningTotal">Balance <p-sortIcon field="runningTotal"></p-sortIcon></th>
       </tr>
   </ng-template>
@@ -21,12 +20,23 @@
                 class="p-button-text p-button-rounded p-button-plain"
                 [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
             </button>
-        </td>
+          </td>
           <td>{{ledger.wDate | date :'shortDate' }}</td>
-          <td>{{ledger.creditSummary | currency:'USD'}}</td>
-          <td>{{ledger.debitSummary | currency:'USD'}}</td>
-          <td>{{ledger.net | currency:'USD'}}</td>
-          <td>{{ledger.net | itemType }}</td>
+          <!-- Credit Summary -->
+          <td *ngIf="ledger.creditSummary === 0"> - </td>
+          <td *ngIf="ledger.creditSummary !== 0" [ngClass]="{'red': (ledger.creditSummary < 0), 'green': (ledger.creditSummary > 0)}">
+            {{ledger.creditSummary | currency:'USD' }}
+          </td>
+          <!-- Debit Summary -->
+          <td *ngIf="ledger.debitSummary === 0"> - </td>
+          <td *ngIf="ledger.debitSummary !== 0" [ngClass]="{'red': (ledger.debitSummary < 0), 'green': (ledger.debitSummary > 0)}" >
+            {{ledger.debitSummary | currency:'USD' }}
+          </td>
+          <!-- Net Change -->
+          <td *ngIf="ledger.net === 0"> - </td>
+          <td *ngIf="ledger.net !== 0" [ngClass]="{'red': (ledger.net < 0), 'green': (ledger.net > 0)}">
+            {{ledger.net | currency:'USD' }}
+          </td>
           <td>{{ledger.runningTotal | currency:'USD'}}</td>
       </tr>
   </ng-template>
@@ -47,10 +57,10 @@
                       <ng-template pTemplate="body" let-item>
                           <tr>
                             <td style="width: 3rem"></td>
-                            <td>{{ item.amount | creditOrDebit }}</td>
+                            <td >{{ item.amount | creditOrDebit }}</td>
                             <td>{{ item.periodName }}</td>
                             <td>{{ item.name }}</td>
-                            <td>{{ item.amount | currency:'USD'}}</td>
+                            <td [ngClass]="{'red': (item.amount < 0), 'green': (item.amount > 0)}" >{{ item.amount | currency:'USD'}}</td>
                           </tr>
                       </ng-template>
                       <ng-template pTemplate="emptymessage">
