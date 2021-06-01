@@ -37,7 +37,9 @@
           <td *ngIf="ledger.net !== 0" [ngClass]="{'red': (ledger.net < 0), 'green': (ledger.net > 0)}">
             {{ledger.net | currency:'USD' }}
           </td>
-          <td>{{ledger.runningTotal | currency:'USD'}}</td>
+          <td [ngClass]="{'red': (ledger.runningTotal < 0)}" >
+            {{ledger.runningTotal | currency:'USD'}}
+          </td>
       </tr>
   </ng-template>
   <ng-template pTemplate="rowexpansion" let-ledger>
@@ -51,7 +53,7 @@
                             <th pSortableColumn="type">Item Type <p-sortIcon field="type"></p-sortIcon></th>
                             <th pSortableColumn="periodName">Period <p-sortIcon field="periodName"></p-sortIcon></th>
                             <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+                            <th class="right" pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
                           </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-item>
@@ -60,7 +62,7 @@
                             <td >{{ item.amount | creditOrDebit }}</td>
                             <td>{{ item.periodName }}</td>
                             <td>{{ item.name }}</td>
-                            <td [ngClass]="{'red': (item.amount < 0), 'green': (item.amount > 0)}" >{{ item.amount | currency:'USD'}}</td>
+                            <td class="right" [ngClass]="{'red': (item.amount < 0), 'green': (item.amount > 0)}" >{{ item.amount | currency:'USD'}}</td>
                           </tr>
                       </ng-template>
                       <ng-template pTemplate="emptymessage">
