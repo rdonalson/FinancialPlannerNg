@@ -6,8 +6,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 
 import * as auth from '../../../../../shared/auth-config.json';
-import { ILedger } from '../../models/ledger';
 import { ILedgerParams } from '../../models/ledger-params';
+import { ILedgerVM } from '../../view-models/ledger-vm';
 
 /**
  * Display Service
@@ -33,14 +33,14 @@ export class DisplayService {
    * out to a future point in time.
    * The timeframe is set by the user
    * @param {ILedgerParams} ledgerParams View model for user parameters
-   * @returns {Observable<ILedger[]>} return the record
+   * @returns {Observable<ILedgerVM[]>} return the record
    */
-  createLedger(ledgerParams: ILedgerParams): Observable<ILedger[]> {
+  createLedger(ledgerParams: ILedgerParams): Observable<ILedgerVM[]> {
 
     const headers = new HttpHeaders({ 'content-type': 'application/json' });
-    return this.http.post<ILedger[]>(this.url, ledgerParams, { headers })
+    return this.http.post<ILedgerVM[]>(this.url, ledgerParams, { headers })
       .pipe(
-        // tap((data: ILedger[]) => console.log('Service createLedger: ' + JSON.stringify(data))),
+        tap((data: ILedgerVM[]) => console.log('Service createLedger: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }

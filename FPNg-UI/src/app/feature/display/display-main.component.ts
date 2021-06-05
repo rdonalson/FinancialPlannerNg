@@ -48,7 +48,7 @@ export class DisplayMainComponent implements OnInit {
       timeFrameBegin: startDate,
       timeFrameEnd: endDate,
       userId: this.userId,
-      groupingTranform: 0
+      groupingTranform: 1
     };
     this.createLedger(this.ledgerParams);
   }
@@ -65,71 +65,13 @@ export class DisplayMainComponent implements OnInit {
   createLedger(ledgerParams: ILedgerParams): any {
     return this.displayService.createLedger(ledgerParams)
       .subscribe({
-        next: (data: ILedger[]): void => {
-          this.ledger = data;
-          // console.log(`Display createLedger: ${JSON.stringify(this.ledger)}`);
-          this.transformLedger();
+        next: (data: ILedgerVM[]): void => {
+          this.ledgerList = data;
+          // console.log(`Display createLedger: ${JSON.stringify(this.ledgerList)}`);
         },
         error: catchError((err: any) => this.err.handleError(err)),
         complete: () => { }
       });
-  }
-
-
-  /**
-   * Transform the Base Ledger dataset which consists of linear data where there the single day
-   * values repeat for Debit and Credit data into the LedgerList.
-   * In the LedgerList The Day values are distinct and the Debit and Credit items are grouped
-   * into an items array for that day.
-   */
-  transformLedger(): void {
-    let items: IItemVM[] = [];
-    let cntr: number = 1;
-    let IdHold: number = 0;
-
-    this.ledger.forEach((ledger: ILedger) => {
-      // console.log(`Transform -> ledger: ${JSON.stringify(ledger)}`);
-      if (IdHold !== ledger.rollupKey)
-      {
-        if (items.length > 0) {
-          this.ledgerList[IdHold - 1].items = items;
-          items = [];
-        }
-        const vm: ILedgerVM = {
-          rollupKey: ledger.rollupKey,
-          year: ledger.year,
-          wDate: ledger.wDate,
-          creditSummary: ledger.creditSummary,
-          debitSummary: ledger.debitSummary,
-          net: ledger.net,
-          runningTotal: ledger.runningTotal,
-          itemCount: 0,
-          items: []
-        };
-        this.ledgerList.push(vm);
-      }
-      if (ledger.periodName !== '-') {
-        if (IdHold !== ledger.rollupKey) { cntr = 1; }
-        const itm: IItemVM = {
-          itemKey: cntr,
-          occurrenceDate: ledger.occurrenceDate,
-          itemType: ledger.itemType,
-          periodName: ledger.periodName,
-          name: ledger.name,
-          amount: ledger.amount
-        };
-        items.push(itm);
-        cntr++;
-      } else {
-        cntr = 1;
-      }
-      IdHold = ledger.rollupKey;
-    });
-    if (items) {
-      this.ledgerList[IdHold - 1].items = items;
-      items = [];
-    }
-    // console.log(`Transform -> ledgerItems: ${JSON.stringify(this.ledgerList)}`);
   }
 
   /**

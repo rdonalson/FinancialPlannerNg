@@ -1,6 +1,8 @@
 export interface IItemVM {
-  itemKey: number;
-  occurrenceDate?: Date;
+  rollupKey?: number;
+  year?: number;
+  itemKey?: number;
+  occurrenceDate?: string;
   itemType?: number;
   periodName?: string;
   name?: string;
