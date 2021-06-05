@@ -425,7 +425,6 @@ C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netco
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\FPNg.API.Infrastructure.dll
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\FPNg.API.Data.pdb
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\bin\Debug\netcoreapp3.1\FPNg.API.Infrastructure.pdb
-C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.csprojAssemblyReference.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.AssemblyInfoInputs.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.AssemblyInfo.cs
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.csproj.CoreCompileInputs.cache
@@ -439,3 +438,4 @@ C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netco
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.dll
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.pdb
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.genruntimeconfig.cache
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg-API\obj\Debug\netcoreapp3.1\FPNg.API.csproj.AssemblyReference.cache
