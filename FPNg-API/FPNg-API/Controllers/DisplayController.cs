@@ -40,7 +40,7 @@ namespace FPNg.API.Controllers
         ///     @TimeFrameBegin = '2021-01-01',
         ///     @TimeFrameEnd = '2021-12-31',
         ///     @UserId = '8fdbe29e-f25f-450d-b179-92973e2bf7ba',
-        ///     @GroupingTranform = 0
+        ///     @GroupingTranform = false
         /// </summary>
         /// <param name="input">LedgerParams: Parameters for input into procedure</param>
         /// <returns>Task<ActionResult<List<LedgerVM>>>: A ledger of financial tansactions for the Authorized User</returns>
@@ -48,7 +48,7 @@ namespace FPNg.API.Controllers
         public async Task<ActionResult<List<LedgerVM>>> createLedger(LedgerParams input)
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            return await _repoDisplay.CreateLedger(input.TimeFrameBegin, input.TimeFrameEnd, input.UserId, input.GroupingTranform);
+            return await _repoDisplay.CreateLedger(input.TimeFrameBegin, input.TimeFrameEnd, input.UserId, input.GroupingTransform);
         }
     }
 

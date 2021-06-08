@@ -7,6 +7,6 @@ namespace FPNg.API.Models
         public DateTime TimeFrameBegin { get; set; }
         public DateTime TimeFrameEnd { get; set; }
         public Guid UserId { get; set; }
-        public int GroupingTranform { get; set; }
+        public bool GroupingTransform { get; set; }
     }
 }

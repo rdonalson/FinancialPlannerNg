@@ -36,9 +36,9 @@ namespace FPNg.API.Infrastructure.Display.Repository
         /// <param name="timeFrameBegin">DateTime</param>
         /// <param name="timeFrameEnd">DateTime</param>
         /// <param name="userId">Guid</param>
-        /// <param name="groupingTranform">int</param>
+        /// <param name="groupingTranform">bool</param>
         /// <returns>async Task<List<LedgerVM>></returns>
-        public async Task<List<LedgerVM>> CreateLedger(DateTime timeFrameBegin, DateTime timeFrameEnd, Guid userId, int groupingTranform)
+        public async Task<List<LedgerVM>> CreateLedger(DateTime timeFrameBegin, DateTime timeFrameEnd, Guid userId, bool groupingTranform)
         {
             try
             {
