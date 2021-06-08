@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { GeneralUtilService } from 'src/app/core/services/common/general-util.service';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
-import { ILedger } from './shared/models/ledger';
 import { ILedgerParams } from './shared/models/ledger-params';
 import { DisplayService } from './shared/services/display/display.service';
-import { IItemVM } from './shared/view-models/item-vm';
 import { ILedgerVM } from './shared/view-models/ledger-vm';
 
 @Component({
@@ -20,8 +18,10 @@ export class DisplayMainComponent implements OnInit {
   private userId = '';
   activeIndex = 0;
   ledgerParams!: ILedgerParams;
-  ledger: ILedger[] = [];
+  // ledger: ILedger[] = [];
   ledgerList: ILedgerVM[] = [];
+
+  messages: { [key: string]: { [key: string]: string; }; };
 
   /**
    * Base Constructor
@@ -33,7 +33,14 @@ export class DisplayMainComponent implements OnInit {
     private claimsUtilService: GeneralUtilService,
     private err: GlobalErrorHandlerService,
     private displayService: DisplayService,
-  ) { }
+  ) {
+    // Criterial field messages.
+    this.messages = {
+      groupingTransform: { informational: 'Select if you want the output to be summarized by week, month & year' },
+      timeFrameBegin: { informational: 'Select a Start Date.' },
+      timeFrameEnd: { informational: 'Select an End Date.' },
+    };
+  }
 
   /**
    * Initialize the page
@@ -43,12 +50,11 @@ export class DisplayMainComponent implements OnInit {
     const startDate = new Date();
     const endDate = new Date();
     endDate.setMonth(endDate.getMonth() + 3);
-
     this.ledgerParams = {
       timeFrameBegin: startDate,
       timeFrameEnd: endDate,
       userId: this.userId,
-      groupingTranform: 1
+      groupingTransform: true
     };
     this.createLedger(this.ledgerParams);
   }

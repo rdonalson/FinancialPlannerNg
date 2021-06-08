@@ -40,7 +40,7 @@ export class DisplayService {
     const headers = new HttpHeaders({ 'content-type': 'application/json' });
     return this.http.post<ILedgerVM[]>(this.url, ledgerParams, { headers })
       .pipe(
-        tap((data: ILedgerVM[]) => console.log('Service createLedger: ' + JSON.stringify(data))),
+        // tap((data: ILedgerVM[]) => console.log('Service createLedger: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }

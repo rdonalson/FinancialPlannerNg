@@ -13,6 +13,8 @@ import { DisplayService } from './shared/services/display/display.service';
 import { DisplayMainComponent } from './display-main.component';
 import { CreditOrDebitPipe } from './shared/pipes/credit-or-debit.pipe';
 import { ItemTypePipe } from './shared/pipes/item-type.pipe';
+import { CheckboxModule } from 'primeng/checkbox';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ItemTypePipe } from './shared/pipes/item-type.pipe';
     FormsModule,
     TabViewModule,
     ButtonModule,
+    CheckboxModule,
     CalendarModule,
+    TooltipModule,
     TableModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

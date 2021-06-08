@@ -27,28 +27,50 @@
         </ng-template>
         <!-- Start Date -->
         <div class="p-field p-grid">
-          <label for="beginDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Start Date</label>
+          <label for="beginDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Start Date</label
+          >
           <div class="p-col">
             <p-calendar
               [(ngModel)]="ledgerParams.timeFrameBegin"
               id="beginDateId"
               placeholder="Select a start date"
               [showIcon]="true"
+              pTooltip="{{ messages['timeFrameBegin'].informational }}"
               tooltipPosition="left"
-            ></p-calendar>
+            >
+            </p-calendar>
           </div>
         </div>
         <!-- End Date -->
         <div class="p-field p-grid">
-          <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">End Date</label>
+          <label for="endDateId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >End Date</label
+          >
           <div class="p-col">
             <p-calendar
               [(ngModel)]="ledgerParams.timeFrameEnd"
               id="endDateId"
               placeholder="Select an end date"
               [showIcon]="true"
+              pTooltip="{{ messages['timeFrameEnd'].informational }}"
               tooltipPosition="left"
-            ></p-calendar>
+            >
+            </p-calendar>
+          </div>
+        </div>
+        <div class="p-field p-grid">
+          <label for="groupingTransformId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+            >Grouping?</label
+          >
+          <div class="p-col p-field-checkbox">
+            <p-checkbox
+              [(ngModel)]="ledgerParams.groupingTransform"
+              [binary]="true"
+              pTooltip="{{ messages['groupingTransform'].informational }}"
+              tooltipPosition="left"
+            >
+            </p-checkbox>
           </div>
         </div>
       </p-tabPanel>

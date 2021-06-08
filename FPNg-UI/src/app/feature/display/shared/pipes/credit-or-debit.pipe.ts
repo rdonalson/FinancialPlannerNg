@@ -8,10 +8,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'creditOrDebit'
 })
 export class CreditOrDebitPipe implements PipeTransform {
-
   transform(value: number): string {
-    console.log(`value: ${value}`);
-    return value > 0 ? 'Credit' : 'Debit' ;
+    switch (value) {
+      case 1:
+        return 'Credit';
+      case 2:
+        return 'Debit';
+      default:
+        return '';
+    }
   }
-
 }

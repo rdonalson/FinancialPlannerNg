@@ -2,7 +2,7 @@
   <ng-template pTemplate="header">
       <tr>
           <th style="width: 3rem"></th>
-          <th pSortableColumn="wDate">Date <p-sortIcon field="wDate"></p-sortIcon></th>
+          <th style="width: 20rem;" pSortableColumn="wDate">Date <p-sortIcon field="wDate"></p-sortIcon></th>
           <th pSortableColumn="creditSummary">Credit Summary<p-sortIcon field="creditSummary"></p-sortIcon></th>
           <th pSortableColumn="debitSummary">Debits Summary<p-sortIcon field="debitSummary"></p-sortIcon></th>
           <th pSortableColumn="net">Net Change<p-sortIcon field="net"></p-sortIcon></th>
@@ -21,7 +21,7 @@
                 [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
             </button>
           </td>
-          <td>{{ledger.wDate | date :'shortDate' }}</td>
+          <td  >{{ledger.wDate | date :'fullDate' }}</td>
           <!-- Credit Summary -->
           <td *ngIf="ledger.creditSummary === 0"> - </td>
           <td *ngIf="ledger.creditSummary !== 0" [ngClass]="{'red': (ledger.creditSummary < 0), 'green': (ledger.creditSummary > 0)}">
@@ -59,7 +59,7 @@
                       <ng-template pTemplate="body" let-item>
                           <tr>
                             <td style="width: 3rem"></td>
-                            <td >{{ item.amount | creditOrDebit }}</td>
+                            <td>{{ item.itemType | creditOrDebit }}</td>
                             <td>{{ item.periodName }}</td>
                             <td>{{ item.name }}</td>
                             <td class="right" [ngClass]="{'red': (item.amount < 0), 'green': (item.amount > 0)}" >{{ item.amount | currency:'USD'}}</td>
