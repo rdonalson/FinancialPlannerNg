@@ -1,6 +1,7 @@
+/* eslint-disable no-constant-condition */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
-import { ILedgerVM } from '../shared/view-models/ledger-vm';
 
 @Component({
   selector: 'app-chart',
@@ -8,10 +9,13 @@ import { ILedgerVM } from '../shared/view-models/ledger-vm';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  @Input() ledgerList: ILedgerVM[] = [];
+  @Input() data: any;
+  @Input() options: any;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
 }

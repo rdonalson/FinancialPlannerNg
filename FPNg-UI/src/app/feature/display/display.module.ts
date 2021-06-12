@@ -6,6 +6,9 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { TooltipModule } from 'primeng/tooltip';
+import { ChartModule } from 'primeng/chart';
 
 import { ChartComponent } from './chart/chart.component';
 import { LedgerComponent } from './ledger/ledger.component';
@@ -13,8 +16,8 @@ import { DisplayService } from './shared/services/display/display.service';
 import { DisplayMainComponent } from './display-main.component';
 import { CreditOrDebitPipe } from './shared/pipes/credit-or-debit.pipe';
 import { ItemTypePipe } from './shared/pipes/item-type.pipe';
-import { CheckboxModule } from 'primeng/checkbox';
-import { TooltipModule } from 'primeng/tooltip';
+import { AppConfigService } from './shared/services/app-config/app-config.service';
+
 
 @NgModule({
   declarations: [
@@ -32,11 +35,13 @@ import { TooltipModule } from 'primeng/tooltip';
     CheckboxModule,
     CalendarModule,
     TooltipModule,
-    TableModule
+    TableModule,
+    ChartModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    DisplayService
+    DisplayService,
+    AppConfigService
   ]
 })
 export class DisplayModule { }

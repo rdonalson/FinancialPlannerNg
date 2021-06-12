@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="card-body">
-    <p-tabView styleClass="tabview-custom">
+    <p-tabView styleClass="tabview-custom" [(activeIndex)]="activeIndex">
       <p-tabPanel>
         <ng-template pTemplate="header">
           <i class="pi pi-calendar"></i>
@@ -79,7 +79,9 @@
           <i class="pi pi-chart-line"></i>
           <span>&nbsp;Chart</span>
         </ng-template>
-        <app-chart [ledgerList]="ledgerList"></app-chart>
+        <app-chart
+          [data]="data">
+        </app-chart>
       </p-tabPanel>
       <p-tabPanel>
         <ng-template pTemplate="header">

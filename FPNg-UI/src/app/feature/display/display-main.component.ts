@@ -18,9 +18,15 @@ export class DisplayMainComponent implements OnInit {
   private userId = '';
   activeIndex = 0;
   ledgerParams!: ILedgerParams;
-  // ledger: ILedger[] = [];
   ledgerList: ILedgerVM[] = [];
 
+  /** Chart data items */
+  labels: string[] = [];
+  rTotals: string[] = [];
+  credits: string[] = [];
+  debits: string[] = [];
+
+  data: any;
   messages: { [key: string]: { [key: string]: string; }; };
 
   /**
@@ -60,6 +66,11 @@ export class DisplayMainComponent implements OnInit {
   }
 
   /**
+   * A click event that generates a new Ledger dataset when the User click the "Generate" button
+   */
+   calculate(): void { this.createLedger(this.ledgerParams); }
+
+  /**
    * Calls the "Display" service which calls the "Create Ledger Readout" procedure that
    * generates the Ledger Output.
    * That output contains a forecasted Cronological list of credit/debit transactions with a running total
@@ -74,6 +85,7 @@ export class DisplayMainComponent implements OnInit {
         next: (data: ILedgerVM[]): void => {
           this.ledgerList = data;
           // console.log(`Display createLedger: ${JSON.stringify(this.ledgerList)}`);
+          this.getChartData();
         },
         error: catchError((err: any) => this.err.handleError(err)),
         complete: () => { }
@@ -81,9 +93,82 @@ export class DisplayMainComponent implements OnInit {
   }
 
   /**
-   * A click event that generates a new Ledger dataset when the User click the "Generate" button
+   * Generates the Complete dataset for the Chart
    */
-  calculate(): void { this.createLedger(this.ledgerParams); }
+  getChartData(): void {
+    this.activeIndex = 1; // Default tab -> Chart
+    this.getLabels();
+    this.getRunningTotals();
+    this.getCredits();
+    this.getDebits();
+    this.data = {
+      labels: this.labels,
+      datasets: [
+        {
+          label: 'Credits',
+          data: this.credits,
+          fill: true,
+          borderColor: 'Green',
+          backgroundColor: 'LightGreen'
+        },
+        {
+          label: 'Debits',
+          data: this.debits,
+          fill: true,
+          borderColor: 'Red',
+          backgroundColor: 'rgba(255,99,132,0.2)'
+        },
+        {
+          label: 'Running Total',
+          data: this.rTotals,
+          fill: false,
+          borderDash: [5, 5],
+          borderColor: '#FFA726'
+        }
+      ]
+    };
+  }
 
+  /**
+   * Parses the labels for the chart
+   */
+  getLabels(): void {
+    this.labels = [];
+    this.ledgerList.forEach((ledger: ILedgerVM) => {
+      const date: Date = new Date(ledger.wDate.toString());
+      const result = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
+      this.labels.push(result);
+    });
+  }
 
+  /**
+   * Parses the Running Totals
+   */
+  getRunningTotals(): void {
+    this.rTotals = [];
+    this.ledgerList.forEach((ledger: ILedgerVM) => {
+      this.rTotals.push(ledger.runningTotal.toString());
+    });
+  }
+
+  /**
+   * Parses the Credits
+   */
+  getCredits(): void {
+    this.credits = [];
+    this.ledgerList.forEach((ledger: ILedgerVM) => {
+      this.credits.push(ledger.creditSummary.toString());
+    });
+  }
+
+  /**
+   * Parses the Debits
+   */
+  getDebits(): void {
+    this.debits = [];
+    this.ledgerList.forEach((ledger: ILedgerVM) => {
+      this.debits.push(ledger.debitSummary.toString());
+    });
+  }
 }
+
