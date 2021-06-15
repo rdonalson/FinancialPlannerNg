@@ -8,17 +8,6 @@ namespace FPNg.API.Data.Context
     public partial class FPNgContext : DbContext
     {
         // private readonly string Conn = "Data Source=DESKTOP-VPBJU0V\\APPLICATION;Initial Catalog=FinancialPlannerNg;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;";
-        private readonly string Conn = "Data Source=pn5745kjcc.database.windows.net,1433;" +
-            "Initial Catalog=FinancialPlannerNg;" +
-            "Persist Security Info=False;" +
-            "User ID=rdonalson;" +
-            "Password=@89UIor#-jk;" +
-            "Connect Timeout=30;" +
-            "Encrypt=True;" +
-            "MultipleActiveResultSets=False;" +
-            "TrustServerCertificate=False;" +
-            "ApplicationIntent=ReadWrite;" +
-            "MultiSubnetFailover=False;";
 
         public FPNgContext() { }
         public FPNgContext(DbContextOptions<FPNgContext> options) : base(options) { }
