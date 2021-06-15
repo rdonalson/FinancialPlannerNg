@@ -15,7 +15,7 @@ namespace FPNg.API.Data.Migrations
                 schema: "ItemDetail",
                 columns: table => new
                 {
-                    PkID = table.Column<int>(nullable: false)
+                    PkInitialAmount = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(maxLength: 75, nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: true),
@@ -23,7 +23,7 @@ namespace FPNg.API.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InitialAmount", x => x.PkID);
+                    table.PrimaryKey("PK_InitialAmount", x => x.PkInitialAmount);
                 });
 
             migrationBuilder.CreateTable(
