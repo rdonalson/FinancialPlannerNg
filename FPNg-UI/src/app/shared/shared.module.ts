@@ -28,6 +28,7 @@ import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 
 import * as auth from './auth-config.json';
+import { TooltipModule } from 'primeng/tooltip';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
@@ -91,7 +92,8 @@ export function msalGuardConfigFactory(): MsalGuardConfiguration {
     MenuModule,
     MenubarModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    TooltipModule
   ],
   exports: [FooterComponent, HeaderComponent],
   providers: [

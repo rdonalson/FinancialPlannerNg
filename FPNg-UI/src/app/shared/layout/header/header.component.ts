@@ -15,6 +15,8 @@ import { filter, takeUntil } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   items: MenuItem[] = [];
+  items2: MenuItem[] = [];
+
   claims: any;
   userName = '';
   oid!: string;
@@ -42,6 +44,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
 
+    this.items2 = [
+      {
+        label: 'Quit',
+        icon: 'pi pi-fw pi-power-off'
+      }
+    ];
     this.items = [
       {
         label: 'File',

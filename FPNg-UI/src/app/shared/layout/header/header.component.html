@@ -8,39 +8,25 @@
         height="35"
         class="d-inline-block align-top"
       />
-
-      {{ title }}
+      <label style="padding-top: .49rem; padding-left: 1rem;">{{ title }}</label>
     </a>
   </div>
 </nav>
-<p-menubar [model]="items">
-  <div>
-    <button
-      pButton
-      pRipple
-      type="button"
-      [label]="claims?.name"
-      *ngIf="claims?.name"
-      class="p-button-text"
-    ></button>
-    <button
-      pButton
-      pRipple
-      type="button"
-      label="Login"
-      class="p-button-text"
-      *ngIf="!loggedIn"
-      (click)="login()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      type="button"
-      label="Logout"
-      class="p-button-text"
-      *ngIf="loggedIn"
-      (click)="logout()"
-    ></button>
-  </div>
-</p-menubar>
 
+<p-menubar [model]="items">
+  <span *ngIf="loggedIn" class="right-side-format">{{ claims?.name }}</span>
+  <i
+    *ngIf="loggedIn"
+    class="pi pi-sign-out right-side-format"
+    (click)="logout()"
+    pTooltip="Logout"
+    tooltipPosition="left"
+  ></i>
+  <i
+    *ngIf="!loggedIn"
+    class="pi pi-sign-in right-side-format"
+    (click)="login()"
+    pTooltip="Login"
+    tooltipPosition="left"
+  ></i>
+</p-menubar>
