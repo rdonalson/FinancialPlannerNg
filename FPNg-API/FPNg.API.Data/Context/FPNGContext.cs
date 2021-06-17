@@ -7,7 +7,7 @@ namespace FPNg.API.Data.Context
 {
     public partial class FPNgContext : DbContext
     {
-        // private readonly string Conn = "Data Source=DESKTOP-VPBJU0V\\APPLICATION;Initial Catalog=FinancialPlannerNg;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;";
+        private readonly string Conn = "";  // When creating structure add a connection string
 
         public FPNgContext() { }
         public FPNgContext(DbContextOptions<FPNgContext> options) : base(options) { }
