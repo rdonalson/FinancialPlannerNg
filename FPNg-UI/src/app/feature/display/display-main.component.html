@@ -6,6 +6,20 @@
           {{ pageTitle }}
         </span>
       </div>
+      <div class="display-div left">
+        <span>
+          {{ dateRangeDisplay }}
+        </span>
+      </div>
+      <div class="spinner-box right">
+        <p-progressSpinner *ngIf="progressSpinner"
+          strokeWidth="6"
+          [style]="{ width: '2rem', height: '2rem' }"
+          fill="#efefef"
+          animationDuration="3s"
+          styleClass="custom-spinner"
+        ></p-progressSpinner>
+      </div>
       <div class="right">
         <button
           pButton
@@ -60,7 +74,9 @@
           </div>
         </div>
         <div class="p-field p-grid">
-          <label for="groupingTransformId" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
+          <label
+            for="groupingTransformId"
+            class="p-col-12 p-mb-2 p-md-2 p-mb-md-0"
             >Grouping?</label
           >
           <div class="p-col p-field-checkbox">
@@ -79,9 +95,7 @@
           <i class="pi pi-chart-line"></i>
           <span>&nbsp;Chart</span>
         </ng-template>
-        <app-chart
-          [data]="data">
-        </app-chart>
+        <app-chart [data]="data"> </app-chart>
       </p-tabPanel>
       <p-tabPanel>
         <ng-template pTemplate="header">

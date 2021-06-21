@@ -18,6 +18,20 @@
           <span>
             {{ pageTitle }}
           </span>
+          <span class="return">
+            <i routerLink="/feature/item-detail">Return</i>
+          </span>
+        </div>
+        <!-- Progress Spinner -->
+        <div class="spinner-box right">
+          <p-progressSpinner
+            *ngIf="progressSpinner"
+            strokeWidth="6"
+            [style]="{ width: '2rem', height: '2rem' }"
+            fill="#efefef"
+            animationDuration="3s"
+            styleClass="custom-spinner"
+          ></p-progressSpinner>
         </div>
         <div class="right spacer">
           <span class="p-input-icon-left">
@@ -30,6 +44,7 @@
             />
           </span>
         </div>
+
         <div class="right">
           <button
             pButton

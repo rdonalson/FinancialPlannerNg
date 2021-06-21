@@ -1,3 +1,4 @@
+<!-- Header Bar -->
 <nav class="navbar navbar-light bg-light header">
   <div class="container-fluid">
     <a class="navbar-brand header-text" href="#">
@@ -8,13 +9,49 @@
         height="35"
         class="d-inline-block align-top"
       />
-      <label style="padding-top: .49rem; padding-left: 1rem;">{{ title }}</label>
+      <label class="title">
+        {{title}}
+      </label>
     </a>
   </div>
 </nav>
+<!-- Navigation Menues -->
+<p-menubar *ngIf="!loggedIn">
+  <!-- Login Button-->
+  <button
+    pButton
+    pRipple
+    label="Login"
+    *ngIf="!loggedIn"
+    icon="pi pi-sign-in"
+    type="button"
+    class="p-button-success p-button-outlined p-button-rounded"
+    iconPos="right"
+    (click)="login()"
+  ></button>
+</p-menubar>
 
-<p-menubar [model]="items">
+<p-menubar *ngIf="loggedIn" [model]="menuItems">
+  <!-- Logout Button & User Name -->
+  <button
+    pButton
+    pRipple
+    label="{{ claims?.name }}"
+    *ngIf="loggedIn"
+    icon="pi pi-sign-out"
+    type="button"
+    class="p-button-success p-button-outlined p-button-rounded"
+    iconPos="right"
+    (click)="logout()"
+    pTooltip="Logout"
+    tooltipPosition="left"
+  ></button>
+</p-menubar>
+
+<!-- Archive
+  <p-menubar [model]="menuItems">
   <span *ngIf="loggedIn" class="right-side-format">{{ claims?.name }}</span>
+  <span *ngIf="!loggedIn" class="right-side-format">Login</span>
   <i
     *ngIf="loggedIn"
     class="pi pi-sign-out right-side-format"
@@ -24,9 +61,9 @@
   ></i>
   <i
     *ngIf="!loggedIn"
-    class="pi pi-sign-in right-side-format"
+    class="pi pi-sign-in right-side-format login-text"
     (click)="login()"
     pTooltip="Login"
     tooltipPosition="left"
-  ></i>
-</p-menubar>
+  >&nbsp;Login</i>
+</p-menubar> -->

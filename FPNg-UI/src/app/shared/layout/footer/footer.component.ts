@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-
-  constructor() { }
-
+  value: string = '';
+  constructor() {}
   ngOnInit(): void {
+    const dte = new Date();
+    this.value = `Financial Planner Ng ${dte.getFullYear()}`;
   }
 
 }

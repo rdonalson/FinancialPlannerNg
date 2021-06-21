@@ -19,7 +19,8 @@ import { DisplayModule } from './display/display.module';
     DisplayModule,
     FeatureRoutingModule
   ],
-  exports: [],
+  exports: [
+  ],
   providers: []
 })
 export class FeatureModule { }

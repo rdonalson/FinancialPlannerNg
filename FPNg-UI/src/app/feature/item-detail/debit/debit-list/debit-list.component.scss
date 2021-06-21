@@ -1,7 +1,7 @@
+@import url(../../../shared/styles/feature-common.scss);
 @import url(../../shared/styles/item-detail-common.scss);
 
 :host ::ng-deep {
-
   .p-paginator {
     .p-paginator-current {
       margin-left: auto;

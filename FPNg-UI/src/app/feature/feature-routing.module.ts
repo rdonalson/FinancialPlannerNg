@@ -13,7 +13,11 @@ const routes: Routes = [
         path: 'item-detail', component: ItemDetailHomeComponent,
       },
       {
-        path: 'display', component: DisplayMainComponent,
+        path: 'display',
+        children: [
+          { path: '', component: DisplayMainComponent },
+          { path: ':id', component: DisplayMainComponent }
+        ]
       },
       {
         path: 'test', component: TestHomeComponent,

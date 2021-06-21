@@ -1,23 +1,27 @@
-.card-header {
-  font-size: 16px;
-  font-weight: 500;
-}
+@import url(../../shared/styles/feature-common.scss);
+@import url(../shared/styles/item-detail-common.scss);
 
-.p-grid {
-  margin: 0rem;
-}
+:host ::ng-deep {
+  .card-header {
+    font-size: 16px;
+    font-weight: 500;
+  }
 
-.p-field {
-  vertical-align: middle;
-  margin: 0rem;
-  padding: .5rem;
-}
+  .p-grid {
+    margin: 0rem;
+  }
 
-label {
-  vertical-align: middle;
-  margin: 0rem;
-  padding: .55rem;
-  font-size: larger;
-  font-weight: 400;
-}
+  .p-field {
+    vertical-align: middle;
+    margin: 0rem;
+    padding: 0.5rem;
+  }
 
+  label {
+    vertical-align: middle;
+    margin: 0rem;
+    padding: 0.55rem;
+    font-size: larger;
+    font-weight: 400;
+  }
+}

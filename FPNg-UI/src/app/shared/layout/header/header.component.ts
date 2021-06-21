@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
@@ -14,15 +15,11 @@ import { filter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  items: MenuItem[] = [];
-  items2: MenuItem[] = [];
-
+  menuItems: MenuItem[] = [];
   claims: any;
-  userName = '';
-  oid!: string;
   title = 'Financial Planner Ng';
-  isIframe = false;
-  loggedIn = false;
+  isIframe: boolean = false;
+  loggedIn: boolean = false;
   private readonly destroying$ = new Subject<void>();
 
   /**
@@ -43,142 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
    * Initialize the Page
    */
   ngOnInit(): void {
-
-    this.items2 = [
-      {
-        label: 'Quit',
-        icon: 'pi pi-fw pi-power-off'
-      }
-    ];
-    this.items = [
-      {
-        label: 'File',
-        icon: 'pi pi-fw pi-file',
-        items: [
-          {
-            label: 'New',
-            icon: 'pi pi-fw pi-plus',
-            items: [
-              {
-                label: 'Bookmark',
-                icon: 'pi pi-fw pi-bookmark'
-              },
-              {
-                label: 'Video',
-                icon: 'pi pi-fw pi-video'
-              },
-
-            ]
-          },
-          {
-            label: 'Delete',
-            icon: 'pi pi-fw pi-trash'
-          },
-          {
-            separator: true
-          },
-          {
-            label: 'Export',
-            icon: 'pi pi-fw pi-external-link'
-          }
-        ]
-      },
-      {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-        items: [
-          {
-            label: 'Left',
-            icon: 'pi pi-fw pi-align-left'
-          },
-          {
-            label: 'Right',
-            icon: 'pi pi-fw pi-align-right'
-          },
-          {
-            label: 'Center',
-            icon: 'pi pi-fw pi-align-center'
-          },
-          {
-            label: 'Justify',
-            icon: 'pi pi-fw pi-align-justify'
-          },
-
-        ]
-      },
-      {
-        label: 'Users',
-        icon: 'pi pi-fw pi-user',
-        items: [
-          {
-            label: 'New',
-            icon: 'pi pi-fw pi-user-plus',
-
-          },
-          {
-            label: 'Delete',
-            icon: 'pi pi-fw pi-user-minus',
-
-          },
-          {
-            label: 'Search',
-            icon: 'pi pi-fw pi-users',
-            items: [
-              {
-                label: 'Filter',
-                icon: 'pi pi-fw pi-filter',
-                items: [
-                  {
-                    label: 'Print',
-                    icon: 'pi pi-fw pi-print'
-                  }
-                ]
-              },
-              {
-                icon: 'pi pi-fw pi-bars',
-                label: 'List'
-              }
-            ]
-          }
-        ]
-      },
-      {
-        label: 'Events',
-        icon: 'pi pi-fw pi-calendar',
-        items: [
-          {
-            label: 'Edit',
-            icon: 'pi pi-fw pi-pencil',
-            items: [
-              {
-                label: 'Save',
-                icon: 'pi pi-fw pi-calendar-plus'
-              },
-              {
-                label: 'Delete',
-                icon: 'pi pi-fw pi-calendar-minus'
-              },
-
-            ]
-          },
-          {
-            label: 'Archieve',
-            icon: 'pi pi-fw pi-calendar-times',
-            items: [
-              {
-                label: 'Remove',
-                icon: 'pi pi-fw pi-calendar-minus'
-              }
-            ]
-          }
-        ]
-      },
-      {
-        label: 'Quit',
-        icon: 'pi pi-fw pi-power-off'
-      }
-    ];
-
+    this.getMenuItems();
     this.isIframe = window !== window.parent && !window.opener;
     this.checkAccount();
     this.claims = JSON.parse(localStorage.getItem('claims') || '{}'); // JSON.parse(obj);
@@ -201,6 +63,52 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
 
+  }
+
+  /**
+   * Initializes the navigation menu
+   */
+  private getMenuItems(): void {
+    this.menuItems = [
+      {
+        label: 'Item Details',
+        items: [{
+          label: 'Initial Amount',
+          icon: 'pi pi-link',
+          routerLink: '/feature/item-detail/initial-amount'
+        },
+        {
+          label: 'Credits',
+          icon: 'pi pi-link',
+          routerLink: '/feature/item-detail/credit'
+        }, {
+          label: 'Debits',
+          icon: 'pi pi-link',
+          routerLink: '/feature/item-detail/debit'
+        }
+        ]
+      },
+      {
+        label: 'Display',
+        items: [
+          {
+            label: 'Date Range',
+            icon: 'pi pi-calendar',
+            routerLink: '/feature/display/0'
+          },
+          {
+            label: 'Chart',
+            icon: 'pi pi-chart-line',
+            routerLink: '/feature/display/1'
+          },
+          {
+            label: 'Ledger',
+            icon: 'pi pi-list',
+            routerLink: '/feature/display/2'
+          }
+        ]
+      }
+    ];
   }
 
   /**
@@ -228,11 +136,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
       if (this.msalGuardConfig.authRequest) {
         this.authService.loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
-          // tslint:disable-next-line: deprecation
           .subscribe(() => this.checkAccount());
       } else {
         this.authService.loginPopup()
-          // tslint:disable-next-line: deprecation
           .subscribe(() => this.checkAccount());
       }
     } else {
@@ -248,6 +154,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
    * Logout Routine
    */
   logout(): void {
+    this.menuItems = [];
     this.router.navigate(['/home']);
     localStorage.removeItem('claims');
     this.authService.logout();

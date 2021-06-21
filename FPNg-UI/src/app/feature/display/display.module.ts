@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
@@ -30,6 +31,7 @@ import { AppConfigService } from './shared/services/app-config/app-config.servic
   imports: [
     CommonModule,
     FormsModule,
+    ProgressSpinnerModule,
     TabViewModule,
     ButtonModule,
     CheckboxModule,

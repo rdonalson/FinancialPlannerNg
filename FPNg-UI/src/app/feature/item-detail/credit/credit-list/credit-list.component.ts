@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
@@ -16,10 +17,12 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./credit-list.component.scss']
 })
 export class CreditListComponent implements OnInit {
-  pageTitle = 'Manage Credits';
+  pageTitle: string = 'Manage Credits';
+  progressSpinner: boolean = false;
+
   creditList: IVwCredit[] = [];
   selectedCredits: IVwCredit[] = [];
-  userId = '';
+  userId: string = '';
 
   /**
    * Base Constructor
@@ -55,6 +58,7 @@ export class CreditListComponent implements OnInit {
    * @returns {any}
    */
   getCredits(userId: string): any {
+    this.progressSpinner = true;
     return this.creditService.getCredits(userId)
       // tslint:disable-next-line: deprecation
       .subscribe({
@@ -64,7 +68,7 @@ export class CreditListComponent implements OnInit {
         },
         error: catchError((err: any) => this.err.handleError(err)),
         complete: () => {
-          // console.log('getCredits complete');
+          this.progressSpinner = false;
         }
       });
   }
@@ -85,16 +89,19 @@ export class CreditListComponent implements OnInit {
         header: 'Delete Confirmation',
         icon: 'pi pi-info-circle',
         accept: () => {
+          this.progressSpinner = true;
           this.creditService.deleteCredit(id)
-          // tslint:disable-next-line: deprecation
-          .subscribe({
-          next: () => this.messageUtilService.onComplete(`Credit Deleted`),
-          error: catchError((err: any) => {
-            this.messageUtilService.onError(`Credit Delete Failed`);
-            return this.err.handleError(err);
-          }),
-          complete: () => location.reload()
-          });
+            .subscribe({
+              next: () => this.messageUtilService.onComplete(`Credit Deleted`),
+              error: catchError((err: any) => {
+                this.messageUtilService.onError(`Credit Delete Failed`);
+                return this.err.handleError(err);
+              }),
+              complete: () => {
+                this.progressSpinner = false;
+                location.reload();
+              }
+            });
         }
       });
     }

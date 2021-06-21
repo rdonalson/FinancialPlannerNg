@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -25,14 +26,14 @@ import { ItemDetailCommonService } from '../../shared/services/common/item-detai
   styleUrls: ['./debit-edit.component.scss']
 })
 export class DebitEditComponent implements OnInit, OnDestroy {
-  private userId = '';
-  defaultPath = '../../';
   private debit!: IDebit;
   private sub!: Subscription;
+  private userId: string = '';
+  pageTitle: string = 'Edit Debit';
+  defaultPath: string = '../../';
+  progressSpinner: boolean = false;
   messages: { [key: string]: { [key: string]: string; }; };
-
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[] = [];
-  pageTitle = 'Edit Debit';
   periods!: IPeriod[];
   months!: IKeyValue[];
   daysInMonth!: IKeyValue[];
@@ -92,7 +93,6 @@ export class DebitEditComponent implements OnInit, OnDestroy {
         const id = +params.id;
         this.getDebit(id);
       });
-
   }
 
   /**
@@ -299,15 +299,17 @@ export class DebitEditComponent implements OnInit, OnDestroy {
    * @returns {any} result
    */
   getPeriods(): any {
+    this.progressSpinner = true;
     return this.periodService.getPeriods()
-      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: IPeriod[]): void => {
           this.periods = data;
           // console.log(`Debit-Edit getPriods: ${JSON.stringify(this.periods)}`);
         },
         error: catchError((err: any) => this.err.handleError(err)),
-        complete: () => { }
+        complete: () => {
+          this.progressSpinner = false;
+        }
       });
   }
 
@@ -320,8 +322,8 @@ export class DebitEditComponent implements OnInit, OnDestroy {
     if (id === 0) {
       return undefined;
     }
+    this.progressSpinner = true;
     return this.debitService.getDebit(id)
-      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: IDebit): void => {
           this.onDebitRetrieved(data);
@@ -329,7 +331,9 @@ export class DebitEditComponent implements OnInit, OnDestroy {
           // console.log(`Debit-Edit getDebit: ${JSON.stringify(data)}`);
         },
         error: catchError((err: any) => this.err.handleError(err)),
-        complete: () => { }
+        complete: () => {
+          this.progressSpinner = false;
+        }
       });
   }
   //#endregion Reads
@@ -346,6 +350,7 @@ export class DebitEditComponent implements OnInit, OnDestroy {
       });
       return null;
     }
+    this.progressSpinner = true;
     this.patchFormValuesBackToObject();
     if (this.debit.pkDebit === 0) {
       this.debitService.createDebit(this.debit)
@@ -356,7 +361,10 @@ export class DebitEditComponent implements OnInit, OnDestroy {
             this.messageUtilService.onError(`Debit Creation Failed`);
             return this.err.handleError(err);
           }),
-          complete: () => this.messageUtilService.onCompleteNav('Debit Created', this.defaultPath, this.route)
+          complete: () => {
+            this.progressSpinner = false;
+            this.messageUtilService.onCompleteNav('Debit Created', this.defaultPath, this.route);
+          }
         });
     } else {
       this.debitService.updateDebit(this.debit)
@@ -367,7 +375,10 @@ export class DebitEditComponent implements OnInit, OnDestroy {
             this.messageUtilService.onError(`Debit Update Failed`);
             return this.err.handleError(err);
           }),
-          complete: () => this.messageUtilService.onCompleteNav('Debit Updated', this.defaultPath, this.route)
+          complete: () => {
+            this.progressSpinner = false;
+            this.messageUtilService.onCompleteNav('Debit Updated', this.defaultPath, this.route);
+          }
         });
     }
   }
@@ -390,15 +401,18 @@ export class DebitEditComponent implements OnInit, OnDestroy {
         header: 'Delete Confirmation',
         icon: 'pi pi-info-circle',
         accept: () => {
+          this.progressSpinner = true;
           this.debitService.deleteDebit(this.debit.pkDebit)
-            // tslint:disable-next-line: deprecation
             .subscribe({
               next: () => { },
               error: catchError((err: any) => {
                 this.messageUtilService.onError(`Debit Delete Failed`);
                 return this.err.handleError(err);
               }),
-              complete: () => this.messageUtilService.onCompleteNav('Debit Deleted', this.defaultPath, this.route)
+              complete: () => {
+                this.progressSpinner = false;
+                this.messageUtilService.onCompleteNav('Debit Deleted', this.defaultPath, this.route);
+              }
             });
         }
       });

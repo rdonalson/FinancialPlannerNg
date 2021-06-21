@@ -28,6 +28,7 @@ import { ArrayUtilService } from './shared/services/common/array-util.service';
 import { ItemDetailCommonService } from './shared/services/common/item-detail-common.service';
 import { DebitListComponent } from './debit/debit-list/debit-list.component';
 import { DebitEditComponent } from './debit/debit-edit/debit-edit.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { DebitEditComponent } from './debit/debit-edit/debit-edit.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ProgressSpinnerModule,
     ConfirmDialogModule,
     DropdownModule,
     MessagesModule,

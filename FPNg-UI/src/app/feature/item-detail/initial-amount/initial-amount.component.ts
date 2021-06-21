@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
@@ -11,14 +12,18 @@ import { GeneralUtilService } from 'src/app/core/services/common/general-util.se
 /**
  * Class and Page that manage the initial starting amount that the User has in their
  * account.  This amount is used as the starting point for forcasted ledger calculations
+ * If the user doesn't add a value then it is defaulted to Zero.
+ * There is only one entry and no deletions
+ * One entered only updating is possible.
  */
 @Component({
   templateUrl: './initial-amount.component.html',
   styleUrls: ['./initial-amount.component.scss']
 })
 export class InitialAmountComponent implements OnInit {
-  pageTitle = 'Initial Amount';
-  userId = '';
+  pageTitle: string = 'Initial Amount';
+  progressSpinner: boolean = false;
+  userId: string = '';
   initialAmount!: IInitialAmount;
 
   /**
@@ -55,6 +60,7 @@ export class InitialAmountComponent implements OnInit {
    * @returns {any} returns nothing unless there's an error
    */
   getInitialAmount(userId: string): any {
+    this.progressSpinner = true;
     return this.intialAmountService.getInitialAmount(userId)
       // tslint:disable-next-line: deprecation
       .subscribe({
@@ -66,7 +72,10 @@ export class InitialAmountComponent implements OnInit {
             // console.log(`Record Retrieved: ${JSON.stringify(this.initialAmount)}`);
           }
         },
-        error: catchError((err: any) => this.err.handleError(err))
+        error: catchError((err: any) => this.err.handleError(err)),
+        complete: () => {
+          this.progressSpinner = false;
+        }
       });
   }
   //#endregion Reads
@@ -76,6 +85,7 @@ export class InitialAmountComponent implements OnInit {
    * be updated or doesn't exist and needs to be created with a default amount of zero
    */
   saveInitialAmount(): void {
+    this.progressSpinner = true;
     if (this.initialAmount.pkInitialAmount === 0) {
       // Create a new record
       this.intialAmountService.createInitialAmount(this.initialAmount)
@@ -89,12 +99,14 @@ export class InitialAmountComponent implements OnInit {
             this.messageUtilService.onError('Record Creation Failed');
             return this.err.handleError(err);
           }),
-          complete: () => this.messageUtilService.onComplete('Default Initial Amount Created')
+          complete: () => {
+            this.progressSpinner = false;
+            this.messageUtilService.onComplete('Default Initial Amount Created');
+          }
         });
     } else {
       // Update the existing record
       this.intialAmountService.updateInitialAmount(this.initialAmount)
-        // tslint:disable-next-line: deprecation
         .subscribe({
           next: (data: IInitialAmount) => {
             this.initialAmount = data;
@@ -104,7 +116,10 @@ export class InitialAmountComponent implements OnInit {
             this.messageUtilService.onError('Record Update Failed');
             return this.err.handleError(err);
           }),
-          complete: () => this.messageUtilService.onComplete('Initial Amount Updated')
+          complete: () => {
+            this.progressSpinner = false;
+            this.messageUtilService.onComplete('Initial Amount Updated');
+          }
         });
     }
   }

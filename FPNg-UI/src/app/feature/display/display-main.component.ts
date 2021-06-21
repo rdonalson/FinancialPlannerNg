@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { GeneralUtilService } from 'src/app/core/services/common/general-util.service';
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
@@ -14,8 +16,12 @@ import { ILedgerVM } from './shared/view-models/ledger-vm';
   styleUrls: ['./display-main.component.scss']
 })
 export class DisplayMainComponent implements OnInit {
-  pageTitle = 'Display';
-  private userId = '';
+  private sub!: Subscription;
+  private userId: string = '';
+
+  pageTitle: string = 'Display';
+  dateRangeDisplay: string = '';
+  progressSpinner: boolean = false;
   activeIndex = 0;
   ledgerParams!: ILedgerParams;
   ledgerList: ILedgerVM[] = [];
@@ -39,6 +45,8 @@ export class DisplayMainComponent implements OnInit {
     private claimsUtilService: GeneralUtilService,
     private err: GlobalErrorHandlerService,
     private displayService: DisplayService,
+    private route: ActivatedRoute,
+
   ) {
     // Criterial field messages.
     this.messages = {
@@ -53,6 +61,7 @@ export class DisplayMainComponent implements OnInit {
    */
   ngOnInit(): void {
     this.userId = this.claimsUtilService.getUserOid();
+    this.getRouteParams();
     const startDate = new Date();
     const endDate = new Date();
     endDate.setMonth(endDate.getMonth() + 3);
@@ -66,9 +75,31 @@ export class DisplayMainComponent implements OnInit {
   }
 
   /**
+   * Get desired tab index Route Paramters
+   */
+  private getRouteParams(): void {
+    this.sub = this.route.params
+      // tslint:disable-next-line: deprecation
+      .subscribe((params: any) => {
+        this.activeIndex = +params.id;
+      });
+  }
+
+  private generateDateRangeDisplay(): void {
+    this.dateRangeDisplay = `Date Range: ${
+      this.ledgerParams.timeFrameBegin.toDateString()
+    } to ${
+      this.ledgerParams.timeFrameEnd.toDateString()
+    }`;
+  }
+
+  /**
    * A click event that generates a new Ledger dataset when the User click the "Generate" button
    */
-   calculate(): void { this.createLedger(this.ledgerParams); }
+  calculate(): void {
+    this.createLedger(this.ledgerParams);
+    this.activeIndex = 1;
+  }
 
   /**
    * Calls the "Display" service which calls the "Create Ledger Readout" procedure that
@@ -80,6 +111,8 @@ export class DisplayMainComponent implements OnInit {
    * @returns {any} result
    */
   createLedger(ledgerParams: ILedgerParams): any {
+    this.progressSpinner = true;
+    this.generateDateRangeDisplay();
     return this.displayService.createLedger(ledgerParams)
       .subscribe({
         next: (data: ILedgerVM[]): void => {
@@ -88,7 +121,9 @@ export class DisplayMainComponent implements OnInit {
           this.getChartData();
         },
         error: catchError((err: any) => this.err.handleError(err)),
-        complete: () => { }
+        complete: () => {
+          this.progressSpinner = false;
+        }
       });
   }
 
@@ -96,7 +131,6 @@ export class DisplayMainComponent implements OnInit {
    * Generates the Complete dataset for the Chart
    */
   getChartData(): void {
-    this.activeIndex = 1; // Default tab -> Chart
     this.getLabels();
     this.getRunningTotals();
     this.getCredits();
@@ -136,7 +170,7 @@ export class DisplayMainComponent implements OnInit {
     this.labels = [];
     this.ledgerList.forEach((ledger: ILedgerVM) => {
       const date: Date = new Date(ledger.wDate.toString());
-      const result = `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`;
+      const result = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
       this.labels.push(result);
     });
   }

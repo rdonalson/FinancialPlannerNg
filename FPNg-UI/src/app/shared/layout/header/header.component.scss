@@ -6,13 +6,23 @@
   color: whitesmoke !important;
 }
 
-.right-side-format {
-  margin: .6rem;
-  color: rgba(0, 0, 0, 0.5);
-  &:hover {
-    color: rgba(0, 0, 0, 0.644);
-  }
+
+.title {
+  padding-top: 0.49rem; 
+  padding-left: 1rem
 }
+
+// Archive
+// .right-side-format {
+//   cursor: pointer;
+//   margin: .6rem;
+//   color: rgba(0, 0, 0, 0.5);
+//   &:hover {
+//     color: rgba(0, 0, 0, 0.644);
+//   }
+// }
+
+
 
 
 

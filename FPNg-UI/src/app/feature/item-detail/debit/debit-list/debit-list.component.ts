@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { ConfirmationService } from 'primeng/api';
-
 
 import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 import { IVwDebit } from '../../shared/models/vwdebit';
@@ -11,15 +11,19 @@ import { DebitService } from '../../shared/services/debit/debit.service';
 import { GeneralUtilService } from 'src/app/core/services/common/general-util.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+/**
+ * The Debits List
+ */
 @Component({
   templateUrl: './debit-list.component.html',
   styleUrls: ['./debit-list.component.scss']
 })
 export class DebitListComponent implements OnInit {
-  pageTitle = 'Manage Debits';
+  pageTitle: string = 'Manage Debits';
+  progressSpinner: boolean = false;
   debitList: IVwDebit[] = [];
   selectedDebits: IVwDebit[] = [];
-  userId = '';
+  userId: string = '';
 
   /**
    * Base Constructor
@@ -56,6 +60,7 @@ export class DebitListComponent implements OnInit {
    * @returns {any}
    */
   getDebits(userId: string): any {
+    this.progressSpinner = true;
     return this.debitService.getDebits(userId)
       // tslint:disable-next-line: deprecation
       .subscribe({
@@ -65,7 +70,7 @@ export class DebitListComponent implements OnInit {
         },
         error: catchError((err: any) => this.err.handleError(err)),
         complete: () => {
-          // console.log('getDebits complete');
+          this.progressSpinner = false;
         }
       });
   }
@@ -86,16 +91,19 @@ export class DebitListComponent implements OnInit {
         header: 'Delete Confirmation',
         icon: 'pi pi-info-circle',
         accept: () => {
+          this.progressSpinner = true;
           this.debitService.deleteDebit(id)
-          // tslint:disable-next-line: deprecation
-          .subscribe({
-          next: () => this.messageUtilService.onComplete(`Debit Deleted`),
-          error: catchError((err: any) => {
-            this.messageUtilService.onError(`Debit Delete Failed`);
-            return this.err.handleError(err);
-          }),
-          complete: () => location.reload()
-          });
+            .subscribe({
+              next: () => this.messageUtilService.onComplete(`Debit Deleted`),
+              error: catchError((err: any) => {
+                this.messageUtilService.onError(`Debit Delete Failed`);
+                return this.err.handleError(err);
+              }),
+              complete: () => {
+                this.progressSpinner = false;
+                location.reload();
+              }
+            });
         }
       });
     }

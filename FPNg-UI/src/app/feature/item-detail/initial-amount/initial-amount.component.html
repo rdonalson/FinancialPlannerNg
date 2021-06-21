@@ -1,28 +1,54 @@
 <div class="card">
+  <!-- Card Header -->
   <div class="card-header">
-    {{ pageTitle }}
+    <div class="p-fluid p-d-flex p-ai-center">
+      <div class="title-div left">
+        <span>
+          {{ pageTitle }}
+        </span>
+        <span class="return">
+          <i routerLink="/feature/item-detail">Return</i>
+        </span>
+      </div>
+      <!-- Progress Spinner -->
+      <div class="spinner-box right">
+        <p-progressSpinner
+          *ngIf="progressSpinner"
+          strokeWidth="6"
+          [style]="{ width: '2rem', height: '2rem' }"
+          fill="#efefef"
+          animationDuration="3s"
+          styleClass="custom-spinner"
+        ></p-progressSpinner>
+      </div>
+      <!-- Save Changes Button -->
+      <div class="right">
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Update"
+          class="p-button-success p-mr-2"
+          (click)="saveInitialAmount()"
+          tabindex="2"
+        ></button>
+      </div>
+    </div>
   </div>
-  <div class="card-body" #cardBody >
+  <!-- Card Body -->
+  <div class="card-body" #cardBody>
     <div class="p-grid p-fluid">
-      <!-- Data Input Field -->
-      <div class="p-field ">
+      <!-- Initial Amount Input Field -->
+      <div class="p-field">
         <p-inputNumber
           [(ngModel)]="initialAmount.amount"
           mode="currency"
           currency="USD"
           name="amount"
           locale="en-US"
-          tabindex="1" >
+          tabindex="1"
+        >
         </p-inputNumber>
-      </div>
-      <!-- Save Changes Button -->
-      <div class="p-field">
-        <button pButton pRipple
-          type="button"
-          label="Update"
-          (click)="saveInitialAmount()"
-          tabindex="2">
-        </button>
       </div>
     </div>
   </div>

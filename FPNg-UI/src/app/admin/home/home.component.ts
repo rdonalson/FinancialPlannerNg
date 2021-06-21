@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
 
@@ -6,11 +7,11 @@ import { MsalService } from '@azure/msal-angular';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  title!: string;
-  constructor(private authService: MsalService) {}
+  constructor(
+    private authService: MsalService
+  ) {}
 
   ngOnInit(): void {
-    // eslint-disable-next-line import/no-deprecated
     this.authService.handleRedirectObservable().subscribe({
       next: (result) => console.log(result),
       error: (error) => console.log(error),
