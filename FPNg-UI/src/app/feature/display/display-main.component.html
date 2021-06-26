@@ -52,6 +52,7 @@
               [showIcon]="true"
               pTooltip="{{ messages['timeFrameBegin'].informational }}"
               tooltipPosition="left"
+              (onSelect)="setInvalidDays()"
             >
             </p-calendar>
           </div>
@@ -69,6 +70,8 @@
               [showIcon]="true"
               pTooltip="{{ messages['timeFrameEnd'].informational }}"
               tooltipPosition="left"
+              [minDate]="invalidDate"
+              (onSelect)="setInvalidDays()"
             >
             </p-calendar>
           </div>

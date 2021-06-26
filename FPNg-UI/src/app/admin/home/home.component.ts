@@ -7,6 +7,7 @@ import { MsalService } from '@azure/msal-angular';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  pageTitle: string = 'Home';
   constructor(
     private authService: MsalService
   ) {}

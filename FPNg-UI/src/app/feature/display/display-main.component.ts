@@ -25,6 +25,8 @@ export class DisplayMainComponent implements OnInit {
   activeIndex = 0;
   ledgerParams!: ILedgerParams;
   ledgerList: ILedgerVM[] = [];
+  invalidDate!: Date;
+
 
   /** Chart data items */
   labels: string[] = [];
@@ -85,12 +87,23 @@ export class DisplayMainComponent implements OnInit {
       });
   }
 
+  /**
+   * Create the Date Range Display Value
+   */
   private generateDateRangeDisplay(): void {
     this.dateRangeDisplay = `Date Range: ${
       this.ledgerParams.timeFrameBegin.toDateString()
     } to ${
       this.ledgerParams.timeFrameEnd.toDateString()
     }`;
+  }
+
+  /**
+   * Sets a variable that prevents users from setting an end date
+   * earlier than the Start Date
+   */
+  setInvalidDays(): void {
+    this.invalidDate = this.ledgerParams.timeFrameBegin;
   }
 
   /**
@@ -135,6 +148,7 @@ export class DisplayMainComponent implements OnInit {
     this.getRunningTotals();
     this.getCredits();
     this.getDebits();
+    this.setInvalidDays();
     this.data = {
       labels: this.labels,
       datasets: [
