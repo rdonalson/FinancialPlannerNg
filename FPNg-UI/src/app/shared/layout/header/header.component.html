@@ -1,6 +1,7 @@
 <!-- Header Bar -->
 <nav class="navbar navbar-light bg-light header">
-  <div class="container-fluid">
+  <!-- App Title -->
+  <div class="title-bar-sections">
     <a class="navbar-brand header-text" href="#">
       <img
         src="assets/images/Rick Donalson.jpg"
@@ -14,8 +15,8 @@
       </label>
     </a>
   </div>
-  <!-- https://github.com/rdonalson/FinancialPlannerNg -->
-  <div class="container-fluid">
+  <!-- Right side link to GitHub -->
+  <div class="title-bar-sections right">
     <span class="navbar-text">
       <a  href="https://github.com/rdonalson/FinancialPlannerNg">
         Find the code for this on GitHub
@@ -56,22 +57,3 @@
   ></button>
 </p-menubar>
 
-<!-- Archive
-  <p-menubar [model]="menuItems">
-  <span *ngIf="loggedIn" class="right-side-format">{{ claims?.name }}</span>
-  <span *ngIf="!loggedIn" class="right-side-format">Login</span>
-  <i
-    *ngIf="loggedIn"
-    class="pi pi-sign-out right-side-format"
-    (click)="logout()"
-    pTooltip="Logout"
-    tooltipPosition="left"
-  ></i>
-  <i
-    *ngIf="!loggedIn"
-    class="pi pi-sign-in right-side-format login-text"
-    (click)="login()"
-    pTooltip="Login"
-    tooltipPosition="left"
-  >&nbsp;Login</i>
-</p-menubar> -->

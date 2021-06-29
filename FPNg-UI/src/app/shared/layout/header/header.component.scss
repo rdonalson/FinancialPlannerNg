@@ -6,21 +6,20 @@
   color: whitesmoke !important;
 }
 
-
 .title {
-  padding-top: 0.49rem; 
-  padding-left: 1rem
+  padding-top: 0.49rem;
+  padding-left: 1rem;
+  cursor: pointer;
 }
 
-// Archive
-// .right-side-format {
-//   cursor: pointer;
-//   margin: .6rem;
-//   color: rgba(0, 0, 0, 0.5);
-//   &:hover {
-//     color: rgba(0, 0, 0, 0.644);
-//   }
-// }
+.title-bar-sections {
+  padding: .25rem .75rem .25rem .75rem;
+}
+
+.right {
+  float: right;
+}
+
 
 
 
