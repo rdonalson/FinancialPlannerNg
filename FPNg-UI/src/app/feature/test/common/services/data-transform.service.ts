@@ -9,7 +9,6 @@ import { ILedger } from '../models/ledger';
 @Injectable()
 export class DataTransformationService {
 
-  // C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-UI\src\app\feature\test\common\api\orig-ledger.json
   private ledgerUrl = 'app/feature/test/common/api/orig-ledger.json';
 
   constructor(private http: HttpClient) { }

@@ -2,3 +2,11 @@ C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\obj\Debug\netcoreapp3.1\FPNg.API.Infrastructure.AssemblyInfoInputs.cache
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\obj\Debug\netcoreapp3.1\FPNg.API.Infrastructure.AssemblyInfo.cs
 C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\obj\Debug\netcoreapp3.1\FPNg.API.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\bin\Debug\netcoreapp3.1\FPNg.API.Infrastructure.deps.json
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\bin\Debug\netcoreapp3.1\FPNg.API.Infrastructure.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\bin\Debug\netcoreapp3.1\FPNg.API.Infrastructure.pdb
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\bin\Debug\netcoreapp3.1\FPNg.API.Data.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\bin\Debug\netcoreapp3.1\FPNg.API.Data.pdb
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\obj\Debug\netcoreapp3.1\FPNg.API.Infrastructure.csproj.CopyComplete
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\obj\Debug\netcoreapp3.1\FPNg.API.Infrastructure.dll
+C:\Users\rickd\source\repos\FinancialPlannerNg\FPNg-API\FPNg.API.Infrastructure\obj\Debug\netcoreapp3.1\FPNg.API.Infrastructure.pdb

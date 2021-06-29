@@ -6,27 +6,34 @@
           {{ pageTitle }}
         </span>
       </div>
-
     </div>
   </div>
   <div class="card-body">
-
-
+    <div class="content-section implementation">
+      <div class="card">
+        <p-galleria
+          [value]="images"
+          [responsiveOptions]="responsiveOptions"
+          [containerStyle]="{ 'max-width': '640px' }"
+          [numVisible]="5"
+          [circular]="true"
+          [autoPlay]="true"
+          [transitionInterval]="5000"
+        >
+          <ng-template pTemplate="item" let-item>
+            <img
+              [src]="item.previewImageSrc"
+              style="width: 100%; display: block"
+            />
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+              <img [src]="item.thumbnailImageSrc" style="display: block" />
+            </div>
+          </ng-template>
+        </p-galleria>
+      </div>
+    </div>
   </div>
 </div>
-
-
-
-<!-- <h4>Home</h4>
-<ul class="nav flex-column">
-  <li class="nav-item">
-    <a routerLink="/feature/item-detail">Item-Detail</a>
-  </li>
-  <li class="nav-item">
-    <a routerLink="/feature/display/1">Display</a>
-  </li>
-  <li class="nav-item">
-    <a routerLink="/feature/test">Testing</a>
-  </li>
-</ul> -->
 

@@ -62,7 +62,6 @@ export class InitialAmountComponent implements OnInit {
   getInitialAmount(userId: string): any {
     this.progressSpinner = true;
     return this.intialAmountService.getInitialAmount(userId)
-      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: IInitialAmount): void => {
           if (!data) {

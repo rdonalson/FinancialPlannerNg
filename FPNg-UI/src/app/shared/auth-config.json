@@ -1,16 +1,20 @@
 {
   "credentials": {
-    "clientId": "{}",
-    "tenantId": "{}"
+    "clientId": "1cd21572-85b3-4dad-b72b-17f7b0cc9584",
+    "tenantId": "62eca109-81a1-4fc4-9632-836e490ab4b7"
   },
   "configuration": {
-    "redirectUri": "http://localhost:1000",
-    "postLogoutRedirectUri": "http://localhost:1000"
+    "redirectUri": "https://fpng-ui.azurewebsites.net/home",
+    "postLogoutRedirectUri": "https://fpng-ui.azurewebsites.net/home"
   },
   "resources": {
     "todoListApi": {
-      "resourceUri": "https://localhost:5001/api",
-      "resourceScopes": []
+      "resourceUri": "https://fpng-api.azurewebsites.net/api",
+      "resourceScopes": [
+        "api://47436633-44d0-4631-a210-559ee13c22d8/access_as_user"
+        ,"api://47436633-44d0-4631-a210-559ee13c22d8/basic.read"
+        ,"api://47436633-44d0-4631-a210-559ee13c22d8/basic.write"
+      ]
     }
   }
 }
