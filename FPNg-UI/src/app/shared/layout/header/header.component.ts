@@ -7,7 +7,8 @@ import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfigur
 import { EventMessage, EventType, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
 import { MenuItem } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { catchError, filter, takeUntil } from 'rxjs/operators';
+import { GlobalErrorHandlerService } from 'src/app/core/services/error/global-error-handler.service';
 
 @Component({
   selector: 'app-header',
@@ -33,7 +34,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
+    private msalBroadcastService: MsalBroadcastService,
+    private err: GlobalErrorHandlerService
+
   ) { }
 
   /**
@@ -55,12 +58,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS),
         takeUntil(this.destroying$)
       )
-      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (result: any) => this.getClaims(result),
-        error: (msg) => {
-          console.log('Error Getting Location: ', msg);
-        }
+        error: catchError((err: any) => this.err.handleError(err))
       });
 
   }

@@ -62,7 +62,6 @@ export class DebitListComponent implements OnInit {
   getDebits(userId: string): any {
     this.progressSpinner = true;
     return this.debitService.getDebits(userId)
-      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: IVwDebit[]): void => {
           this.debitList = data;

@@ -12,7 +12,7 @@ import { IPeriod } from '../../models/period';
  */
 @Injectable()
 export class PeriodService {
-  private url = auth.resources.todoListApi.resourceUri + '/periods';
+  private url = auth.resources.api.resourceUri + '/periods';
   constructor(
     private http: HttpClient,
     private err: GlobalErrorHandlerService

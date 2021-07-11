@@ -8,7 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ItemTypePipe implements PipeTransform {
 
   transform(value: number): string {
-    console.log(`value: ${value}`);
+    // console.log(`value: ${value}`);
     if (value === 0) {
       return '-';
     }

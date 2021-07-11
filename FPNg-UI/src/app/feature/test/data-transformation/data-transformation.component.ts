@@ -57,7 +57,7 @@ export class DataTransformationComponent implements OnInit {
     let IdHold: number = 0;
 
     this.ledger.forEach((ledger: ILedger) => {
-      console.log(`Transform -> ledger: ${JSON.stringify(ledger)}`);
+      // console.log(`Transform -> ledger: ${JSON.stringify(ledger)}`);
       if (IdHold !== ledger.rollupKey)
       {
         if (items.length > 0) {
@@ -98,7 +98,7 @@ export class DataTransformationComponent implements OnInit {
       this.ledgerItems[IdHold - 1].items = items;
       items = [];
     }
-    console.log(`Transform -> ledgerItems: ${JSON.stringify(this.ledgerItems)}`);
+    // console.log(`Transform -> ledgerItems: ${JSON.stringify(this.ledgerItems)}`);
   }
 
 
@@ -113,7 +113,6 @@ export class DataTransformationComponent implements OnInit {
    */
   createLedger(ledgerParams: ILedgerParams): any {
     return this.displayService.createLedger(ledgerParams)
-      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: ILedger[]): void => {
           this.ledger = data;

@@ -81,7 +81,6 @@ export class DisplayMainComponent implements OnInit {
    */
   private getRouteParams(): void {
     this.sub = this.route.params
-      // tslint:disable-next-line: deprecation
       .subscribe((params: any) => {
         this.activeIndex = +params.id;
       });

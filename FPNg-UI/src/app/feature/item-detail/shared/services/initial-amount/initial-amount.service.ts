@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,7 +13,7 @@ import { IInitialAmount } from '../../models/initial-amount';
  */
 @Injectable()
 export class InitialAmountService {
-  private url = auth.resources.todoListApi.resourceUri + '/initialamounts';
+  private url = auth.resources.api.resourceUri + '/initialamounts';
 
   /**
    * Base Constructor   *
@@ -35,7 +36,7 @@ export class InitialAmountService {
     const url = `${this.url}/${userId}`;
     return this.http.get<IInitialAmount>(url)
       .pipe(
-        tap(data => console.log('getInitialAmount: ' + JSON.stringify(data))),
+        // tap(data => console.log('getInitialAmount: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
@@ -52,7 +53,7 @@ export class InitialAmountService {
     const headers = new HttpHeaders({ 'content-type': 'application/json' });
     return this.http.post<IInitialAmount>(this.url, initialAmount, { headers })
       .pipe(
-        tap(data => console.log('createInitialAmount: ' + JSON.stringify(data))),
+        // tap(data => console.log('createInitialAmount: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
@@ -68,7 +69,7 @@ export class InitialAmountService {
     const url = `${this.url}/${initialAmount.userId}`;
     return this.http.put<IInitialAmount>(url, initialAmount, { headers })
       .pipe(
-        tap(() => console.log('updateInitialAmount: ' + initialAmount.pkInitialAmount)),
+        // tap(() => console.log('updateInitialAmount: ' + initialAmount.pkInitialAmount)),
         // Return the product on an update
         map(() => initialAmount),
         catchError((err: any) => this.err.handleError(err))

@@ -7,7 +7,7 @@ import * as auth from '../../../../shared/auth-config.json';
   providedIn: 'root'
 })
 export class TodoService {
-  url = auth.resources.todoListApi.resourceUri + '/todolist';
+  url = auth.resources.api.resourceUri + '/todolist';
 
   constructor(private http: HttpClient) { }
 

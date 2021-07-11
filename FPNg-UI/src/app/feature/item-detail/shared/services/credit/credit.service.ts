@@ -14,7 +14,7 @@ import { ICredit } from '../../models/credit';
  */
 @Injectable()
 export class CreditService {
-  private url = auth.resources.todoListApi.resourceUri + '/credits';
+  private url = auth.resources.api.resourceUri + '/credits';
   /**
    * Base Constructor
    * @param {HttpClient} http
@@ -68,7 +68,7 @@ export class CreditService {
     const headers = new HttpHeaders({ 'content-type': 'application/json' });
     return this.http.post<ICredit>(this.url, credit, { headers })
       .pipe(
-        tap((data: ICredit) => console.log('Service createCredit: ' + JSON.stringify(data))),
+        // tap((data: ICredit) => console.log('Service createCredit: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
@@ -102,7 +102,7 @@ export class CreditService {
     const url = `${this.url}/${id}`;
     return this.http.delete<ICredit>(url, { headers })
       .pipe(
-        tap((data: any) => console.log('Service deleteCredit: ' + JSON.stringify(data))),
+        // tap((data: any) => console.log('Service deleteCredit: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }

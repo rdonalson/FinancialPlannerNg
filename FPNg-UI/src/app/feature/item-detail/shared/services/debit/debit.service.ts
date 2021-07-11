@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -12,7 +13,7 @@ import { IDebit } from '../../models/debit';
   providedIn: 'root'
 })
 export class DebitService {
-  private url = auth.resources.todoListApi.resourceUri + '/debits';
+  private url = auth.resources.api.resourceUri + '/debits';
   constructor(
     private http: HttpClient,
     private err: GlobalErrorHandlerService
@@ -61,7 +62,7 @@ export class DebitService {
     const headers = new HttpHeaders({ 'content-type': 'application/json' });
     return this.http.post<IDebit>(this.url, debit, { headers })
       .pipe(
-        tap((data: IDebit) => console.log('Service createDebit: ' + JSON.stringify(data))),
+        // tap((data: IDebit) => console.log('Service createDebit: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }
@@ -95,7 +96,7 @@ export class DebitService {
     const url = `${this.url}/${id}`;
     return this.http.delete<IDebit>(url, { headers })
       .pipe(
-        tap((data: any) => console.log('Service deleteDebit: ' + JSON.stringify(data))),
+        // tap((data: any) => console.log('Service deleteDebit: ' + JSON.stringify(data))),
         catchError((err: any) => this.err.handleError(err))
       );
   }

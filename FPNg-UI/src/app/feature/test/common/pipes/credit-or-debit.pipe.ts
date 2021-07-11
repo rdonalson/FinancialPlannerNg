@@ -10,7 +10,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CreditOrDebitPipe implements PipeTransform {
 
   transform(value: number): string {
-    console.log(`value: ${value}`);
+    // console.log(`value: ${value}`);
     return value > 0 ? 'Credit' : 'Debit' ;
   }
 

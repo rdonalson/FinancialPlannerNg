@@ -60,7 +60,6 @@ export class CreditListComponent implements OnInit {
   getCredits(userId: string): any {
     this.progressSpinner = true;
     return this.creditService.getCredits(userId)
-      // tslint:disable-next-line: deprecation
       .subscribe({
         next: (data: IVwCredit[]): void => {
           this.creditList = data;

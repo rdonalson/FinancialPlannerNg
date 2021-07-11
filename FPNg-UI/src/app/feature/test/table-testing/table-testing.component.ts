@@ -352,7 +352,7 @@ export class TableTestingComponent implements OnInit {
         ]
       }
     ];
-    console.log(`product: ${JSON.stringify(this.products)}`);
+    // console.log(`product: ${JSON.stringify(this.products)}`);
   }
 
 

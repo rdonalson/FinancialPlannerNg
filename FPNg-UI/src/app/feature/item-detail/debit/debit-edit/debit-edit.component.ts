@@ -88,7 +88,6 @@ export class DebitEditComponent implements OnInit, OnDestroy {
    */
   private getRouteParams(): void {
     this.sub = this.route.params
-      // tslint:disable-next-line: deprecation
       .subscribe((params: any) => {
         const id = +params.id;
         this.getDebit(id);
@@ -354,7 +353,6 @@ export class DebitEditComponent implements OnInit, OnDestroy {
     this.patchFormValuesBackToObject();
     if (this.debit.pkDebit === 0) {
       this.debitService.createDebit(this.debit)
-        // tslint:disable-next-line: deprecation
         .subscribe({
           next: () => { },
           error: catchError((err: any) => {
@@ -368,7 +366,6 @@ export class DebitEditComponent implements OnInit, OnDestroy {
         });
     } else {
       this.debitService.updateDebit(this.debit)
-        // tslint:disable-next-line: deprecation
         .subscribe({
           next: () => { },
           error: catchError((err: any) => {

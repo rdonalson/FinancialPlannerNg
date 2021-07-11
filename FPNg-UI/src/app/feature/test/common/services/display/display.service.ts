@@ -15,7 +15,7 @@ import { ILedgerParams } from '../../models/ledger-params';
 @Injectable()
 export class DisplayService {
 
-  private url = auth.resources.todoListApi.resourceUri + '/display';
+  private url = auth.resources.api.resourceUri + '/display';
 
   /**
    * Base Constructor

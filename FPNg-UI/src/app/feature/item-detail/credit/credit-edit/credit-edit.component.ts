@@ -88,7 +88,6 @@ export class CreditEditComponent implements OnInit, OnDestroy {
    */
   private getRouteParams(): void {
     this.sub = this.route.params
-      // tslint:disable-next-line: deprecation
       .subscribe((params: any) => {
         const id = +params.id;
         this.getCredit(id);

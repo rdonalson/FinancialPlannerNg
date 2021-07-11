@@ -88,7 +88,6 @@ export class InitialAmountComponent implements OnInit {
     if (this.initialAmount.pkInitialAmount === 0) {
       // Create a new record
       this.intialAmountService.createInitialAmount(this.initialAmount)
-        // tslint:disable-next-line: deprecation
         .subscribe({
           next: (data: IInitialAmount): void => {
             this.initialAmount = data;

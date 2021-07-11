@@ -15,7 +15,7 @@ import { ILedgerVM } from '../../view-models/ledger-vm';
 @Injectable()
 export class DisplayService {
 
-  private url = auth.resources.todoListApi.resourceUri + '/display';
+  private url = auth.resources.api.resourceUri + '/display';
 
   /**
    * Base Constructor

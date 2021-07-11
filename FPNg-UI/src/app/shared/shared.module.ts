@@ -63,8 +63,8 @@ export function msalInstanceFactory(): IPublicClientApplication {
 export function msalInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set(
-    auth.resources.todoListApi.resourceUri,
-    auth.resources.todoListApi.resourceScopes
+    auth.resources.api.resourceUri,
+    auth.resources.api.resourceScopes
   );
 
   return {
