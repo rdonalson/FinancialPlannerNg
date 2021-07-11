@@ -8,7 +8,7 @@
     "postLogoutRedirectUri": "https://fpng-ui.azurewebsites.net/home"
   },
   "resources": {
-    "todoListApi": {
+    "api": {
       "resourceUri": "https://fpng-api.azurewebsites.net/api",
       "resourceScopes": [
         "{}"
