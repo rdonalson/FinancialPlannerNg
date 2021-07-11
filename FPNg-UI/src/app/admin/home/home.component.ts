@@ -34,8 +34,8 @@ export class HomeComponent implements OnInit {
     private authService: MsalService,
     private err: GlobalErrorHandlerService
   ) {
-    const generalUtilService: PhotoService = new PhotoService();
-    this.images = generalUtilService.Images;
+    const photoService: PhotoService = new PhotoService();
+    this.images = photoService.Images;
   }
 
   ngOnInit(): void {

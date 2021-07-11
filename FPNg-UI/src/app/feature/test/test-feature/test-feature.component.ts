@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnumUtilService } from '../common/services/enum.service';
@@ -18,7 +20,7 @@ export class TestFeatureComponent implements OnInit {
   myForm!: FormGroup;
   selectedCity!: City;
   cityValue: any;
-  certDate: Date = new Date('2020-05-05'); // new Date();
+  certDate: Date = new Date('2020-05-05');
   checked: boolean = true;
 
   get fruit(): any {
