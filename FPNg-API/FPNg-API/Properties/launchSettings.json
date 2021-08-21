@@ -26,6 +26,15 @@
       },
       "applicationUrl": "https://localhost:5001/",
       "sslPort": 5001
+    },
+    "FPNg_API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "applicationUrl": "https://fpng-api.azurewebsites.net/"
     }
   }
 }

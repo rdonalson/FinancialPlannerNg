@@ -18,7 +18,7 @@ namespace FPNg.API.Data.Context
         public virtual DbSet<Period> Periods { get; set; }
         public virtual DbSet<VwCredit> VwCredits { get; set; }
         public virtual DbSet<VwDebit> VwDebits { get; set; }
-        public virtual DbSet<Ledger> Ledger { get; set; }
+        public virtual DbSet<Ledger> Ledgers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,6 +30,8 @@ namespace FPNg.API.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Ledger>().Metadata.SetIsTableExcludedFromMigrations(true);
+
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Credit>(entity =>

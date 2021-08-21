@@ -42,7 +42,7 @@ namespace FPNg.API.Infrastructure.Display.Repository
         {
             try
             {
-                List<Ledger> ledger = await _context.Ledger.FromSqlInterpolated($"EXEC [ItemDetail].[spCreateLedgerReadout] {timeFrameBegin}, {timeFrameEnd}, {userId}, {groupingTranform}").ToListAsync();
+                List<Ledger> ledger = await _context.Ledgers.FromSqlInterpolated($"EXEC [ItemDetail].[spCreateLedgerReadout] {timeFrameBegin}, {timeFrameEnd}, {userId}, {groupingTranform}").ToListAsync();
                 return _dataTransformation.TransformLedgerData(ledger); 
             }
             catch (Exception ex)
