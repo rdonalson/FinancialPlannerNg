@@ -12,6 +12,14 @@ import { PhotoService } from 'src/app/core/services/photo/photo.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+
+  constructor(
+    private authService: MsalService,
+    private err: GlobalErrorHandlerService
+  ) {
+    const photoService: PhotoService = new PhotoService();
+    this.images = photoService.Images;
+  }
   pageTitle: string = 'Home';
   images: IImage[] = [];
 
@@ -30,13 +38,7 @@ export class HomeComponent implements OnInit {
       }
   ];
 
-  constructor(
-    private authService: MsalService,
-    private err: GlobalErrorHandlerService
-  ) {
-    const photoService: PhotoService = new PhotoService();
-    this.images = photoService.Images;
-  }
+  display: boolean = false;
 
   ngOnInit(): void {
     this.authService.handleRedirectObservable().subscribe({
@@ -44,5 +46,10 @@ export class HomeComponent implements OnInit {
       error: catchError((err: any) => this.err.handleError(err)),
     });
   }
+
+  showDialog(): void {
+      this.display = true;
+  }
+
 }
 
