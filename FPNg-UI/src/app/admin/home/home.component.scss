@@ -7,7 +7,7 @@
   }
 
   button {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
   }
 
   .top-spacer {
@@ -17,5 +17,18 @@
   .p-col-max-width-15 {
     width: auto;
     max-width: 15rem;
+  }
+
+  .left-card {
+    padding: 0.75rem 0.75rem 0 0.75rem;;
+  }
+
+  .right-card {
+    float: right;
+    margin-left: 1rem;
+  }
+
+  .button-container {
+    padding-left: 1rem;
   }
 }
