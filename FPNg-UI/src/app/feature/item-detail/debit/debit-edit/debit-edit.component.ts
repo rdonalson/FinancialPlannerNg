@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ElementRef, OnDestroy, OnInit, ViewChildren } from '@angular/core';
-import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControlName, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -29,6 +29,7 @@ export class DebitEditComponent implements OnInit, OnDestroy {
   private debit!: IDebit;
   private sub!: Subscription;
   private userId: string = '';
+  recordId!: number;
   pageTitle: string = 'Edit Debit';
   defaultPath: string = '../../';
   progressSpinner: boolean = false;
@@ -89,8 +90,9 @@ export class DebitEditComponent implements OnInit, OnDestroy {
   private getRouteParams(): void {
     this.sub = this.route.params
       .subscribe((params: any) => {
-        const id = +params.id;
-        this.getDebit(id);
+        this.recordId = +params.id;
+        this.setTitleText();
+        this.getDebit(this.recordId);
       });
   }
 
@@ -134,13 +136,25 @@ export class DebitEditComponent implements OnInit, OnDestroy {
 
   //#region Utilities
   /**
+   * Sets the page title value
+   */
+  private setTitleText(): void {
+    if (this.recordId === 0) {
+      this.pageTitle = 'New Debit';
+    } else {
+      this.pageTitle = 'Edit Debit';
+    }
+  }
+  /**
    * Called on Form Init; gets users OID from Claims object in localstorage
    * Also initializes a new IDebit class
    */
   private initializeRecord(): void {
+    this.recordId = 0;
+    this.setTitleText();
     this.userId = this.claimsUtilService.getUserOid();
     this.debit = {
-      pkDebit: 0,
+      pkDebit: this.recordId,
       userId: this.userId,
       name: '',
       amount: 0,

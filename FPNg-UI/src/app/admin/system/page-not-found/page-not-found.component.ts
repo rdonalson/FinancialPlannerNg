@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
@@ -6,7 +7,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent {
-
+  pageTitle: string = 'Navigation';
+  message: string = 'Page not found!';
   constructor(private location: Location) { }
   goBack(): void {
     this.location.back();

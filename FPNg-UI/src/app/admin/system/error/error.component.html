@@ -1,11 +1,39 @@
-<h2>An error has occurred...</h2>
-<div>
-  <button
-    pButton
-    type="button"
-    label="Home"
-    icon="pi pi-check"
-    class="p-button-info p-button-rounded p-button-outlined"
-    (click)="goHome()"
-  ></button>
+<div class="card">
+  <div class="card-header">
+    <div class="p-fluid p-d-flex p-ai-center">
+      <div class="title-div left">
+        <span>
+          {{ pageTitle }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <ul class="nav flex-column">
+      <li class="nav-item message-list-item">
+        <span class="message-span">
+          {{ message }}
+        </span>
+      </li>
+      <li class="nav-item">
+        <button
+          pButton
+          (click)="goHome()"
+          type="button"
+          label="Home"
+          icon="pi pi-link"
+          class="
+            p-button-text
+            p-button-success
+            p-button-raised
+            p-button-rounded
+            p-button-sm
+            link-button
+          "
+        ></button>
+      </li>
+    </ul>
+  </div>
 </div>
+
+

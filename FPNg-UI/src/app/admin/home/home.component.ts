@@ -12,6 +12,7 @@ import { PhotoService } from 'src/app/core/services/photo/photo.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  headerText: string = 'How To Use The Financial Planner Forecasted Ledger **Under Construction**';
 
   constructor(
     private authService: MsalService,

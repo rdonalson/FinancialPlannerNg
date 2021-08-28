@@ -19,8 +19,8 @@
         ></p-progressSpinner>
       </div>
       <!-- Add New Button -->
-      <div class="right">
-        <button
+      <div  class="right">
+        <button *ngIf="recordId !== 0"
           pButton
           pRipple
           label="New"
@@ -561,7 +561,7 @@
               title="Cancel your edits"
               [routerLink]="[defaultPath]"
             ></button>
-            <button
+            <button *ngIf="recordId !== 0"
               pButton
               type="button"
               label="Delete"

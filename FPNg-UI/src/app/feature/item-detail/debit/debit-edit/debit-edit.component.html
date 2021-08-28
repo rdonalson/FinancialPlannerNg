@@ -19,7 +19,7 @@
       </div>
       <!-- Add New Button -->
       <div class="right">
-        <button
+        <button *ngIf="recordId !== 0"
           pButton
           pRipple
           label="New"
@@ -560,7 +560,7 @@
               title="Cancel your edits"
               [routerLink]="[defaultPath]"
             ></button>
-            <button
+            <button *ngIf="recordId !== 0"
               pButton
               type="button"
               label="Delete"

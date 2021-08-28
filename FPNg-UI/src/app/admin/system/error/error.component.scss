@@ -1,0 +1,36 @@
+:host ::ng-deep {
+  .card-header {
+    background-color: #efefef;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px;
+  }
+
+  button {
+    margin-right: .5rem;
+  }
+
+  .top-spacer {
+    margin-top: 1rem;
+  }
+
+  .p-col-max-width-15 {
+    width: auto;
+    max-width: 15rem;
+  }
+
+  .link-button {
+    width: 9rem;
+    text-align: left;
+  }
+
+  .message-list-item {
+    padding: 1rem 0 1.75rem .5rem;
+  }
+
+  .message-span {
+    font-size: large;
+    font-family: cursive;
+    color: red;
+  }
+}

@@ -29,6 +29,7 @@ export class CreditEditComponent implements OnInit, OnDestroy {
   private credit!: ICredit;
   private sub!: Subscription;
   private userId: string = '';
+  recordId!: number;
   pageTitle: string = 'Edit Credit';
   defaultPath: string = '../../';
   progressSpinner: boolean = false;
@@ -89,8 +90,9 @@ export class CreditEditComponent implements OnInit, OnDestroy {
   private getRouteParams(): void {
     this.sub = this.route.params
       .subscribe((params: any) => {
-        const id = +params.id;
-        this.getCredit(id);
+        this.recordId = +params.id;
+        this.setTitleText();
+        this.getCredit(this.recordId);
       });
   }
 
@@ -134,13 +136,25 @@ export class CreditEditComponent implements OnInit, OnDestroy {
 
   //#region Utilities
   /**
+   * Sets the page title value
+   */
+  private setTitleText(): void {
+    if (this.recordId === 0) {
+      this.pageTitle = 'New Credit';
+    } else {
+      this.pageTitle = 'Edit Credit';
+    }
+  }
+  /**
    * Called on Form Init; gets users OID from Claims object in localstorage
    * Also initializes a new ICredit class
    */
   private initializeRecord(): void {
+    this.recordId = 0;
+    this.setTitleText();
     this.userId = this.claimsUtilService.getUserOid();
     this.credit = {
-      pkCredit: 0,
+      pkCredit: this.recordId,
       userId: this.userId,
       name: '',
       amount: 0,
