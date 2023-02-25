@@ -1,5 +1,5 @@
 # Financial Planner Ng  ** Deprecated **
-Superceded by "Financial-Planner-Forecast-Ledger"
+## Superceded by "Financial-Planner-Forecast-Ledger"
 https://github.com/rdonalson/Financial-Planner-Forecast-Ledger
 
 FinancialPlannerNg - Source Code 
