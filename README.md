@@ -1,6 +1,7 @@
 # Financial Planner Ng
-Deprecated: Superceded by "Financial-Planner-Forecast-Ledger"
+# Deprecated: Superceded by "Financial-Planner-Forecast-Ledger"
 https://github.com/rdonalson/Financial-Planner-Forecast-Ledger
+
 FinancialPlannerNg - Source Code 
 
 Demo on Azure:    https://fpng-ui.azurewebsites.net/home <br/>
