@@ -1,5 +1,5 @@
 # Financial Planner Ng
-
+# Deprecated
 FinancialPlannerNg - Source Code 
 
 Demo on Azure:    https://fpng-ui.azurewebsites.net/home <br/>
